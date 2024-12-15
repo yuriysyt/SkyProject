@@ -24,6 +24,19 @@ class Team(models.Model):
     def __str__(self):
         return f'{self.name} ({self.department.name})'
 
+class Session(models.Model):
+    name = models.CharField(max_length=100, default='Health Check Session')
+    date = models.DateField()
+    description = models.TextField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return f'{self.name} - {self.date}'
+    
+    class Meta:
+        ordering = ['-date']
+
 class HealthCheckCard(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -40,9 +53,13 @@ class Vote(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     card = models.ForeignKey(HealthCheckCard, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
     value = models.CharField(max_length=5, choices=VOTE_CHOICES)
     comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
+    
+    class Meta:
+        unique_together = ('user', 'card', 'session')
     
     def __str__(self):
         return f'{self.user.username} - {self.card.name} - {self.value}'
