@@ -1,523 +1,73 @@
-
 {% extends 'core/base.html' %}
-{% load core_tags %}
-
 {% block content %}
-<div class="container-fluid px-4">
-    <div class="welcome-card mb-4">
-        <h2 class="mb-2">Welcome, {{ user.get_full_name|default:user.username }}!</h2>
-        <p class="mb-0">Track and improve your team's health metrics</p>
-    </div>
-    
-    {% if user.role == 'engineer' or user.role == 'team_leader' %}
-    <div class="card mb-4">
-        <div class="card-header py-3">
-            <i class="bi bi-calendar-check"></i> Active Sessions
-        </div>
-        <div class="card-body">
-            {% if active_sessions %}
-                <div class="row">
-                    {% for session in active_sessions %}
-                        <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="card h-100 shadow-sm">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">{{ session.name }}</h5>
-                                    <span class="badge bg-primary">{{ session.date }}</span>
-                                </div>
-                                <div class="card-body">
-                                    <p>{{ session.description }}</p>
-                                    <div class="d-grid">
-                                        <button type="button" class="btn btn-outline-primary" 
-                                                data-bs-toggle="collapse" 
-                                                data-bs-target="#session-cards-{{ session.id }}" 
-                                                aria-expanded="false">
-                                            <i class="bi bi-card-list me-2"></i> View Cards
-                                        </button>
-                                    </div>
-                                    
-                                    <div class="collapse mt-3" id="session-cards-{{ session.id }}">
-                                        {% if cards %}
-                                            <div class="list-group">
-                                                {% for card in cards %}
-                                                    <div class="list-group-item list-group-item-action p-3">
-                                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                                            <h6 class="mb-0">{{ card.name }}</h6>
-                                                            {% if user_votes and user_votes|get_item:card.id %}
-                                                                {% with vote=user_votes|get_item:card.id %}
-                                                                    <span class="status-badge status-{{ vote.value }}">{{ vote.get_value_display }}</span>
-                                                                {% endwith %}
-                                                            {% else %}
-                                                                <span class="badge bg-secondary">Not voted</span>
-                                                            {% endif %}
-                                                        </div>
-                                                        <p class="small text-muted mb-2">{{ card.description }}</p>
-                                                        <div class="d-grid">
-                                                            <a href="{% url 'vote' session.id card.id %}" class="btn btn-sm {% if user_votes and user_votes|get_item:card.id %}btn-outline-primary{% else %}btn-primary{% endif %}">
-                                                                {% if user_votes and user_votes|get_item:card.id %}
-                                                                    <i class="bi bi-pencil-square me-1"></i> Update Vote
-                                                                {% else %}
-                                                                    <i class="bi bi-check-circle me-1"></i> Vote Now
-                                                                {% endif %}
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                            <div class="alert alert-info mb-0">
-                                                <i class="bi bi-info-circle me-2"></i> No cards available for this session.
-                                            </div>
-                                        {% endif %}
-                                        
-                                        <div class="d-grid mt-3">
-                                            <a href="#" class="btn btn-primary" onclick="voteForAllCards({{ session.id }})">
-                                                <i class="bi bi-check-all me-2"></i> Vote For All Cards
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class='row'>
+    <div class='col-md-8'>
+        <div class='card'>
+            <div class='card-header'>
+                <h2>Dashboard</h2>
+            </div>
+            <div class='card-body'>
+                {% if latest_session %}
+                <div class='alert alert-info'>
+                    Latest Health Check Session: {{ latest_session.name }} ({{ latest_session.date }})
+                </div>
+                
+                {% if user_votes %}
+                <h3>Your Votes</h3>
+                <div class='list-group'>
+                    {% for vote in user_votes %}
+                    <div class='list-group-item'>
+                        <h5>{{ vote.card.name }}</h5>
+                        <span class='badge bg-{% if vote.value == 'green' %}success{% elif vote.value == 'amber' %}warning{% else %}danger{% endif %}'>
+                            {{ vote.get_value_display }}
+                        </span>
+                        {% if vote.comment %}
+                        <p class='mt-2'>{{ vote.comment }}</p>
+                        {% endif %}
+                    </div>
                     {% endfor %}
                 </div>
-            {% else %}
-                <div class="alert alert-info">
-                    <i class="bi bi-info-circle me-2"></i> No active health check sessions are currently available.
+                {% else %}
+                <div class='alert alert-warning'>
+                    You haven't voted in the latest session yet.
                 </div>
-            {% endif %}
-        </div>
-    </div>
-    
-    {% if user.team %}
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card mb-4">
-                <div class="card-header py-3">
-                    <i class="bi bi-people"></i> {{ user.team.name }} Team Summary
-                </div>
-                <div class="card-body">
-                    {% if team_summaries %}
-                        <div class="row">
-                            {% for summary in team_summaries %}
-                                <div class="col-md-6 mb-3">
-                                    <div class="health-card {{ summary.average_vote }}">
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <h5 class="mb-0">{{ summary.card.name }}</h5>
-                                            <div class="d-flex">
-                                                <span class="status-badge status-{{ summary.average_vote }} me-2">{{ summary.get_average_vote_display }}</span>
-                                                <span class="progress-indicator 
-                                                    {% if summary.progress_summary == 'better' %}progress-improving
-                                                    {% elif summary.progress_summary == 'worse' %}progress-declining{% endif %}">
-                                                    {% if summary.progress_summary == 'better' %}
-                                                        <i class="bi bi-arrow-up-circle-fill"></i> Improving
-                                                    {% elif summary.progress_summary == 'same' %}
-                                                        <i class="bi bi-dash-circle-fill"></i> Stable
-                                                    {% else %}
-                                                        <i class="bi bi-arrow-down-circle-fill"></i> Declining
-                                                    {% endif %}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="progress mb-2" style="height: 5px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ summary.green_percentage }}%" aria-valuenow="{{ summary.green_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ summary.amber_percentage }}%" aria-valuenow="{{ summary.amber_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%" aria-valuenow="{{ summary.red_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <small class="text-success">{{ summary.green_percentage|floatformat:0 }}% Green</small>
-                                            <small class="text-warning">{{ summary.amber_percentage|floatformat:0 }}% Amber</small>
-                                            <small class="text-danger">{{ summary.red_percentage|floatformat:0 }}% Red</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <div class="text-end mt-3">
-                            <a href="{% url 'team_summary' %}" class="btn btn-outline-primary">
-                                <i class="bi bi-file-earmark-text me-1"></i> Full Team Report
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i> No team summary data available yet.
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4">
-            <div class="card mb-4">
-                <div class="card-header py-3">
-                    <i class="bi bi-graph-up"></i> Your Voting Progress
-                </div>
-                <div class="card-body">
-                    {% if user_votes %}
-                        {% with votes_count=user_votes|length %}
-                        {% with total_cards=cards|length %}
-                        {% with completion_percentage=votes_count|multiply:100|divide:total_cards %}
-                            <div class="text-center mb-4">
-                                <h2 class="mb-0">{{ votes_count }}/{{ total_cards }}</h2>
-                                <p class="text-muted">Cards voted on</p>
-                            </div>
-                            
-                            <div class="vote-progress-container mb-3">
-                                <div class="vote-progress-bar" style="width: {{ completion_percentage }}%"></div>
-                            </div>
-                            
-                            {% if votes_count < total_cards %}
-                                <p class="small text-muted text-center">{{ total_cards|subtract:votes_count }} cards remaining for current session</p>
-                            {% else %}
-                                <p class="small text-success text-center">
-                                    <i class="bi bi-check-circle-fill me-1"></i> All cards voted for current session!
-                                </p>
-                            {% endif %}
-                        {% endwith %}
-                        {% endwith %}
-                        {% endwith %}
-                    {% else %}
-                        <div class="text-center py-4">
-                            <i class="bi bi-hourglass text-muted display-4"></i>
-                            <p class="mt-3">You haven't submitted any votes yet.</p>
-                            {% if active_sessions %}
-                                <a href="#" class="btn btn-primary" onclick="document.querySelector('[data-bs-target=\'#session-cards-{{ active_sessions.0.id }}\']').click()">
-                                    <i class="bi bi-check-square me-1"></i> Start Voting
-                                </a>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-            
-            <div class="card mb-4">
-                <div class="card-header py-3">
-                    <i class="bi bi-clock-history"></i> Recent Activity
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        {% for vote in user_votes.values|slice:":5" %}
-                            <li class="list-group-item px-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0">
-                                        <span class="status-badge status-{{ vote.value }}">
-                                            {% if vote.value == 'green' %}
-                                                <i class="bi bi-emoji-smile"></i>
-                                            {% elif vote.value == 'amber' %}
-                                                <i class="bi bi-emoji-neutral"></i>
-                                            {% else %}
-                                                <i class="bi bi-emoji-frown"></i>
-                                            {% endif %}
-                                        </span>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h6 class="mb-0">{{ vote.card.name }}</h6>
-                                            <small class="text-muted">{{ vote.created_at|date:"d M" }}</small>
-                                        </div>
-                                        <small class="text-muted">
-                                            {% if vote.progress_note == 'better' %}
-                                                <i class="bi bi-arrow-up-circle text-success"></i> Improving
-                                            {% elif vote.progress_note == 'same' %}
-                                                <i class="bi bi-dash-circle text-warning"></i> Stable
-                                            {% else %}
-                                                <i class="bi bi-arrow-down-circle text-danger"></i> Declining
-                                            {% endif %}
-                                        </small>
-                                    </div>
-                                </div>
-                            </li>
-                        {% empty %}
-                            <li class="list-group-item px-0 text-center py-4">
-                                <i class="bi bi-clock text-muted"></i>
-                                <p class="small text-muted mt-2 mb-0">No activity to show</p>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    {% endif %}
-    
-    <!-- Role-specific content for department leaders and senior managers -->
-    {% if user.role == 'department_leader' or user.role == 'senior_manager' %}
-        <!-- Department leaders see their department teams -->
-        {% if user.role == 'department_leader' and user.department %}
-            <div class="card mb-4">
-                <div class="card-header py-3">
-                    <i class="bi bi-building"></i> {{ user.department.name }} Department Overview
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        {% for team in teams %}
-                            <div class="col-md-6 col-lg-4 mb-4">
-                                <div class="card h-100 shadow-sm">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">{{ team.name }}</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <span class="text-muted">Team Members</span>
-                                            <span class="badge bg-primary rounded-pill">{{ team.get_member_count }}</span>
-                                        </div>
-                                        
-                                        <h6 class="mb-3">Health Status</h6>
-                                        <div class="list-group list-group-flush small">
-                                            {% for summary in team_summaries %}
-                                                {% if summary.team.id == team.id %}
-                                                    <div class="list-group-item px-0 d-flex justify-content-between align-items-center">
-                                                        <span>{{ summary.card.name }}</span>
-                                                        <div>
-                                                            <span class="status-badge status-{{ summary.average_vote }} me-1"></span>
-                                                            {% if summary.progress_summary == 'better' %}
-                                                                <i class="bi bi-arrow-up-circle-fill text-success"></i>
-                                                            {% elif summary.progress_summary == 'same' %}
-                                                                <i class="bi bi-dash-circle-fill text-warning"></i>
-                                                            {% else %}
-                                                                <i class="bi bi-arrow-down-circle-fill text-danger"></i>
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                {% endif %}
-                                            {% empty %}
-                                                <div class="list-group-item px-0 text-center py-3">
-                                                    <span class="text-muted">No data available</span>
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                        
-                                        <div class="d-grid mt-3">
-                                            <a href="{% url 'team_summary_detail' team.id %}" class="btn btn-outline-primary btn-sm">
-                                                <i class="bi bi-eye me-1"></i> View Details
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% empty %}
-                            <div class="col-12">
-                                <div class="alert alert-info">
-                                    <i class="bi bi-info-circle me-2"></i> No teams found in this department.
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    
-                    <div class="mt-3">
-                        <a href="{% url 'department_summary' %}" class="btn btn-primary">
-                            <i class="bi bi-file-earmark-text me-1"></i> View Full Department Report
-                        </a>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-        
-        <!-- Senior managers see all departments -->
-        {% if user.role == 'senior_manager' %}
-            <div class="card mb-4">
-                <div class="card-header py-3">
-                    <i class="bi bi-diagram-3"></i> Organization Health Overview
-                </div>
-                <div class="card-body">
-                    <ul class="nav nav-tabs mb-4" id="departmentTabs" role="tablist">
-                        {% for department in departments %}
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link {% if forloop.first %}active{% endif %}" 
-                                        id="dept-{{ department.id }}-tab" 
-                                        data-bs-toggle="tab" 
-                                        data-bs-target="#dept-{{ department.id }}" 
-                                        type="button" 
-                                        role="tab" 
-                                        aria-controls="dept-{{ department.id }}" 
-                                        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
-                                    {{ department.name }}
-                                </button>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    
-                    <div class="tab-content" id="departmentTabsContent">
-                        {% for department in departments %}
-                            <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" 
-                                 id="dept-{{ department.id }}" 
-                                 role="tabpanel" 
-                                 aria-labelledby="dept-{{ department.id }}-tab">
-                                
-                                <div class="row">
-                                    {% for team in department.team_set.all %}
-                                        <div class="col-md-6 col-xl-4 mb-4">
-                                            <div class="card h-100 shadow-sm">
-                                                <div class="card-header">
-                                                    <h5 class="mb-0">{{ team.name }}</h5>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="list-group list-group-flush small">
-                                                        {% for summary in team_summaries %}
-                                                            {% if summary.team.id == team.id %}
-                                                                <div class="list-group-item px-0 d-flex justify-content-between align-items-center">
-                                                                    <span>{{ summary.card.name }}</span>
-                                                                    <div>
-                                                                        <span class="status-badge status-{{ summary.average_vote }} me-1"></span>
-                                                                        {% if summary.progress_summary == 'better' %}
-                                                                            <i class="bi bi-arrow-up-circle-fill text-success"></i>
-                                                                        {% elif summary.progress_summary == 'same' %}
-                                                                            <i class="bi bi-dash-circle-fill text-warning"></i>
-                                                                        {% else %}
-                                                                            <i class="bi bi-arrow-down-circle-fill text-danger"></i>
-                                                                        {% endif %}
-                                                                    </div>
-                                                                </div>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </div>
-                                                    
-                                                    <div class="d-grid mt-3">
-                                                        <a href="{% url 'team_summary_detail' team.id %}" class="btn btn-outline-primary btn-sm">
-                                                            <i class="bi bi-eye me-1"></i> View Details
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% empty %}
-                                        <div class="col-12">
-                                            <div class="alert alert-info">
-                                                <i class="bi bi-info-circle me-2"></i> No teams found in this department.
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                                
-                                <div class="mt-3">
-                                    <a href="{% url 'department_summary_detail' department.id %}" class="btn btn-primary">
-                                        <i class="bi bi-file-earmark-text me-1"></i> View Department Report
-                                    </a>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header py-3">
-                            <i class="bi bi-graph-up"></i> Health Trend Overview
-                        </div>
-                        <div class="card-body">
-                            <div class="text-center py-5">
-                                <i class="bi bi-bar-chart-line display-4 text-muted"></i>
-                                <p class="mt-3">Health trends visualization placeholder</p>
-                                <a href="{% url 'progress_chart' %}" class="btn btn-outline-primary mt-2">
-                                    <i class="bi bi-graph-up me-1"></i> View Detailed Charts
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a href='#' class='btn btn-primary'>Submit Votes</a>
+                {% endif %}
                 
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header py-3">
-                            <i class="bi bi-lightning-charge"></i> Quick Actions
-                        </div>
-                        <div class="card-body">
-                            <div class="row g-3">
-                                <div class="col-6">
-                                    <a href="{% url 'progress_chart' %}" class="card text-center h-100 p-3 text-decoration-none hover-scale">
-                                        <i class="bi bi-graph-up text-primary display-6 mb-2"></i>
-                                        <h6>Progress Charts</h6>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="{% url 'department_summary' %}" class="card text-center h-100 p-3 text-decoration-none hover-scale">
-                                        <i class="bi bi-building text-success display-6 mb-2"></i>
-                                        <h6>Department Reports</h6>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="{% url 'team_summary' %}" class="card text-center h-100 p-3 text-decoration-none hover-scale">
-                                        <i class="bi bi-people text-info display-6 mb-2"></i>
-                                        <h6>Team Reports</h6>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="{% url 'profile' %}" class="card text-center h-100 p-3 text-decoration-none hover-scale">
-                                        <i class="bi bi-person-gear text-warning display-6 mb-2"></i>
-                                        <h6>Profile Settings</h6>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {% else %}
+                <div class='alert alert-warning'>
+                    No active health check session.
                 </div>
+                {% endif %}
             </div>
-        {% endif %}
-    {% endif %}
+        </div>
+    </div>
+    
+    <div class='col-md-4'>
+        <div class='card'>
+            <div class='card-header'>
+                <h2>Team Info</h2>
+            </div>
+            <div class='card-body'>
+                {% if user_team %}
+                <h5>{{ user_team.name }}</h5>
+                <p>Department: {{ user_team.department.name }}</p>
+                
+                <h6>Team Members</h6>
+                <ul class='list-group'>
+                    {% for member in team_members %}
+                    <li class='list-group-item'>
+                        {{ member.get_full_name|default:member.username }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class='alert alert-warning'>
+                    You are not assigned to a team.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
-
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle card hover animations
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px)';
-                this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                this.style.transition = 'all 0.3s ease';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = '0 4px 6px rgba(0,0,0,0.05)';
-            });
-        });
-        
-        // Fix for view cards collapse
-        const viewCardsBtns = document.querySelectorAll('[data-bs-toggle="collapse"]');
-        viewCardsBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Ensure the collapse content stays visible
-                const targetId = this.getAttribute('data-bs-target');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // Add some delay to allow Bootstrap to process
-                    setTimeout(() => {
-                        if (!targetElement.classList.contains('show')) {
-                            targetElement.classList.add('show');
-                        }
-                    }, 50);
-                }
-            });
-        });
-        
-        // Hover scale effect for quick action items
-        const hoverScaleItems = document.querySelectorAll('.hover-scale');
-        hoverScaleItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.05)';
-                this.style.transition = 'transform 0.2s ease';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-            });
-        });
-    });
-    
-    // Function to vote for all cards in a session
-    function voteForAllCards(sessionId) {
-        // Redirect to a special page to vote for all cards
-        window.location.href = `/vote-all/${sessionId}/`;
-        
-        // Alternatively, show a modal asking for confirmation
-        // This would need a modal to be added to the HTML
-    }
-</script>
 {% endblock %}
