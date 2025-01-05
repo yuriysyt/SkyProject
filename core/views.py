@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -51,3 +51,41 @@ def dashboard(request):
     }
     
     return render(request, 'core/dashboard.html', context)
+
+@login_required
+def vote(request, session_id, card_id):
+    session = get_object_or_404(Session, id=session_id, is_active=True)
+    card = get_object_or_404(HealthCheckCard, id=card_id, active=True)
+    
+    if request.method == 'POST':
+        vote_value = request.POST.get('vote')
+        comment = request.POST.get('comment', '')
+        
+        # Create or update vote
+        vote_obj, created = Vote.objects.update_or_create(
+            user=request.user,
+            session=session,
+            card=card,
+            defaults={'value': vote_value, 'comment': comment}
+        )
+        
+        messages.success(request, f'Vote for {card.name} submitted successfully!')
+        return redirect('dashboard')
+    
+    # Check if user already voted for this card
+    try:
+        existing_vote = Vote.objects.get(user=request.user, session=session, card=card)
+        current_value = existing_vote.value
+        current_comment = existing_vote.comment
+    except Vote.DoesNotExist:
+        current_value = ''
+        current_comment = ''
+    
+    context = {
+        'session': session,
+        'card': card,
+        'current_value': current_value,
+        'current_comment': current_comment
+    }
+    
+    return render(request, 'core/vote.html', context)
