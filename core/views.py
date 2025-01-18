@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm
+from django.http import JsonResponse
+from .forms import UserRegistrationForm, UserProfileForm
 from .models import Department, Team, Session, HealthCheckCard, Vote
 
 def home(request):
@@ -53,6 +54,19 @@ def dashboard(request):
     return render(request, 'core/dashboard.html', context)
 
 @login_required
+def profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=request.user)
+    
+    return render(request, 'core/profile.html', {'form': form})
+
+@login_required
 def vote(request, session_id, card_id):
     session = get_object_or_404(Session, id=session_id, is_active=True)
     card = get_object_or_404(HealthCheckCard, id=card_id, active=True)
@@ -89,3 +103,8 @@ def vote(request, session_id, card_id):
     }
     
     return render(request, 'core/vote.html', context)
+
+def load_teams(request):
+    department_id = request.GET.get('department')
+    teams = Team.objects.filter(department_id=department_id).order_by('name')
+    return JsonResponse(list(teams.values('id', 'name')), safe=False)
