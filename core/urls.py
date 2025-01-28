@@ -10,5 +10,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     path('profile/', views.profile, name='profile'),
     path('vote/<int:session_id>/<int:card_id>/', views.vote, name='vote'),
+    path('progress-chart/', views.progress_chart, name='progress_chart'),
     path('ajax/load-teams/', views.load_teams, name='ajax_load_teams'),
 ]

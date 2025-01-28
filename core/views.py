@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.db.models import Count, Case, When, IntegerField
 from .forms import UserRegistrationForm, UserProfileForm
 from .models import Department, Team, Session, HealthCheckCard, Vote
 
@@ -103,6 +104,46 @@ def vote(request, session_id, card_id):
     }
     
     return render(request, 'core/vote.html', context)
+
+@login_required
+def progress_chart(request):
+    # Get all sessions ordered by date
+    sessions = Session.objects.all().order_by('date')
+    
+    # Get user's team
+    user_team = request.user.team
+    
+    # Initialize data
+    chart_data = []
+    
+    if user_team:
+        # Get team votes across all sessions
+        for session in sessions:
+            # Count votes by type for each session
+            vote_counts = Vote.objects.filter(
+                user__team=user_team,
+                session=session
+            ).aggregate(
+                green=Count(Case(When(value='green', then=1), output_field=IntegerField())),
+                amber=Count(Case(When(value='amber', then=1), output_field=IntegerField())),
+                red=Count(Case(When(value='red', then=1), output_field=IntegerField()))
+            )
+            
+            # Calculate totals
+            total_votes = vote_counts['green'] + vote_counts['amber'] + vote_counts['red']
+            
+            # Calculate percentages if there are votes
+            if total_votes > 0:
+                session_data = {
+                    'session': session.name,
+                    'date': session.date.strftime('%Y-%m-%d'),
+                    'green_percent': round((vote_counts['green'] / total_votes) * 100, 1),
+                    'amber_percent': round((vote_counts['amber'] / total_votes) * 100, 1),
+                    'red_percent': round((vote_counts['red'] / total_votes) * 100, 1),
+                }
+                chart_data.append(session_data)
+    
+    return render(request, 'core/progress_chart.html', {'chart_data': chart_data, 'team': user_team})
 
 def load_teams(request):
     department_id = request.GET.get('department')
