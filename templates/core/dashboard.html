@@ -31,7 +31,11 @@
                 <div class='alert alert-warning'>
                     You haven't voted in the latest session yet.
                 </div>
-                <a href='#' class='btn btn-primary'>Submit Votes</a>
+                {% if cards %}
+                <div class='mt-3'>
+                    <a href='#' class='btn btn-primary'>Submit Votes</a>
+                </div>
+                {% endif %}
                 {% endif %}
                 
                 {% else %}
@@ -39,6 +43,19 @@
                     No active health check session.
                 </div>
                 {% endif %}
+                
+                <div class='mt-4'>
+                    <h3>Analytics</h3>
+                    <div class='list-group'>
+                        <a href='{% url 'progress_chart' %}' class='list-group-item list-group-item-action'>
+                            <div class='d-flex w-100 justify-content-between'>
+                                <h5 class='mb-1'>Team Progress Chart</h5>
+                                <small class='text-muted'>View trend</small>
+                            </div>
+                            <p class='mb-1'>View your team's health check progress over time</p>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -65,6 +82,7 @@
                 <div class='alert alert-warning'>
                     You are not assigned to a team.
                 </div>
+                <a href='{% url 'profile' %}' class='btn btn-primary'>Update Profile</a>
                 {% endif %}
             </div>
         </div>
