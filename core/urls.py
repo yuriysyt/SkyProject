@@ -13,5 +13,7 @@ urlpatterns = [
     path('progress-chart/', views.progress_chart, name='progress_chart'),
     path('team-summary/', views.team_summary, name='team_summary'),
     path('team-summary/<int:team_id>/', views.team_summary, name='team_summary_detail'),
+    path('department-summary/', views.department_summary, name='department_summary'),
+    path('department-summary/<int:department_id>/', views.department_summary, name='department_summary_detail'),
     path('ajax/load-teams/', views.load_teams, name='ajax_load_teams'),
 ]
