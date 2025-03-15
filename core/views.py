@@ -123,6 +123,52 @@ def vote(request, session_id, card_id):
     return render(request, 'core/vote.html', context)
 
 @login_required
+def vote_all(request, session_id):
+    session = get_object_or_404(Session, id=session_id, is_active=True)
+    cards = HealthCheckCard.objects.filter(active=True)
+    
+    # Get user's existing votes for this session
+    existing_votes = {}
+    for vote in Vote.objects.filter(user=request.user, session=session):
+        existing_votes[vote.card.id] = {
+            'value': vote.value,
+            'comment': vote.comment
+        }
+    
+    context = {
+        'session': session,
+        'cards': cards,
+        'existing_votes': existing_votes
+    }
+    
+    return render(request, 'core/vote_all.html', context)
+
+@login_required
+def vote_all_submit(request, session_id):
+    if request.method != 'POST':
+        return redirect('dashboard')
+    
+    session = get_object_or_404(Session, id=session_id, is_active=True)
+    cards = HealthCheckCard.objects.filter(active=True)
+    
+    # Process votes for each card
+    for card in cards:
+        vote_value = request.POST.get(f'vote_{card.id}')
+        comment = request.POST.get(f'comment_{card.id}', '')
+        
+        if vote_value:
+            # Create or update vote
+            Vote.objects.update_or_create(
+                user=request.user,
+                session=session,
+                card=card,
+                defaults={'value': vote_value, 'comment': comment}
+            )
+    
+    messages.success(request, 'All votes submitted successfully!')
+    return redirect('dashboard')
+
+@login_required
 def progress_chart(request):
     # Get all sessions ordered by date
     sessions = Session.objects.all().order_by('date')
