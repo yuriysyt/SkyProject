@@ -16,3 +16,13 @@ class HealthCheckCard(models.Model):
     
     def __str__(self):
         return self.name
+class Vote(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    card = models.ForeignKey(HealthCheckCard, on_delete=models.CASCADE)
+    value = models.CharField(max_length=10, choices=[
+        ('green', 'Green'),
+        ('amber', 'Amber'),
+        ('red', 'Red')
+    ])
+    comment = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
