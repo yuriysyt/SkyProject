@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class='dashboard-container'>
+    <h1>User Dashboard</h1>
+    
+    <div class='row'>
+        <div class='col-md-6'>
+            <div class='card'>
+                <div class='card-header'>
+                    <h2>Recent Health Checks</h2>
+                </div>
+                <div class='card-body'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Department</th>
+                                <th>Category</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for check in recent_checks %}
+                            <tr>
+                                <td>{{ check.created_at|date:'Y-m-d' }}</td>
+                                <td>{{ check.department.name }}</td>
+                                <td>{{ check.category.name }}</td>
+                                <td>{{ check.score }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan='4'>No recent health checks</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class='col-md-6'>
+            <div class='card'>
+                <div class='card-header'>
+                    <h2>Department Overview</h2>
+                </div>
+                <div class='card-body'>
+                    <canvas id='departmentOverview'></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
