@@ -1,0 +1,183 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class='settings-container'>
+    <h1>User Settings</h1>
+    
+    <div class='row'>
+        <div class='col-md-3'>
+            <div class='nav flex-column nav-pills' role='tablist'>
+                <a class='nav-link active' data-toggle='pill' href='#profile'>Profile Settings</a>
+                <a class='nav-link' data-toggle='pill' href='#notifications'>Notification Preferences</a>
+                <a class='nav-link' data-toggle='pill' href='#appearance'>Appearance</a>
+                <a class='nav-link' data-toggle='pill' href='#security'>Security</a>
+            </div>
+        </div>
+        
+        <div class='col-md-9'>
+            <div class='tab-content'>
+                <div class='tab-pane fade show active' id='profile'>
+                    <div class='card'>
+                        <div class='card-header'>
+                            <h2>Profile Settings</h2>
+                        </div>
+                        <div class='card-body'>
+                            <form method='post' action='{% url 'update_profile' %}'>
+                                {% csrf_token %}
+                                
+                                <div class='form-group'>
+                                    <label for='name'>Full Name</label>
+                                    <input type='text' class='form-control' id='name' name='name' value='{{ user.get_full_name }}'>
+                                </div>
+                                
+                                <div class='form-group'>
+                                    <label for='email'>Email Address</label>
+                                    <input type='email' class='form-control' id='email' name='email' value='{{ user.email }}'>
+                                </div>
+                                
+                                <div class='form-group'>
+                                    <label for='department'>Primary Department</label>
+                                    <select class='form-control' id='department' name='department'>
+                                        {% for dept in departments %}
+                                        <option value='{{ dept.id }}' {% if user_profile.department.id == dept.id %}selected{% endif %}>{{ dept.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <button type='submit' class='btn btn-primary'>Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class='tab-pane fade' id='notifications'>
+                    <div class='card'>
+                        <div class='card-header'>
+                            <h2>Notification Preferences</h2>
+                        </div>
+                        <div class='card-body'>
+                            <form method='post' action='{% url 'update_notifications' %}'>
+                                {% csrf_token %}
+                                
+                                <div class='form-group'>
+                                    <div class='custom-control custom-switch'>
+                                        <input type='checkbox' class='custom-control-input' id='email_notifications' name='email_notifications' {% if user_profile.email_notifications %}checked{% endif %}>
+                                        <label class='custom-control-label' for='email_notifications'>Email Notifications</label>
+                                    </div>
+                                </div>
+                                
+                                <div class='form-group'>
+                                    <div class='custom-control custom-switch'>
+                                        <input type='checkbox' class='custom-control-input' id='browser_notifications' name='browser_notifications' {% if user_profile.browser_notifications %}checked{% endif %}>
+                                        <label class='custom-control-label' for='browser_notifications'>Browser Notifications</label>
+                                    </div>
+                                </div>
+                                
+                                <div class='form-group'>
+                                    <div class='custom-control custom-switch'>
+                                        <input type='checkbox' class='custom-control-input' id='summary_reports' name='summary_reports' {% if user_profile.summary_reports %}checked{% endif %}>
+                                        <label class='custom-control-label' for='summary_reports'>Weekly Summary Reports</label>
+                                    </div>
+                                </div>
+                                
+                                <button type='submit' class='btn btn-primary'>Save Preferences</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class='tab-pane fade' id='appearance'>
+                    <div class='card'>
+                        <div class='card-header'>
+                            <h2>Appearance Settings</h2>
+                        </div>
+                        <div class='card-body'>
+                            <form method='post' action='{% url 'update_appearance' %}'>
+                                {% csrf_token %}
+                                
+                                <div class='form-group'>
+                                    <label>Theme</label>
+                                    <div class='theme-options'>
+                                        <div class='form-check'>
+                                            <input class='form-check-input' type='radio' name='theme' id='light' value='light' {% if user_profile.theme == 'light' %}checked{% endif %}>
+                                            <label class='form-check-label' for='light'>Light</label>
+                                        </div>
+                                        <div class='form-check'>
+                                            <input class='form-check-input' type='radio' name='theme' id='dark' value='dark' {% if user_profile.theme == 'dark' %}checked{% endif %}>
+                                            <label class='form-check-label' for='dark'>Dark</label>
+                                        </div>
+                                        <div class='form-check'>
+                                            <input class='form-check-input' type='radio' name='theme' id='system' value='system' {% if user_profile.theme == 'system' %}checked{% endif %}>
+                                            <label class='form-check-label' for='system'>System Preference</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class='form-group'>
+                                    <label for='dashboard_view'>Default Dashboard View</label>
+                                    <select class='form-control' id='dashboard_view' name='dashboard_view'>
+                                        <option value='summary' {% if user_profile.dashboard_view == 'summary' %}selected{% endif %}>Summary</option>
+                                        <option value='detailed' {% if user_profile.dashboard_view == 'detailed' %}selected{% endif %}>Detailed</option>
+                                        <option value='chart' {% if user_profile.dashboard_view == 'chart' %}selected{% endif %}>Chart View</option>
+                                    </select>
+                                </div>
+                                
+                                <button type='submit' class='btn btn-primary'>Save Appearance</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class='tab-pane fade' id='security'>
+                    <div class='card'>
+                        <div class='card-header'>
+                            <h2>Security Settings</h2>
+                        </div>
+                        <div class='card-body'>
+                            <form method='post' action='{% url 'change_password' %}'>
+                                {% csrf_token %}
+                                
+                                <div class='form-group'>
+                                    <label for='current_password'>Current Password</label>
+                                    <input type='password' class='form-control' id='current_password' name='current_password'>
+                                </div>
+                                
+                                <div class='form-group'>
+                                    <label for='new_password'>New Password</label>
+                                    <input type='password' class='form-control' id='new_password' name='new_password'>
+                                </div>
+                                
+                                <div class='form-group'>
+                                    <label for='confirm_password'>Confirm New Password</label>
+                                    <input type='password' class='form-control' id='confirm_password' name='confirm_password'>
+                                </div>
+                                
+                                <button type='submit' class='btn btn-primary'>Change Password</button>
+                            </form>
+                            
+                            <hr>
+                            
+                            <h3>Two-Factor Authentication</h3>
+                            {% if user_profile.two_factor_enabled %}
+                            <div class='alert alert-success'>
+                                Two-factor authentication is enabled for your account.
+                            </div>
+                            <form method='post' action='{% url 'disable_2fa' %}'>
+                                {% csrf_token %}
+                                <button type='submit' class='btn btn-danger'>Disable Two-Factor Authentication</button>
+                            </form>
+                            {% else %}
+                            <div class='alert alert-warning'>
+                                Two-factor authentication is not enabled for your account.
+                            </div>
+                            <a href='{% url 'setup_2fa' %}' class='btn btn-success'>Enable Two-Factor Authentication</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
