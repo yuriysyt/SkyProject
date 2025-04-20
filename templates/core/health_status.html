@@ -1,0 +1,213 @@
+
+{% extends 'core/base.html' %}
+
+{% block title %}Health Status Dashboard{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Health Status Dashboard</h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Overview
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 text-center mb-3">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Teams</h5>
+                                            <p class="display-4">{{ team_count }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center mb-3">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Departments</h5>
+                                            <p class="display-4">{{ department_count }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center mb-3">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Users</h5>
+                                            <p class="display-4">{{ user_count }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5 class="mt-3">Active Session</h5>
+                            {% if active_session %}
+                                <p>{{ active_session.name }} ({{ active_session.date|date:"F j, Y" }})</p>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-info" role="progressbar" 
+                                         style="width: {{ active_session.get_participation_rate|floatformat:0 }}%" 
+                                         aria-valuenow="{{ active_session.get_participation_rate|floatformat:0 }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                         {{ active_session.get_participation_rate|floatformat:0 }}% Participation
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="alert alert-warning">
+                                    No active session found
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Health Distribution
+                        </div>
+                        <div class="card-body">
+                            <h5>Teams by Health Status</h5>
+                            <div class="row text-center mb-3">
+                                <div class="col-md-4">
+                                    <div class="card bg-success text-white">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Healthy</h5>
+                                            <p class="display-4">{{ green_teams }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-warning">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Needs Attention</h5>
+                                            <p class="display-4">{{ amber_teams }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-danger text-white">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Critical</h5>
+                                            <p class="display-4">{{ red_teams }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5>Progress Trends</h5>
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <div class="card bg-success text-white">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Improving</h5>
+                                            <p class="display-4">{{ improving_count }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-secondary text-white">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Stable</h5>
+                                            <p class="display-4">{{ stable_count }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-danger text-white">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Declining</h5>
+                                            <p class="display-4">{{ declining_count }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Teams Requiring Attention</h4>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Most Critical Card</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team in teams_at_risk %}
+                        <tr>
+                            <td>{{ team.name }}</td>
+                            <td>{{ team.department.name }}</td>
+                            <td>
+                                {% if team.health_status == 'red' %}
+                                    <span class="badge bg-danger">Critical</span>
+                                {% elif team.health_status == 'amber' %}
+                                    <span class="badge bg-warning text-dark">Needs Attention</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ team.critical_card }}</td>
+                            <td>
+                                <a href="{% url 'team_detail' team.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No teams requiring attention</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4">
+                <h4>Most Recent Activity</h4>
+                <div class="list-group">
+                    {% for vote in recent_votes %}
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ vote.user.username }} voted on {{ vote.card.name }}</h5>
+                            <small>{{ vote.created_at|timesince }} ago</small>
+                        </div>
+                        <p class="mb-1">
+                            Vote: 
+                            {% if vote.value == 'green' %}
+                                <span class="badge bg-success">Green</span>
+                            {% elif vote.value == 'amber' %}
+                                <span class="badge bg-warning text-dark">Amber</span>
+                            {% elif vote.value == 'red' %}
+                                <span class="badge bg-danger">Red</span>
+                            {% endif %}
+                            
+                            Progress: 
+                            {% if vote.progress_note == 'better' %}
+                                <span class="badge bg-success">Better</span>
+                            {% elif vote.progress_note == 'same' %}
+                                <span class="badge bg-secondary">Same</span>
+                            {% elif vote.progress_note == 'worse' %}
+                                <span class="badge bg-danger">Worse</span>
+                            {% endif %}
+                        </p>
+                        {% if vote.comment %}
+                            <small>"{{ vote.comment }}"</small>
+                        {% endif %}
+                    </div>
+                    {% empty %}
+                    <div class="list-group-item">
+                        <p class="text-center mb-0">No recent activity</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

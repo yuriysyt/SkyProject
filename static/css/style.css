@@ -1,0 +1,106 @@
+
+/* Custom styles for the health check system */
+
+/* Health Check Card Colors */
+.green-badge {
+    background-color: #28a745;
+    color: white;
+}
+
+.amber-badge {
+    background-color: #ffc107;
+    color: black;
+}
+
+.red-badge {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.status-green {
+    background-color: #28a745;
+}
+
+.status-amber {
+    background-color: #ffc107;
+}
+
+.status-red {
+    background-color: #dc3545;
+}
+
+/* Progress Indicators */
+.progress-improving {
+    color: #28a745;
+}
+
+.progress-stable {
+    color: #6c757d;
+}
+
+.progress-declining {
+    color: #dc3545;
+}
+
+/* Custom styles for health check cards */
+.health-card {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0,0,0,0.125);
+    transition: transform 0.2s ease;
+}
+
+.health-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.health-card.green {
+    border-left: 5px solid #28a745;
+}
+
+.health-card.amber {
+    border-left: 5px solid #ffc107;
+}
+
+.health-card.red {
+    border-left: 5px solid #dc3545;
+}
+
+/* Vote progress bar */
+.vote-progress-container {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.vote-progress-bar {
+    background-color: #007bff;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* Welcome card */
+.welcome-card {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    padding: 1.5rem;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 86, 179, 0.2);
+}
+
+/* Hover scale effect */
+.hover-scale:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}

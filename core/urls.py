@@ -22,6 +22,13 @@ urlpatterns = [
     path('department-summary/', views.department_summary, name='department_summary'),
     path('department-summary/<int:department_id>/', views.department_summary, name='department_summary_detail'),
     
+    # Team Details
+    path('team/<int:team_id>/', views.team_detail_view, name='team_detail'),
+    path('department/<int:department_id>/', views.department_detail_view, name='department_detail'),
+    
+    # Health Status Dashboard
+    path('health-status/', views.health_status_dashboard, name='health_status'),
+    
     # Charts
     path('progress-chart/', views.progress_chart, name='progress_chart'),
     

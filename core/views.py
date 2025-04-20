@@ -954,3 +954,155 @@ def load_teams(request):
     department_id = request.GET.get('department')
     teams = Team.objects.filter(department_id=department_id).order_by('name')
     return JsonResponse([{'id': team.id, 'name': team.name} for team in teams], safe=False)
+
+@login_required
+def team_detail_view(request, team_id):
+    """View details for a specific team"""
+    user = request.user
+    team = get_object_or_404(Team, id=team_id)
+    
+    # Check permissions
+    if user.role == 'engineer' and user.team != team:
+        return HttpResponseForbidden('You do not have permission to view this team.')
+    
+    # Get team members
+    members = User.objects.filter(team=team)
+    
+    # Get latest session
+    latest_session = Session.objects.first()
+    
+    # Flag if user has voted in latest session
+    for member in members:
+        member.has_voted_in_session = Vote.objects.filter(user=member, session=latest_session).exists() if latest_session else False
+    
+    # Get recent team summaries
+    summaries = TeamSummary.objects.filter(team=team).select_related('card', 'session').order_by('-session__date')[:10]
+    
+    return render(request, 'core/team_detail.html', {
+        'team': team,
+        'members': members,
+        'summaries': summaries,
+    })
+
+@login_required
+def department_detail_view(request, department_id):
+    """View details for a specific department"""
+    user = request.user
+    department = get_object_or_404(Department, id=department_id)
+    
+    # Check permissions
+    if not user.can_view_department_summary(department):
+        return HttpResponseForbidden('You do not have permission to view this department.')
+    
+    # Get department leaders
+    leaders = User.objects.filter(department=department, role='department_leader')
+    
+    # Get teams in this department
+    teams = Team.objects.filter(department=department)
+    
+    # Get recent department summaries
+    summaries = DepartmentSummary.objects.filter(
+        department=department
+    ).select_related('card', 'session').order_by('-session__date')[:10]
+    
+    return render(request, 'core/department_detail.html', {
+        'department': department,
+        'leaders': leaders,
+        'teams': teams,
+        'summaries': summaries,
+    })
+
+@login_required
+def health_status_dashboard(request):
+    """Health status dashboard for team leaders and above"""
+    user = request.user
+    
+    # This view is only for team leaders and above
+    if user.role not in ['team_leader', 'department_leader', 'senior_manager', 'admin']:
+        messages.error(request, 'You do not have permission to view this page.')
+        return redirect('dashboard')
+    
+    # Get counts
+    team_count = Team.objects.count()
+    department_count = Department.objects.count()
+    user_count = User.objects.count()
+    
+    # Get active session
+    active_session = Session.objects.filter(is_active=True).first()
+    
+    # Get teams by health status
+    teams = Team.objects.all()
+    green_teams = 0
+    amber_teams = 0
+    red_teams = 0
+    teams_at_risk = []
+    
+    for team in teams:
+        status = team.get_latest_health_status()
+        if status == 'green':
+            green_teams += 1
+        elif status == 'amber':
+            amber_teams += 1
+            
+            # Add team to at-risk list
+            team.health_status = 'amber'
+            
+            # Find the most critical card for this team
+            if active_session:
+                critical_summary = TeamSummary.objects.filter(
+                    team=team, 
+                    session=active_session
+                ).order_by('green_percentage').first()
+                
+                team.critical_card = critical_summary.card.name if critical_summary else 'Unknown'
+                teams_at_risk.append(team)
+                
+        elif status == 'red':
+            red_teams += 1
+            
+            # Add team to at-risk list
+            team.health_status = 'red'
+            
+            # Find the most critical card for this team
+            if active_session:
+                critical_summary = TeamSummary.objects.filter(
+                    team=team, 
+                    session=active_session, 
+                    average_vote='red'
+                ).first()
+                
+                team.critical_card = critical_summary.card.name if critical_summary else 'Unknown'
+                teams_at_risk.append(team)
+    
+    # Count trend directions
+    improving_count = 0
+    stable_count = 0
+    declining_count = 0
+    
+    team_summaries = TeamSummary.objects.all()
+    for summary in team_summaries:
+        trend = summary.calculate_trend()
+        if trend == 'improving':
+            improving_count += 1
+        elif trend == 'stable':
+            stable_count += 1
+        elif trend == 'declining':
+            declining_count += 1
+    
+    # Get recent votes
+    recent_votes = Vote.objects.select_related('user', 'card').order_by('-created_at')[:5]
+    
+    return render(request, 'core/health_status.html', {
+        'team_count': team_count,
+        'department_count': department_count,
+        'user_count': user_count,
+        'active_session': active_session,
+        'green_teams': green_teams,
+        'amber_teams': amber_teams,
+        'red_teams': red_teams,
+        'teams_at_risk': teams_at_risk,
+        'improving_count': improving_count,
+        'stable_count': stable_count,
+        'declining_count': declining_count,
+        'recent_votes': recent_votes,
+    })

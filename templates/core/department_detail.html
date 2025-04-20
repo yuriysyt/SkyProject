@@ -1,0 +1,126 @@
+
+{% extends 'core/base.html' %}
+
+{% block title %}Department Detail - {{ department.name }}{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Department: {{ department.name }}</h3>
+            <div>
+                <a href="{% url 'department_summary_detail' department.id %}" class="btn btn-light btn-sm">View Summary</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5>Description</h5>
+                    <p>{{ department.description|default:"No description available" }}</p>
+                    
+                    <h5>Created</h5>
+                    <p>{{ department.created_at|date:"F j, Y" }}</p>
+                    
+                    <h5>Total Members</h5>
+                    <p>{{ department.get_member_count }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Department Leader</h5>
+                    {% with leader=leaders.first %}
+                        {% if leader %}
+                            <p>{{ leader.username }} ({{ leader.get_role_display }})</p>
+                        {% else %}
+                            <p>No department leader assigned</p>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+            
+            <h4>Teams ({{ teams|length }})</h4>
+            <div class="row">
+                {% for team in teams %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>{{ team.name }}</span>
+                            {% with status=team.get_latest_health_status %}
+                                {% if status == 'green' %}
+                                    <span class="badge bg-success">Healthy</span>
+                                {% elif status == 'amber' %}
+                                    <span class="badge bg-warning text-dark">Needs Attention</span>
+                                {% elif status == 'red' %}
+                                    <span class="badge bg-danger">Critical Issues</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Unknown</span>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Members:</strong> {{ team.get_member_count }}</p>
+                            <div class="d-grid">
+                                <a href="{% url 'team_detail' team.id %}" class="btn btn-outline-primary btn-sm">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        No teams found in this department.
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <h4 class="mt-4">Recent Health Check Summaries</h4>
+            {% if summaries %}
+            <div class="row">
+                {% for summary in summaries %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            {{ summary.card.name }}
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    {% if summary.average_vote == 'green' %}
+                                        <div class="badge bg-success">Green</div>
+                                    {% elif summary.average_vote == 'amber' %}
+                                        <div class="badge bg-warning text-dark">Amber</div>
+                                    {% elif summary.average_vote == 'red' %}
+                                        <div class="badge bg-danger">Red</div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    {% if summary.progress_summary == 'better' %}
+                                        <span class="badge bg-success"><i class="fas fa-arrow-up"></i> Improving</span>
+                                    {% elif summary.progress_summary == 'same' %}
+                                        <span class="badge bg-secondary"><i class="fas fa-equals"></i> Stable</span>
+                                    {% elif summary.progress_summary == 'worse' %}
+                                        <span class="badge bg-danger"><i class="fas fa-arrow-down"></i> Declining</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="progress mt-2">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ summary.green_percentage }}%"></div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ summary.amber_percentage }}%"></div>
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <small>Session: {{ summary.session.date|date:"M d, Y" }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                No summary data available for this department.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+
+{% extends 'core/base.html' %}
+
+{% block title %}Team Detail - {{ team.name }}{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Team: {{ team.name }}</h3>
+            <div>
+                <a href="{% url 'team_summary_detail' team.id %}" class="btn btn-light btn-sm">View Summary</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5>Department</h5>
+                    <p>{{ team.department.name }}</p>
+                    
+                    <h5>Description</h5>
+                    <p>{{ team.description|default:"No description available" }}</p>
+                    
+                    <h5>Created</h5>
+                    <p>{{ team.created_at|date:"F j, Y" }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Current Health Status</h5>
+                    {% with status=team.get_latest_health_status %}
+                        {% if status == 'green' %}
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle"></i> Healthy
+                            </div>
+                        {% elif status == 'amber' %}
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle"></i> Needs Attention
+                            </div>
+                        {% elif status == 'red' %}
+                            <div class="alert alert-danger">
+                                <i class="fas fa-times-circle"></i> Critical Issues
+                            </div>
+                        {% else %}
+                            <div class="alert alert-secondary">
+                                <i class="fas fa-question-circle"></i> Not Available
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+            
+            <h4>Team Members ({{ members|length }})</h4>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Last Vote</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                        <tr>
+                            <td>{{ member.username }}</td>
+                            <td>{{ member.get_role_display }}</td>
+                            <td>
+                                {% if member.has_voted_in_session %}
+                                    <span class="badge bg-success">Voted</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Not Voted</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">No team members found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <h4 class="mt-4">Recent Health Check Summaries</h4>
+            {% if summaries %}
+            <div class="row">
+                {% for summary in summaries %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            {{ summary.card.name }}
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    {% if summary.average_vote == 'green' %}
+                                        <div class="badge bg-success">Green</div>
+                                    {% elif summary.average_vote == 'amber' %}
+                                        <div class="badge bg-warning text-dark">Amber</div>
+                                    {% elif summary.average_vote == 'red' %}
+                                        <div class="badge bg-danger">Red</div>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    {% if summary.progress_summary == 'better' %}
+                                        <span class="badge bg-success"><i class="fas fa-arrow-up"></i> Improving</span>
+                                    {% elif summary.progress_summary == 'same' %}
+                                        <span class="badge bg-secondary"><i class="fas fa-equals"></i> Stable</span>
+                                    {% elif summary.progress_summary == 'worse' %}
+                                        <span class="badge bg-danger"><i class="fas fa-arrow-down"></i> Declining</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="progress mt-2">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ summary.green_percentage }}%"></div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ summary.amber_percentage }}%"></div>
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <small>Session: {{ summary.session.date|date:"M d, Y" }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                No summary data available for this team.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
