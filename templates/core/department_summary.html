@@ -1,0 +1,172 @@
+
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Department Health Summary: {{ department.name }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="get" class="mb-4">
+                    <div class="row align-items-end">
+                        <div class="col-md-6">
+                            {{ session_form|crispy }}
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-filter"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                
+                {% if session %}
+                    <div class="alert alert-info">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <div>
+                                <strong>Session: {{ session.name }}</strong>
+                                <p class="mb-0">{{ session.date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <div class="row">
+                    {% if dept_summaries %}
+                        {% for summary in dept_summaries %}
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header {% if summary.average_vote == 'green' %}bg-success text-white{% elif summary.average_vote == 'amber' %}bg-warning{% else %}bg-danger text-white{% endif %}">
+                                        <h5 class="card-title mb-0">{{ summary.card.name }}</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <h6 class="mb-2">Department Average:</h6>
+                                            <div class="d-flex align-items-center">
+                                                <span class="status-badge status-{{ summary.average_vote }} me-2"></span>
+                                                <span>{{ summary.get_average_vote_display }}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <h6 class="mb-2">Progress Trend:</h6>
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi {% if summary.progress_summary == 'better' %}bi-arrow-up-circle-fill progress-better{% elif summary.progress_summary == 'same' %}bi-dash-circle-fill progress-same{% else %}bi-arrow-down-circle-fill progress-worse{% endif %} me-2"></i>
+                                                <span>{{ summary.get_progress_summary_display }}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-0">
+                                            <h6 class="mb-2">Vote Distribution:</h6>
+                                            <div class="progress mb-2" style="height: 20px;">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ summary.green_percentage }}%" aria-valuenow="{{ summary.green_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ summary.amber_percentage }}%" aria-valuenow="{{ summary.amber_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%" aria-valuenow="{{ summary.red_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <small class="text-success">Green: {{ summary.green_percentage|floatformat:1 }}%</small>
+                                                <small class="text-warning">Amber: {{ summary.amber_percentage|floatformat:1 }}%</small>
+                                                <small class="text-danger">Red: {{ summary.red_percentage|floatformat:1 }}%</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-12">
+                            <div class="alert alert-warning">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                No health check data available for this department and session.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Teams in Department</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% if teams %}
+                        {% for team in teams %}
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-0">{{ team.name }}</h5>
+                                        <span class="badge bg-primary">{{ team.get_member_count }} Members</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="mb-3">Health Check Status:</h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Health Card</th>
+                                                        <th>Status</th>
+                                                        <th>Progress</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for summary in team_summaries %}
+                                                        {% if summary.team == team %}
+                                                            <tr>
+                                                                <td>{{ summary.card.name }}</td>
+                                                                <td>
+                                                                    <span class="status-badge status-{{ summary.average_vote }}"></span>
+                                                                    {{ summary.get_average_vote_display }}
+                                                                </td>
+                                                                <td class="progress-{{ summary.progress_summary }}">
+                                                                    <i class="bi {% if summary.progress_summary == 'better' %}bi-arrow-up-circle-fill{% elif summary.progress_summary == 'same' %}bi-dash-circle-fill{% else %}bi-arrow-down-circle-fill{% endif %}"></i>
+                                                                    {{ summary.get_progress_summary_display }}
+                                                                </td>
+                                                            </tr>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <a href="{% url 'team_summary_detail' team.id %}" class="btn btn-sm btn-outline-primary mt-3">
+                                            <i class="bi bi-search"></i> View Team Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-12">
+                            <div class="alert alert-warning">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                No teams found in this department.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle session form submission
+        const sessionSelect = document.getElementById('id_session');
+        if (sessionSelect) {
+            sessionSelect.addEventListener('change', function() {
+                this.form.submit();
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,423 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">Vote For All Cards</h3>
+                <span class="badge bg-white text-primary">Session: {{ session.name }}</span>
+            </div>
+            <div class="text-white-50 small mt-1">
+                <i class="bi bi-calendar3 me-1"></i> {{ session.date }}
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <div class="alert alert-info mb-4">
+                <i class="bi bi-info-circle me-2"></i>
+                <span>You can vote for all health check cards at once. Review each card and provide your feedback.</span>
+            </div>
+            
+            <div id="voteAlert" class="alert alert-danger d-none">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <span id="voteAlertMessage">Please complete all required selections before submitting.</span>
+            </div>
+            
+            <form method="post" id="voteAllForm" action="{% url 'vote_all_submit' session.id %}">
+                {% csrf_token %}
+                
+                <div class="progress mb-4" style="height: 8px;">
+                    <div id="overallProgressBar" class="progress-bar bg-primary" role="progressbar" style="width: 0%"></div>
+                </div>
+                <p class="text-center text-muted small mb-4" id="overallProgressText">0 of {{ cards|length }} cards completed</p>
+                
+                <!-- Card accordion -->
+                <div class="accordion mb-4" id="cardAccordion">
+                    {% for card in cards %}
+                    <div class="accordion-item card-vote-container mb-3 border" data-card-id="{{ card.id }}">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#card-{{ card.id }}" 
+                                    aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="card-{{ card.id }}">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <span>{{ card.name }}</span>
+                                    <span class="badge rounded-pill me-3 card-status-badge bg-secondary">Not voted</span>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="card-{{ card.id }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" data-bs-parent="#cardAccordion">
+                            <div class="accordion-body">
+                                <!-- Card description -->
+                                <div class="alert alert-light border mb-4">
+                                    <p class="mb-0">{{ card.description }}</p>
+                                </div>
+                                
+                                <!-- Hidden field for card ID -->
+                                <input type="hidden" name="card_ids" value="{{ card.id }}">
+                                
+                                <!-- Status selection -->
+                                <h5 class="mb-3">How would you rate this area?</h5>
+                                <div class="row mb-4">
+                                    <div class="col-md-4 mb-3 mb-md-0">
+                                        <div class="vote-option green">
+                                            <input type="radio" name="value_{{ card.id }}" value="green" id="id_value_green_{{ card.id }}" 
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.value == 'green' %}checked{% endif %}
+                                                   class="card-value-radio" data-card-id="{{ card.id }}">
+                                            <label for="id_value_green_{{ card.id }}" class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1 text-success">Green</h6>
+                                                    <p class="small text-muted mb-0">Everything is good</p>
+                                                </div>
+                                                <i class="bi bi-emoji-smile text-success fs-3"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4 mb-3 mb-md-0">
+                                        <div class="vote-option amber">
+                                            <input type="radio" name="value_{{ card.id }}" value="amber" id="id_value_amber_{{ card.id }}"
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.value == 'amber' %}checked{% endif %}
+                                                   class="card-value-radio" data-card-id="{{ card.id }}">
+                                            <label for="id_value_amber_{{ card.id }}" class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1 text-warning">Amber</h6>
+                                                    <p class="small text-muted mb-0">Some concerns</p>
+                                                </div>
+                                                <i class="bi bi-emoji-neutral text-warning fs-3"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="vote-option red">
+                                            <input type="radio" name="value_{{ card.id }}" value="red" id="id_value_red_{{ card.id }}"
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.value == 'red' %}checked{% endif %}
+                                                   class="card-value-radio" data-card-id="{{ card.id }}">
+                                            <label for="id_value_red_{{ card.id }}" class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1 text-danger">Red</h6>
+                                                    <p class="small text-muted mb-0">Serious issues</p>
+                                                </div>
+                                                <i class="bi bi-emoji-frown text-danger fs-3"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Progress selection -->
+                                <h5 class="mb-3">Is this area getting better or worse?</h5>
+                                <div class="row mb-4">
+                                    <div class="col-md-4 mb-3 mb-md-0">
+                                        <div class="vote-option green">
+                                            <input type="radio" name="progress_{{ card.id }}" value="better" id="id_progress_better_{{ card.id }}"
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.progress_note == 'better' %}checked{% endif %}
+                                                   class="card-progress-radio" data-card-id="{{ card.id }}">
+                                            <label for="id_progress_better_{{ card.id }}" class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1 text-success">Better</h6>
+                                                    <p class="small text-muted mb-0">Improving</p>
+                                                </div>
+                                                <i class="bi bi-arrow-up-circle-fill text-success fs-3"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4 mb-3 mb-md-0">
+                                        <div class="vote-option amber">
+                                            <input type="radio" name="progress_{{ card.id }}" value="same" id="id_progress_same_{{ card.id }}"
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.progress_note == 'same' %}checked{% endif %}
+                                                   class="card-progress-radio" data-card-id="{{ card.id }}">
+                                            <label for="id_progress_same_{{ card.id }}" class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1 text-warning">Same</h6>
+                                                    <p class="small text-muted mb-0">No change</p>
+                                                </div>
+                                                <i class="bi bi-dash-circle-fill text-warning fs-3"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="vote-option red">
+                                            <input type="radio" name="progress_{{ card.id }}" value="worse" id="id_progress_worse_{{ card.id }}"
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.progress_note == 'worse' %}checked{% endif %}
+                                                   class="card-progress-radio" data-card-id="{{ card.id }}">
+                                            <label for="id_progress_worse_{{ card.id }}" class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6 class="mb-1 text-danger">Worse</h6>
+                                                    <p class="small text-muted mb-0">Declining</p>
+                                                </div>
+                                                <i class="bi bi-arrow-down-circle-fill text-danger fs-3"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Comment section -->
+                                <h5 class="mb-3">Additional Comments (Optional)</h5>
+                                <div class="mb-3">
+                                    <textarea name="comment_{{ card.id }}" id="id_comment_{{ card.id }}" 
+                                              class="form-control" rows="3" 
+                                              placeholder="Share any additional context, concerns, or suggestions...">{% if user_votes and user_votes|get_item:card.id %}{{ user_votes|get_item:card.id.comment }}{% endif %}</textarea>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between">
+                                    {% if not forloop.first %}
+                                    <button type="button" class="btn btn-sm btn-outline-secondary prev-card-btn" data-card-id="{{ card.id }}" data-prev-card="{{ forloop.counter0|add:"-1" }}">
+                                        <i class="bi bi-arrow-left me-1"></i> Previous Card
+                                    </button>
+                                    {% else %}
+                                    <div></div>
+                                    {% endif %}
+                                    
+                                    {% if not forloop.last %}
+                                    <button type="button" class="btn btn-sm btn-primary next-card-btn" data-card-id="{{ card.id }}" data-next-card="{{ forloop.counter0|add:"1" }}">
+                                        Next Card <i class="bi bi-arrow-right ms-1"></i>
+                                    </button>
+                                    {% else %}
+                                    <div></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Form actions -->
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+                    </a>
+                    <button type="submit" id="submitAllBtn" class="btn btn-primary position-relative">
+                        <span class="submit-text">
+                            <i class="bi bi-check-circle me-1"></i> Submit All Votes
+                        </span>
+                        <div class="submit-spinner position-absolute top-50 start-50 translate-middle d-none">
+                            <div class="spinner-border spinner-border-sm text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('voteAllForm');
+        const submitBtn = document.getElementById('submitAllBtn');
+        const submitText = submitBtn.querySelector('.submit-text');
+        const submitSpinner = submitBtn.querySelector('.submit-spinner');
+        const voteAlert = document.getElementById('voteAlert');
+        const voteAlertMessage = document.getElementById('voteAlertMessage');
+        const overallProgressBar = document.getElementById('overallProgressBar');
+        const overallProgressText = document.getElementById('overallProgressText');
+        const cardContainers = document.querySelectorAll('.card-vote-container');
+        const valueRadios = document.querySelectorAll('.card-value-radio');
+        const progressRadios = document.querySelectorAll('.card-progress-radio');
+        const totalCards = {{ cards|length }};
+        
+        // Keep track of completed cards
+        const cardStatus = {};
+        {% for card in cards %}
+            cardStatus[{{ card.id }}] = {
+                valueSelected: {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.value %}true{% else %}false{% endif %},
+                progressSelected: {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.progress_note %}true{% else %}false{% endif %}
+            };
+        {% endfor %}
+        
+        // Function to update the card status badge
+        function updateCardStatusBadge(cardId) {
+            const cardContainer = document.querySelector(`.card-vote-container[data-card-id="${cardId}"]`);
+            const statusBadge = cardContainer.querySelector('.card-status-badge');
+            
+            if (cardStatus[cardId].valueSelected && cardStatus[cardId].progressSelected) {
+                statusBadge.textContent = 'Completed';
+                statusBadge.classList.remove('bg-secondary', 'bg-warning');
+                statusBadge.classList.add('bg-success');
+            } else if (cardStatus[cardId].valueSelected || cardStatus[cardId].progressSelected) {
+                statusBadge.textContent = 'In Progress';
+                statusBadge.classList.remove('bg-secondary', 'bg-success');
+                statusBadge.classList.add('bg-warning');
+            } else {
+                statusBadge.textContent = 'Not voted';
+                statusBadge.classList.remove('bg-warning', 'bg-success');
+                statusBadge.classList.add('bg-secondary');
+            }
+        }
+        
+        // Function to update overall progress
+        function updateOverallProgress() {
+            let completedCards = 0;
+            
+            // Count completed cards
+            for (const cardId in cardStatus) {
+                if (cardStatus[cardId].valueSelected && cardStatus[cardId].progressSelected) {
+                    completedCards++;
+                }
+            }
+            
+            // Update progress bar
+            const progressPercent = (completedCards / totalCards) * 100;
+            overallProgressBar.style.width = progressPercent + '%';
+            overallProgressText.textContent = `${completedCards} of ${totalCards} cards completed`;
+            
+            // Update submit button state
+            if (completedCards === totalCards) {
+                submitBtn.classList.add('btn-success');
+                submitBtn.classList.remove('btn-primary');
+                submitBtn.classList.add('pulse-animation');
+                setTimeout(() => {
+                    submitBtn.classList.remove('pulse-animation');
+                }, 500);
+            } else {
+                submitBtn.classList.remove('btn-success');
+                submitBtn.classList.add('btn-primary');
+            }
+            
+            return completedCards === totalCards;
+        }
+        
+        // Initialize statuses
+        for (const cardId in cardStatus) {
+            updateCardStatusBadge(cardId);
+        }
+        updateOverallProgress();
+        
+        // Add event listeners to value radios
+        valueRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cardId = this.getAttribute('data-card-id');
+                cardStatus[cardId].valueSelected = true;
+                updateCardStatusBadge(cardId);
+                updateOverallProgress();
+                voteAlert.classList.add('d-none');
+            });
+        });
+        
+        // Add event listeners to progress radios
+        progressRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cardId = this.getAttribute('data-card-id');
+                cardStatus[cardId].progressSelected = true;
+                updateCardStatusBadge(cardId);
+                updateOverallProgress();
+                voteAlert.classList.add('d-none');
+            });
+        });
+        
+        // Next card buttons
+        const nextCardBtns = document.querySelectorAll('.next-card-btn');
+        nextCardBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const nextCardIndex = this.getAttribute('data-next-card');
+                const nextCardId = "card-" + {{ cards.0.id }} + nextCardIndex;
+                
+                // Hide current card collapse
+                const currentCardId = this.getAttribute('data-card-id');
+                const currentCollapse = document.querySelector(`#card-${currentCardId}`);
+                const currentCollapseInstance = bootstrap.Collapse.getInstance(currentCollapse);
+                currentCollapseInstance.hide();
+                
+                // Show next card collapse
+                setTimeout(() => {
+                    const nextCollapse = document.querySelector(`#${nextCardId}`);
+                    const nextCollapseInstance = new bootstrap.Collapse(nextCollapse, {
+                        toggle: true
+                    });
+                    
+                    // Scroll to next card
+                    nextCollapse.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 400);
+            });
+        });
+        
+        // Previous card buttons
+        const prevCardBtns = document.querySelectorAll('.prev-card-btn');
+        prevCardBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const prevCardIndex = this.getAttribute('data-prev-card');
+                const prevCardId = "card-" + {{ cards.0.id }} + prevCardIndex;
+                
+                // Hide current card collapse
+                const currentCardId = this.getAttribute('data-card-id');
+                const currentCollapse = document.querySelector(`#card-${currentCardId}`);
+                const currentCollapseInstance = bootstrap.Collapse.getInstance(currentCollapse);
+                currentCollapseInstance.hide();
+                
+                // Show previous card collapse
+                setTimeout(() => {
+                    const prevCollapse = document.querySelector(`#${prevCardId}`);
+                    const prevCollapseInstance = new bootstrap.Collapse(prevCollapse, {
+                        toggle: true
+                    });
+                    
+                    // Scroll to previous card
+                    prevCollapse.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 400);
+            });
+        });
+        
+        // Form submission handler
+        form.addEventListener('submit', function(e) {
+            const allCompleted = updateOverallProgress();
+            
+            if (!allCompleted) {
+                e.preventDefault();
+                voteAlert.classList.remove('d-none');
+                voteAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Find first incomplete card
+                let firstIncompleteCardId = null;
+                for (const cardId in cardStatus) {
+                    if (!cardStatus[cardId].valueSelected || !cardStatus[cardId].progressSelected) {
+                        firstIncompleteCardId = cardId;
+                        break;
+                    }
+                }
+                
+                if (firstIncompleteCardId) {
+                    // Show the incomplete card
+                    const incompleteCardCollapse = document.querySelector(`#card-${firstIncompleteCardId}`);
+                    const collapseInstance = new bootstrap.Collapse(incompleteCardCollapse, {
+                        toggle: true
+                    });
+                    
+                    voteAlertMessage.textContent = 'Please complete all required selections for each card before submitting.';
+                    return false;
+                }
+            }
+            
+            // Show loading spinner
+            submitText.classList.add('opacity-0');
+            submitSpinner.classList.remove('d-none');
+            
+            // Allow form submission
+            return true;
+        });
+        
+        // Visual feedback when selecting options
+        const voteOptions = document.querySelectorAll('.vote-option');
+        voteOptions.forEach(option => {
+            const label = option.querySelector('label');
+            
+            label.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            label.addEventListener('mouseup', function() {
+                this.style.transform = 'scale(1)';
+            });
+            
+            label.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    });
+</script>
+{% endblock %}

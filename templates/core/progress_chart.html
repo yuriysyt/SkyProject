@@ -1,0 +1,843 @@
+
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+{% load core_tags %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Health Check Progress Charts</h4>
+            </div>
+            <div class="card-body">
+                <form method="get" class="mb-4">
+                    <div class="row align-items-end">
+                        <div class="col-md-5">
+                            {{ date_form.start_date|as_crispy_field }}
+                        </div>
+                        <div class="col-md-5">
+                            {{ date_form.end_date|as_crispy_field }}
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-filter"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                    
+                    {% if user.role == 'team_leader' and team_form %}
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{ team_form|crispy }}
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="bi bi-people"></i> View Team
+                                </button>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if user.role == 'department_leader' %}
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="team" class="form-label">Team</label>
+                                    <select name="team" id="team" class="form-select">
+                                        <option value="">All Teams</option>
+                                        {% for team in teams %}
+                                            <option value="{{ team.id }}" {% if selected_team.id == team.id %}selected{% endif %}>{{ team.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="bi bi-filter"></i> Apply Filter
+                                </button>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if user.role == 'senior_manager' %}
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="department" class="form-label">Department</label>
+                                    <select name="department" id="department" class="form-select">
+                                        <option value="">All Departments</option>
+                                        {% for dept in departments %}
+                                            <option value="{{ dept.id }}" {% if selected_department.id == dept.id %}selected{% endif %}>{{ dept.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            {% if selected_department %}
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="team" class="form-label">Team</label>
+                                        <select name="team" id="team" class="form-select">
+                                            <option value="">All Teams</option>
+                                            {% for team in teams %}
+                                                <option value="{{ team.id }}" {% if selected_team.id == team.id %}selected{% endif %}>{{ team.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            <div class="col-md-4 d-flex align-items-end">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="bi bi-filter"></i> Apply Filter
+                                </button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </form>
+                
+                <div class="alert alert-info">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-info-circle me-2 fs-4"></i>
+                        <div>
+                            <strong>Date Range:</strong> {{ start_date }} to {{ end_date }}
+                            {% if selected_team %}
+                                <br><strong>Selected Team:</strong> {{ selected_team.name }}
+                            {% elif selected_department %}
+                                <br><strong>Selected Department:</strong> {{ selected_department.name }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                {% if sessions %}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card mb-4 shadow-sm border-primary">
+                                <div class="card-header bg-primary bg-opacity-10">
+                                    <h5 class="mb-0 text-primary">
+                                        {% if user.role == 'engineer' %}
+                                            Your Vote Trend
+                                        {% elif user.role == 'team_leader' %}
+                                            {% if selected_team %}
+                                                {{ selected_team.name }} Team Trend
+                                            {% else %}
+                                                Your Team Trend
+                                            {% endif %}
+                                        {% elif user.role == 'department_leader' %}
+                                            {% if selected_team %}
+                                                {{ selected_team.name }} Team Trend
+                                            {% else %}
+                                                {{ user.department.name }} Department Trend
+                                            {% endif %}
+                                        {% elif user.role == 'senior_manager' %}
+                                            {% if selected_team %}
+                                                {{ selected_team.name }} Team Trend
+                                            {% elif selected_department %}
+                                                {{ selected_department.name }} Department Trend
+                                            {% else %}
+                                                Overall Organization Trend
+                                            {% endif %}
+                                        {% endif %}
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container position-relative" style="height: 400px;">
+                                        <canvas id="trendChart"></canvas>
+                                        <div id="trendChartLoader" class="position-absolute top-50 start-50 translate-middle">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div id="trendChartError" class="position-absolute top-50 start-50 translate-middle text-center d-none">
+                                            <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
+                                            <p class="mt-2">Could not load chart data. Please try again.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-light">
+                                    <button class="btn btn-sm btn-outline-primary export-chart" data-chart="trendChart">
+                                        <i class="bi bi-download me-1"></i> Export Chart
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary export-data ms-2">
+                                        <i class="bi bi-file-earmark-excel me-1"></i> Export Data (CSV)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 shadow-sm border-info">
+                                <div class="card-header bg-info bg-opacity-10">
+                                    <h5 class="mb-0 text-info">Status Distribution</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container position-relative" style="height: 300px;">
+                                        <canvas id="statusChart"></canvas>
+                                        <div id="statusChartLoader" class="position-absolute top-50 start-50 translate-middle">
+                                            <div class="spinner-border text-info" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div id="statusChartError" class="position-absolute top-50 start-50 translate-middle text-center d-none">
+                                            <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
+                                            <p class="mt-2">Could not load status data.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-light">
+                                    <div class="text-muted small">
+                                        <i class="bi bi-info-circle me-1"></i> 
+                                        Distribution of health status across all health check cards
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 shadow-sm border-warning">
+                                <div class="card-header bg-warning bg-opacity-10">
+                                    <h5 class="mb-0 text-warning">Progress Distribution</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container position-relative" style="height: 300px;">
+                                        <canvas id="progressChart"></canvas>
+                                        <div id="progressChartLoader" class="position-absolute top-50 start-50 translate-middle">
+                                            <div class="spinner-border text-warning" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div id="progressChartError" class="position-absolute top-50 start-50 translate-middle text-center d-none">
+                                            <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
+                                            <p class="mt-2">Could not load progress data.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-light">
+                                    <div class="text-muted small">
+                                        <i class="bi bi-info-circle me-1"></i> 
+                                        Shows trend direction: getting better, staying same, or getting worse
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card shadow-sm border-success">
+                                <div class="card-header bg-success bg-opacity-10">
+                                    <h5 class="mb-0 text-success">Summary Statistics</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="card bg-light mb-3">
+                                                <div class="card-body text-center">
+                                                    <h3 class="text-success">{{ status_data.green|floatformat:1 }}%</h3>
+                                                    <p class="mb-0">Green Status</p>
+                                                    <div class="text-muted small mt-2">Healthy, no major issues</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card bg-light mb-3">
+                                                <div class="card-body text-center">
+                                                    <h3 class="text-warning">{{ status_data.amber|floatformat:1 }}%</h3>
+                                                    <p class="mb-0">Amber Status</p>
+                                                    <div class="text-muted small mt-2">Some concerns to address</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card bg-light mb-3">
+                                                <div class="card-body text-center">
+                                                    <h3 class="text-danger">{{ status_data.red|floatformat:1 }}%</h3>
+                                                    <p class="mb-0">Red Status</p>
+                                                    <div class="text-muted small mt-2">Critical issues requiring attention</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="card bg-light">
+                                                <div class="card-body text-center">
+                                                    <h3 class="text-success">{{ progress_counts.better }}</h3>
+                                                    <p class="mb-0">Getting Better</p>
+                                                    <div class="text-muted small mt-2">
+                                                        <i class="bi bi-arrow-up-circle text-success me-1"></i> Improving trends
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card bg-light">
+                                                <div class="card-body text-center">
+                                                    <h3 class="text-secondary">{{ progress_counts.same }}</h3>
+                                                    <p class="mb-0">Staying Same</p>
+                                                    <div class="text-muted small mt-2">
+                                                        <i class="bi bi-dash-circle text-secondary me-1"></i> No significant change
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card bg-light">
+                                                <div class="card-body text-center">
+                                                    <h3 class="text-danger">{{ progress_counts.worse }}</h3>
+                                                    <p class="mb-0">Getting Worse</p>
+                                                    <div class="text-muted small mt-2">
+                                                        <i class="bi bi-arrow-down-circle text-danger me-1"></i> Declining trends
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-light">
+                                    <button class="btn btn-sm btn-outline-success toggle-data-table">
+                                        <i class="bi bi-table me-1"></i> <span class="toggle-text">Show Data Table</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Data Table (Hidden by Default) -->
+                    <div class="row mt-4 data-table-container" style="display: none;">
+                        <div class="col-12">
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-secondary bg-opacity-10">
+                                    <h5 class="mb-0">Detailed Health Check Data</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover" id="healthCheckTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Card</th>
+                                                    <th>Status</th>
+                                                    <th>Progress</th>
+                                                    <th>Value (%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Table data will be populated via JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        No sessions found within the selected date range.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle dynamic department/team selection
+        const departmentSelect = document.getElementById('department');
+        if (departmentSelect) {
+            departmentSelect.addEventListener('change', function() {
+                document.querySelector('#team').value = '';
+                this.form.submit();
+            });
+        }
+        
+        // Toggle data table
+        const toggleDataTableBtn = document.querySelector('.toggle-data-table');
+        if (toggleDataTableBtn) {
+            toggleDataTableBtn.addEventListener('click', function() {
+                const dataTableContainer = document.querySelector('.data-table-container');
+                const toggleText = document.querySelector('.toggle-text');
+                
+                if (dataTableContainer.style.display === 'none') {
+                    dataTableContainer.style.display = 'flex';
+                    toggleText.textContent = 'Hide Data Table';
+                    populateDataTable();
+                } else {
+                    dataTableContainer.style.display = 'none';
+                    toggleText.textContent = 'Show Data Table';
+                }
+            });
+        }
+        
+        // Export chart as image
+        document.querySelectorAll('.export-chart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const chartId = this.getAttribute('data-chart');
+                const canvas = document.getElementById(chartId);
+                
+                if (canvas) {
+                    // Create a temporary link to download the image
+                    const link = document.createElement('a');
+                    link.download = `health-check-${chartId}-${new Date().toISOString().split('T')[0]}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
+        });
+        
+        // Export data as CSV
+        document.querySelector('.export-data')?.addEventListener('click', function() {
+            // Convert chart data to CSV format
+            let chartData;
+            try {
+                chartData = JSON.parse('{{ chart_data|safe }}');
+                if (!chartData) throw new Error('No chart data available');
+            } catch (e) {
+                console.error('Error parsing chart data:', e);
+                alert('Unable to export data. Chart data is not available.');
+                return;
+            }
+            
+            let csvContent = "data:text/csv;charset=utf-8,";
+            
+            // Add headers
+            const headers = ["Date"];
+            chartData.datasets.forEach(dataset => {
+                headers.push(dataset.label);
+            });
+            csvContent += headers.join(",") + "\r\n";
+            
+            // Add data rows
+            chartData.labels.forEach((date, i) => {
+                let row = [date];
+                chartData.datasets.forEach(dataset => {
+                    row.push(dataset.data[i] || "0");
+                });
+                csvContent += row.join(",") + "\r\n";
+            });
+            
+            // Create a temporary link to download the CSV
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `health-check-data-${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+        
+        // Function to populate data table
+        function populateDataTable() {
+            const tableBody = document.querySelector('#healthCheckTable tbody');
+            if (!tableBody) return;
+            
+            // Clear existing rows
+            tableBody.innerHTML = '';
+            
+            // Get chart data
+            let chartData;
+            try {
+                chartData = JSON.parse('{{ chart_data|safe }}');
+                if (!chartData) throw new Error('No chart data available');
+            } catch (e) {
+                console.error('Error parsing chart data for table:', e);
+                tableBody.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Unable to load data</td></tr>';
+                return;
+            }
+            
+            const labels = chartData.labels; // Dates
+            const datasets = chartData.datasets;
+            
+            // For each date
+            labels.forEach((date, dateIndex) => {
+                // For datasets in groups of 3 (green, amber, red for each card)
+                for (let i = 0; i < datasets.length; i += 3) {
+                    if (i + 2 >= datasets.length) break;
+                    
+                    // Extract card name from label (removing " - Green/Amber/Red" suffix)
+                    const cardName = datasets[i].label.replace(' - Green', '');
+                    
+                    // Get values
+                    const greenValue = datasets[i].data[dateIndex] || 0;
+                    const amberValue = datasets[i+1].data[dateIndex] || 0;
+                    const redValue = datasets[i+2].data[dateIndex] || 0;
+                    
+                    // Determine dominant status
+                    let status, statusClass, value;
+                    if (greenValue >= amberValue && greenValue >= redValue) {
+                        status = 'Green';
+                        statusClass = 'text-success';
+                        value = greenValue;
+                    } else if (amberValue >= greenValue && amberValue >= redValue) {
+                        status = 'Amber';
+                        statusClass = 'text-warning';
+                        value = amberValue;
+                    } else {
+                        status = 'Red';
+                        statusClass = 'text-danger';
+                        value = redValue;
+                    }
+                    
+                    // Determine progress (would need additional data for this)
+                    // For now, use a placeholder based on previous entry
+                    let progress = 'Same';
+                    let progressClass = 'text-secondary';
+                    let progressIcon = '<i class="bi bi-dash-circle"></i>';
+                    
+                    if (dateIndex > 0) {
+                        const prevGreenValue = datasets[i].data[dateIndex-1] || 0;
+                        const prevAmberValue = datasets[i+1].data[dateIndex-1] || 0;
+                        const prevRedValue = datasets[i+2].data[dateIndex-1] || 0;
+                        
+                        const prevTotal = prevGreenValue + prevAmberValue + prevRedValue;
+                        const currTotal = greenValue + amberValue + redValue;
+                        
+                        if (prevTotal > 0 && currTotal > 0) {
+                            const prevGreenPct = (prevGreenValue / prevTotal) * 100;
+                            const currGreenPct = (greenValue / currTotal) * 100;
+                            
+                            if (currGreenPct > prevGreenPct + 5) {
+                                progress = 'Better';
+                                progressClass = 'text-success';
+                                progressIcon = '<i class="bi bi-arrow-up-circle"></i>';
+                            } else if (currGreenPct < prevGreenPct - 5) {
+                                progress = 'Worse';
+                                progressClass = 'text-danger';
+                                progressIcon = '<i class="bi bi-arrow-down-circle"></i>';
+                            }
+                        }
+                    }
+                    
+                    // Create table row
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${date}</td>
+                        <td>${cardName}</td>
+                        <td class="${statusClass}">${status}</td>
+                        <td class="${progressClass}">${progressIcon} ${progress}</td>
+                        <td>${value.toFixed(1)}%</td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                }
+            });
+        }
+        
+        {% if sessions %}
+            // Initialize charts with error handling
+            function initCharts() {
+                try {
+                    // Parse chart data with error handling
+                    let chartData;
+                    try {
+                        chartData = JSON.parse('{{ chart_data|safe }}');
+                        if (!chartData || !chartData.datasets || !chartData.labels) {
+                            throw new Error('Invalid chart data structure');
+                        }
+                    } catch (e) {
+                        console.error('Error parsing chart data:', e);
+                        document.getElementById('trendChartLoader').classList.add('d-none');
+                        document.getElementById('trendChartError').classList.remove('d-none');
+                        return;
+                    }
+                    
+                    // Chart configuration - add responsive options
+                    const chartOptions = {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                titleColor: '#333',
+                                bodyColor: '#333',
+                                borderColor: '#ddd',
+                                borderWidth: 1,
+                                padding: 10,
+                                boxPadding: 4,
+                                usePointStyle: true,
+                                footerSpacing: 10,
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('en-US', {
+                                                minimumFractionDigits: 1,
+                                                maximumFractionDigits: 1
+                                            }).format(context.parsed.y) + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    boxWidth: 10,
+                                    font: {
+                                        size: 10
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Health Check Trend Over Time',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                },
+                                padding: {
+                                    top: 10,
+                                    bottom: 20
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: {
+                                    display: true,
+                                    text: 'Percentage (%)',
+                                    font: {
+                                        weight: 'bold'
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(0,0,0,0.05)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Session Date',
+                                    font: {
+                                        weight: 'bold'
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(0,0,0,0.05)'
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 1000,
+                            easing: 'easeOutQuart'
+                        },
+                        hover: {
+                            mode: 'nearest',
+                            intersect: false
+                        }
+                    };
+                    
+                    // Create trend chart with enhanced visuals
+                    const trendCtx = document.getElementById('trendChart').getContext('2d');
+                    const trendChart = new Chart(trendCtx, {
+                        type: 'line',
+                        data: chartData,
+                        options: chartOptions
+                    });
+                    
+                    // Hide loader after chart is drawn
+                    document.getElementById('trendChartLoader').classList.add('d-none');
+
+                    // Create status distribution chart
+                    try {
+                        const statusCtx = document.getElementById('statusChart').getContext('2d');
+                        const statusChart = new Chart(statusCtx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['Green (Healthy)', 'Amber (Concerns)', 'Red (Critical)'],
+                                datasets: [{
+                                    data: [
+                                        {{ status_data.green|default:0|floatformat:1 }}, 
+                                        {{ status_data.amber|default:0|floatformat:1 }}, 
+                                        {{ status_data.red|default:0|floatformat:1 }}
+                                    ],
+                                    backgroundColor: [
+                                        'rgba(34, 197, 94, 0.8)',
+                                        'rgba(245, 158, 11, 0.8)',
+                                        'rgba(239, 68, 68, 0.8)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(34, 197, 94, 1)',
+                                        'rgba(245, 158, 11, 1)',
+                                        'rgba(239, 68, 68, 1)'
+                                    ],
+                                    borderWidth: 2,
+                                    hoverBorderWidth: 4,
+                                    hoverOffset: 8
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'right',
+                                        labels: {
+                                            padding: 20,
+                                            usePointStyle: true,
+                                            pointStyle: 'circle'
+                                        }
+                                    },
+                                    tooltip: {
+                                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                        titleColor: '#333',
+                                        bodyColor: '#333',
+                                        borderColor: '#ddd',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        callbacks: {
+                                            label: function(context) {
+                                                return context.label + ': ' + context.raw + '%';
+                                            }
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Current Status Distribution',
+                                        font: {
+                                            size: 14,
+                                            weight: 'bold'
+                                        },
+                                        padding: {
+                                            top: 10,
+                                            bottom: 20
+                                        }
+                                    }
+                                },
+                                cutout: '60%',
+                                animation: {
+                                    animateRotate: true,
+                                    animateScale: true
+                                }
+                            }
+                        });
+                        
+                        // Hide loader after chart is drawn
+                        document.getElementById('statusChartLoader').classList.add('d-none');
+                    } catch (e) {
+                        console.error('Error initializing status chart:', e);
+                        document.getElementById('statusChartLoader').classList.add('d-none');
+                        document.getElementById('statusChartError').classList.remove('d-none');
+                    }
+                    
+                    // Create progress distribution chart
+                    try {
+                        const progressCtx = document.getElementById('progressChart').getContext('2d');
+                        const progressChart = new Chart(progressCtx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Getting Better', 'Staying Same', 'Getting Worse'],
+                                datasets: [{
+                                    data: [
+                                        {{ progress_counts.better|default:0 }}, 
+                                        {{ progress_counts.same|default:0 }}, 
+                                        {{ progress_counts.worse|default:0 }}
+                                    ],
+                                    backgroundColor: [
+                                        'rgba(34, 197, 94, 0.8)',
+                                        'rgba(156, 163, 175, 0.8)',
+                                        'rgba(239, 68, 68, 0.8)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(34, 197, 94, 1)',
+                                        'rgba(156, 163, 175, 1)',
+                                        'rgba(239, 68, 68, 1)'
+                                    ],
+                                    borderWidth: 2,
+                                    hoverBorderWidth: 4,
+                                    hoverOffset: 8
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'right',
+                                        labels: {
+                                            padding: 20,
+                                            usePointStyle: true,
+                                            pointStyle: 'rectRounded'
+                                        }
+                                    },
+                                    tooltip: {
+                                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                        titleColor: '#333',
+                                        bodyColor: '#333',
+                                        borderColor: '#ddd',
+                                        borderWidth: 1,
+                                        padding: 10,
+                                        callbacks: {
+                                            label: function(context) {
+                                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                                const percentage = total > 0 ? Math.round((context.raw / total) * 100) : 0;
+                                                return context.label + ': ' + context.raw + ' (' + percentage + '%)';
+                                            }
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Progress Trend Direction',
+                                        font: {
+                                            size: 14,
+                                            weight: 'bold'
+                                        },
+                                        padding: {
+                                            top: 10,
+                                            bottom: 20
+                                        }
+                                    }
+                                },
+                                animation: {
+                                    animateRotate: true,
+                                    animateScale: true
+                                }
+                            }
+                        });
+                        
+                        // Hide loader after chart is drawn
+                        document.getElementById('progressChartLoader').classList.add('d-none');
+                    } catch (e) {
+                        console.error('Error initializing progress chart:', e);
+                        document.getElementById('progressChartLoader').classList.add('d-none');
+                        document.getElementById('progressChartError').classList.remove('d-none');
+                    }
+                    
+                    // Add resize handler for responsiveness
+                    window.addEventListener('resize', function() {
+                        if (trendChart) trendChart.resize();
+                        if (statusChart) statusChart.resize();
+                        if (progressChart) progressChart.resize();
+                    });
+                } catch (e) {
+                    console.error('Error in chart initialization:', e);
+                    // Hide all loaders and show error messages
+                    document.querySelectorAll('[id$="ChartLoader"]').forEach(el => el.classList.add('d-none'));
+                    document.querySelectorAll('[id$="ChartError"]').forEach(el => el.classList.remove('d-none'));
+                }
+            }
+            
+            // Initialize charts when DOM is loaded
+            initCharts();
+        {% endif %}
+    });
+</script>
+{% endblock %}

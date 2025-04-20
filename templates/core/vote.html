@@ -1,0 +1,316 @@
+
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">Vote for "{{ card.name }}"</h3>
+                <span class="badge bg-white text-primary">Session: {{ session.name }}</span>
+            </div>
+            <div class="text-white-50 small mt-1">
+                <i class="bi bi-calendar3 me-1"></i> {{ session.date }}
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <!-- Card description -->
+            <div class="alert alert-light border mb-4">
+                <p class="mb-0">{{ card.description }}</p>
+            </div>
+            
+            <div id="voteAlert" class="alert alert-danger d-none">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <span id="voteAlertMessage">Please select both a status value and progress note before submitting.</span>
+            </div>
+            
+            <form method="post" id="voteForm">
+                {% csrf_token %}
+                
+                <!-- Status selection -->
+                <h5 class="mb-3">How would you rate this area?</h5>
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="vote-option green">
+                            <input type="radio" name="{{ form.value.name }}" value="green" id="id_value_green" {% if form.value.value == 'green' %}checked{% endif %}>
+                            <label for="id_value_green" class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1 text-success">Green</h6>
+                                    <p class="small text-muted mb-0">Everything is good</p>
+                                </div>
+                                <i class="bi bi-emoji-smile text-success fs-3"></i>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="vote-option amber">
+                            <input type="radio" name="{{ form.value.name }}" value="amber" id="id_value_amber" {% if form.value.value == 'amber' %}checked{% endif %}>
+                            <label for="id_value_amber" class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1 text-warning">Amber</h6>
+                                    <p class="small text-muted mb-0">Some concerns</p>
+                                </div>
+                                <i class="bi bi-emoji-neutral text-warning fs-3"></i>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="vote-option red">
+                            <input type="radio" name="{{ form.value.name }}" value="red" id="id_value_red" {% if form.value.value == 'red' %}checked{% endif %}>
+                            <label for="id_value_red" class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1 text-danger">Red</h6>
+                                    <p class="small text-muted mb-0">Serious issues</p>
+                                </div>
+                                <i class="bi bi-emoji-frown text-danger fs-3"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress selection -->
+                <h5 class="mb-3">Is this area getting better or worse?</h5>
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="vote-option green">
+                            <input type="radio" name="{{ form.progress_note.name }}" value="better" id="id_progress_note_better" {% if form.progress_note.value == 'better' %}checked{% endif %}>
+                            <label for="id_progress_note_better" class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1 text-success">Better</h6>
+                                    <p class="small text-muted mb-0">Improving</p>
+                                </div>
+                                <i class="bi bi-arrow-up-circle-fill text-success fs-3"></i>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="vote-option amber">
+                            <input type="radio" name="{{ form.progress_note.name }}" value="same" id="id_progress_note_same" {% if form.progress_note.value == 'same' %}checked{% endif %}>
+                            <label for="id_progress_note_same" class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1 text-warning">Same</h6>
+                                    <p class="small text-muted mb-0">No change</p>
+                                </div>
+                                <i class="bi bi-dash-circle-fill text-warning fs-3"></i>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="vote-option red">
+                            <input type="radio" name="{{ form.progress_note.name }}" value="worse" id="id_progress_note_worse" {% if form.progress_note.value == 'worse' %}checked{% endif %}>
+                            <label for="id_progress_note_worse" class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1 text-danger">Worse</h6>
+                                    <p class="small text-muted mb-0">Declining</p>
+                                </div>
+                                <i class="bi bi-arrow-down-circle-fill text-danger fs-3"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comment section -->
+                <h5 class="mb-3">Additional Comments (Optional)</h5>
+                <div class="mb-4">
+                    <textarea name="{{ form.comment.name }}" id="{{ form.comment.id_for_label }}" 
+                              class="form-control" rows="4" 
+                              placeholder="Share any additional context, concerns, or suggestions...">{{ form.comment.value|default:'' }}</textarea>
+                    {% if form.comment.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.comment.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Voting progress indicators -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title">Your Voting Progress</h6>
+                                <div class="vote-progress-container">
+                                    <div id="voteProgressBar" class="vote-progress-bar" style="width: 0%"></div>
+                                </div>
+                                <p class="small text-muted text-center mt-2 mb-0" id="voteProgressText">
+                                    Select your rating to see progress
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Form actions -->
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+                    </a>
+                    <button type="submit" id="submitBtn" class="btn btn-primary position-relative">
+                        <span class="submit-text">
+                            <i class="bi bi-check-circle me-1"></i> Submit Vote
+                        </span>
+                        <div class="submit-spinner position-absolute top-50 start-50 translate-middle d-none">
+                            <div class="spinner-border spinner-border-sm text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Help card -->
+    <div class="card mt-4 shadow-sm">
+        <div class="card-header bg-light py-3">
+            <h5 class="mb-0"><i class="bi bi-question-circle me-2"></i> How to Vote</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <ol class="mb-md-0">
+                        <li class="mb-2">Select a rating (Green, Amber, or Red)</li>
+                        <li class="mb-2">Indicate if this area is improving, staying the same, or getting worse</li>
+                        <li class="mb-2">Optionally, add a comment to provide more context</li>
+                        <li>Click "Submit Vote" to record your feedback</li>
+                    </ol>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-info mb-0">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <span>Your vote will be combined with others from your team to create a health summary.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('voteForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = submitBtn.querySelector('.submit-text');
+        const submitSpinner = submitBtn.querySelector('.submit-spinner');
+        const voteAlert = document.getElementById('voteAlert');
+        const voteAlertMessage = document.getElementById('voteAlertMessage');
+        const valueRadios = form.querySelectorAll('input[name="{{ form.value.name }}"]');
+        const progressRadios = form.querySelectorAll('input[name="{{ form.progress_note.name }}"]');
+        const progressBar = document.getElementById('voteProgressBar');
+        const progressText = document.getElementById('voteProgressText');
+        
+        // Function to update the vote progress bar
+        function updateVoteProgress() {
+            let completed = 0;
+            let valueSelected = false;
+            let progressSelected = false;
+            
+            valueRadios.forEach(radio => {
+                if (radio.checked) {
+                    valueSelected = true;
+                    completed++;
+                }
+            });
+            
+            progressRadios.forEach(radio => {
+                if (radio.checked) {
+                    progressSelected = true;
+                    completed++;
+                }
+            });
+            
+            // Calculate progress percentage (out of 2 required selections)
+            const progressPercent = (completed / 2) * 100;
+            progressBar.style.width = progressPercent + '%';
+            
+            // Update progress text
+            if (completed === 0) {
+                progressText.textContent = 'Select your rating to see progress';
+            } else if (completed === 1) {
+                if (!valueSelected) {
+                    progressText.textContent = 'Select a rating (Green, Amber, or Red)';
+                } else {
+                    progressText.textContent = 'Indicate if this area is improving or declining';
+                }
+            } else {
+                progressText.innerHTML = '<i class="bi bi-check-circle-fill text-success me-1"></i> Ready to submit!';
+            }
+            
+            // Update submit button state
+            if (completed === 2) {
+                submitBtn.classList.add('btn-success');
+                submitBtn.classList.remove('btn-primary');
+                submitBtn.classList.add('pulse-animation');
+                setTimeout(() => {
+                    submitBtn.classList.remove('pulse-animation');
+                }, 500);
+            } else {
+                submitBtn.classList.remove('btn-success');
+                submitBtn.classList.add('btn-primary');
+            }
+            
+            return completed === 2;
+        }
+        
+        // Initial progress update
+        updateVoteProgress();
+        
+        // Add event listeners to all radio buttons
+        valueRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                updateVoteProgress();
+                voteAlert.classList.add('d-none');
+            });
+        });
+        
+        progressRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                updateVoteProgress();
+                voteAlert.classList.add('d-none');
+            });
+        });
+        
+        // Form submission handler
+        form.addEventListener('submit', function(e) {
+            if (!updateVoteProgress()) {
+                e.preventDefault();
+                voteAlert.classList.remove('d-none');
+                voteAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                voteAlertMessage.textContent = 'Please select both a status value and progress note before submitting.';
+                return false;
+            }
+            
+            // Show loading spinner
+            submitText.classList.add('opacity-0');
+            submitSpinner.classList.remove('d-none');
+            
+            // Allow form submission
+            return true;
+        });
+        
+        // Visual feedback when selecting options
+        const voteOptions = document.querySelectorAll('.vote-option');
+        voteOptions.forEach(option => {
+            const radio = option.querySelector('input[type="radio"]');
+            const label = option.querySelector('label');
+            
+            label.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            label.addEventListener('mouseup', function() {
+                this.style.transform = 'scale(1)';
+            });
+            
+            label.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    });
+</script>
+{% endblock %}
