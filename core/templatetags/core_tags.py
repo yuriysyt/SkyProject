@@ -1,4 +1,3 @@
-
 from django import template
 from django.db.models import Count
 from ..models import Department, Team
@@ -6,14 +5,38 @@ from ..models import Department, Team
 register = template.Library()
 
 @register.filter
-def get_item(dictionary, key):
+def get_item(obj, key):
     """
-    Gets an item from a dictionary by key.
-    Usage: {{ dictionary|get_item:key }}
+    Gets an item from a dictionary by key or an attribute from an object.
+    Usage: {{ dictionary|get_item:key }} or {{ object|get_item:attribute }}
     """
-    if dictionary is None:
+    if obj is None:
         return None
-    return dictionary.get(key)
+    
+    try:
+        # Try to access as dictionary first
+        if hasattr(obj, 'get'):
+            return obj.get(key)
+        # Then try to access as object attribute
+        elif hasattr(obj, key):
+            return getattr(obj, key)
+        # If key is a string that represents a field in the model, try that
+        elif hasattr(obj, '__getattribute__') and isinstance(key, str):
+            return getattr(obj, key, None)
+        # For nested attribute access (when key contains dots)
+        elif isinstance(key, str) and '.' in key:
+            parts = key.split('.')
+            value = obj
+            for part in parts:
+                if hasattr(value, 'get') and callable(value.get):
+                    value = value.get(part)
+                else:
+                    value = getattr(value, part, None)
+            return value
+        else:
+            return None
+    except (KeyError, AttributeError):
+        return None
 
 @register.simple_tag
 def get_departments_count():

@@ -1,5 +1,7 @@
+
 {% extends 'core/base.html' %}
 {% load crispy_forms_tags %}
+{% load core_tags %}
 
 {% block content %}
 <div class="container py-4">
@@ -63,7 +65,7 @@
                                     <div class="col-md-4 mb-3 mb-md-0">
                                         <div class="vote-option green">
                                             <input type="radio" name="value_{{ card.id }}" value="green" id="id_value_green_{{ card.id }}" 
-                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.value == 'green' %}checked{% endif %}
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id|get_item:'value' == 'green' %}checked{% endif %}
                                                    class="card-value-radio" data-card-id="{{ card.id }}">
                                             <label for="id_value_green_{{ card.id }}" class="d-flex justify-content-between align-items-center">
                                                 <div>
@@ -78,7 +80,7 @@
                                     <div class="col-md-4 mb-3 mb-md-0">
                                         <div class="vote-option amber">
                                             <input type="radio" name="value_{{ card.id }}" value="amber" id="id_value_amber_{{ card.id }}"
-                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.value == 'amber' %}checked{% endif %}
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id|get_item:'value' == 'amber' %}checked{% endif %}
                                                    class="card-value-radio" data-card-id="{{ card.id }}">
                                             <label for="id_value_amber_{{ card.id }}" class="d-flex justify-content-between align-items-center">
                                                 <div>
@@ -93,7 +95,7 @@
                                     <div class="col-md-4">
                                         <div class="vote-option red">
                                             <input type="radio" name="value_{{ card.id }}" value="red" id="id_value_red_{{ card.id }}"
-                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.value == 'red' %}checked{% endif %}
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id|get_item:'value' == 'red' %}checked{% endif %}
                                                    class="card-value-radio" data-card-id="{{ card.id }}">
                                             <label for="id_value_red_{{ card.id }}" class="d-flex justify-content-between align-items-center">
                                                 <div>
@@ -112,7 +114,7 @@
                                     <div class="col-md-4 mb-3 mb-md-0">
                                         <div class="vote-option green">
                                             <input type="radio" name="progress_{{ card.id }}" value="better" id="id_progress_better_{{ card.id }}"
-                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.progress_note == 'better' %}checked{% endif %}
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id|get_item:'progress_note' == 'better' %}checked{% endif %}
                                                    class="card-progress-radio" data-card-id="{{ card.id }}">
                                             <label for="id_progress_better_{{ card.id }}" class="d-flex justify-content-between align-items-center">
                                                 <div>
@@ -127,7 +129,7 @@
                                     <div class="col-md-4 mb-3 mb-md-0">
                                         <div class="vote-option amber">
                                             <input type="radio" name="progress_{{ card.id }}" value="same" id="id_progress_same_{{ card.id }}"
-                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.progress_note == 'same' %}checked{% endif %}
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id|get_item:'progress_note' == 'same' %}checked{% endif %}
                                                    class="card-progress-radio" data-card-id="{{ card.id }}">
                                             <label for="id_progress_same_{{ card.id }}" class="d-flex justify-content-between align-items-center">
                                                 <div>
@@ -142,7 +144,7 @@
                                     <div class="col-md-4">
                                         <div class="vote-option red">
                                             <input type="radio" name="progress_{{ card.id }}" value="worse" id="id_progress_worse_{{ card.id }}"
-                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id.progress_note == 'worse' %}checked{% endif %}
+                                                   {% if user_votes and user_votes|get_item:card.id and user_votes|get_item:card.id|get_item:'progress_note' == 'worse' %}checked{% endif %}
                                                    class="card-progress-radio" data-card-id="{{ card.id }}">
                                             <label for="id_progress_worse_{{ card.id }}" class="d-flex justify-content-between align-items-center">
                                                 <div>
@@ -160,7 +162,7 @@
                                 <div class="mb-3">
                                     <textarea name="comment_{{ card.id }}" id="id_comment_{{ card.id }}" 
                                               class="form-control" rows="3" 
-                                              placeholder="Share any additional context, concerns, or suggestions...">{% if user_votes and user_votes|get_item:card.id %}{{ user_votes|get_item:card.id.comment }}{% endif %}</textarea>
+                                              placeholder="Share any additional context, concerns, or suggestions...">{% if user_votes and user_votes|get_item:card.id %}{{ user_votes|get_item:card.id|get_item:'comment' }}{% endif %}</textarea>
                                 </div>
                                 
                                 <div class="d-flex justify-content-between">
