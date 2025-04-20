@@ -1,19 +1,131 @@
+
 {% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+
 {% block content %}
-<div class='row justify-content-center'>
-    <div class='col-md-6'>
-        <div class='card'>
-            <div class='card-header'>
-                <h2>Register</h2>
+<div class="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-blue-900 to-indigo-800">
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-xl shadow-2xl p-8">
+            <div class="text-center mb-8">
+                <div class="inline-block mb-4">
+                    <i class="bi bi-person-plus text-5xl text-primary"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800">Create Account</h2>
+                <p class="text-gray-600 mt-2">Join Sky Health Check System</p>
             </div>
-            <div class='card-body'>
-                <form method='post'>
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type='submit' class='btn btn-primary'>Register</button>
-                </form>
+
+            <!-- Display form errors at the top if any -->
+            {% if form.errors %}
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <p class="font-bold">Please correct the following errors:</p>
+                <ul class="list-disc pl-5">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             </div>
+            {% endif %}
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 gap-6">
+                    <!-- User information -->
+                    <div class="space-y-4">
+                        <div class="font-medium text-gray-700 border-b pb-2 mb-3">Account Details</div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>{{ form.first_name|as_crispy_field }}</div>
+                            <div>{{ form.last_name|as_crispy_field }}</div>
+                        </div>
+                        
+                        <div>{{ form.username|as_crispy_field }}</div>
+                        <div>{{ form.email|as_crispy_field }}</div>
+                        <div>{{ form.password1|as_crispy_field }}</div>
+                        <div>{{ form.password2|as_crispy_field }}</div>
+                    </div>
+                    
+                    <!-- Role and Team -->
+                    <div class="space-y-4">
+                        <div class="font-medium text-gray-700 border-b pb-2 mb-3">Role Information</div>
+                        
+                        <div>{{ form.role|as_crispy_field }}</div>
+                        <div>{{ form.department|as_crispy_field }}</div>
+                        <div>{{ form.team|as_crispy_field }}</div>
+                    </div>
+                </div>
+                
+                <div class="mt-8">
+                    <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 shadow-md">
+                        <i class="bi bi-person-check mr-2"></i> Create Account
+                    </button>
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <p class="text-gray-600">
+                        Already have an account? 
+                        <a href="{% url 'login' %}" class="text-primary hover:text-primary/80 font-medium underline">
+                            Sign in here
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </div>
+        
+        <div class="mt-6 text-center text-white text-sm">
+            <p>© {% now "Y" %} Sky Engineering Health Check System</p>
         </div>
     </div>
 </div>
+
+<!-- Add jQuery and script for dependent dropdown -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Function to load teams based on selected department
+        function loadTeams() {
+            var departmentId = $("#id_department").val();
+            var teamSelect = $("#id_team");
+            
+            if (departmentId) {
+                // Clear team dropdown
+                teamSelect.empty().append('<option value="">---------</option>');
+                
+                // Make AJAX request to get teams for department
+                $.ajax({
+                    url: "{% url 'ajax_load_teams' %}",
+                    data: {
+                        'department': departmentId
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        // Populate teams dropdown
+                        $.each(data, function(index, team) {
+                            teamSelect.append($('<option></option>').attr('value', team.id).text(team.name));
+                        });
+                    },
+                    error: function(error) {
+                        console.error("Error loading teams:", error);
+                    }
+                });
+            } else {
+                // If no department selected, clear team dropdown
+                teamSelect.empty().append('<option value="">---------</option>');
+            }
+        }
+        
+        // Load teams when department changes
+        $("#id_department").change(loadTeams);
+        
+        // Load teams on page load if department is already selected
+        if ($("#id_department").val()) {
+            loadTeams();
+        }
+    });
+</script>
 {% endblock %}
