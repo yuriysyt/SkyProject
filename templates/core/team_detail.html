@@ -28,20 +28,24 @@
                     <h5>Current Health Status</h5>
                     {% with status=team.get_latest_health_status %}
                         {% if status == 'green' %}
-                            <div class="alert alert-success">
-                                <i class="fas fa-check-circle"></i> Healthy
+                            <div class="alert alert-success d-flex align-items-center">
+                                <span class="status-badge status-green me-2"></span>
+                                <span>Healthy</span>
                             </div>
                         {% elif status == 'amber' %}
-                            <div class="alert alert-warning">
-                                <i class="fas fa-exclamation-triangle"></i> Needs Attention
+                            <div class="alert alert-warning d-flex align-items-center">
+                                <span class="status-badge status-amber me-2"></span>
+                                <span>Needs Attention</span>
                             </div>
                         {% elif status == 'red' %}
-                            <div class="alert alert-danger">
-                                <i class="fas fa-times-circle"></i> Critical Issues
+                            <div class="alert alert-danger d-flex align-items-center">
+                                <span class="status-badge status-red me-2"></span>
+                                <span>Critical Issues</span>
                             </div>
                         {% else %}
-                            <div class="alert alert-secondary">
-                                <i class="fas fa-question-circle"></i> Not Available
+                            <div class="alert alert-secondary d-flex align-items-center">
+                                <i class="bi bi-question-circle me-2"></i>
+                                <span>Not Available</span>
                             </div>
                         {% endif %}
                     {% endwith %}
@@ -85,38 +89,47 @@
             <div class="row">
                 {% for summary in summaries %}
                 <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="card-header">
-                            {{ summary.card.name }}
+                    <div class="card shadow-sm">
+                        <div class="card-header {% if summary.average_vote == 'green' %}bg-success text-white{% elif summary.average_vote == 'amber' %}bg-warning{% else %}bg-danger text-white{% endif %}">
+                            <h5 class="mb-0">{{ summary.card.name }}</h5>
                         </div>
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    {% if summary.average_vote == 'green' %}
-                                        <div class="badge bg-success">Green</div>
-                                    {% elif summary.average_vote == 'amber' %}
-                                        <div class="badge bg-warning text-dark">Amber</div>
-                                    {% elif summary.average_vote == 'red' %}
-                                        <div class="badge bg-danger">Red</div>
-                                    {% endif %}
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="d-flex align-items-center">
+                                    <span class="status-badge status-{{ summary.average_vote }} me-2"></span>
+                                    <span>{{ summary.get_average_vote_display }}</span>
                                 </div>
-                                <div>
+                                <div class="d-flex align-items-center">
                                     {% if summary.progress_summary == 'better' %}
-                                        <span class="badge bg-success"><i class="fas fa-arrow-up"></i> Improving</span>
+                                        <i class="bi bi-arrow-up-circle-fill text-success me-2"></i>
+                                        <span>Improving</span>
                                     {% elif summary.progress_summary == 'same' %}
-                                        <span class="badge bg-secondary"><i class="fas fa-equals"></i> Stable</span>
+                                        <i class="bi bi-dash-circle-fill text-secondary me-2"></i>
+                                        <span>Stable</span>
                                     {% elif summary.progress_summary == 'worse' %}
-                                        <span class="badge bg-danger"><i class="fas fa-arrow-down"></i> Declining</span>
+                                        <i class="bi bi-arrow-down-circle-fill text-danger me-2"></i>
+                                        <span>Declining</span>
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="progress mt-2">
+                            <div class="progress mb-2">
                                 <div class="progress-bar bg-success" role="progressbar" style="width: {{ summary.green_percentage }}%"></div>
                                 <div class="progress-bar bg-warning" role="progressbar" style="width: {{ summary.amber_percentage }}%"></div>
                                 <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%"></div>
                             </div>
-                            <div class="d-flex justify-content-between mt-1">
-                                <small>Session: {{ summary.session.date|date:"M d, Y" }}</small>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center text-success">
+                                    <span class="status-badge status-green me-2"></span>{{ summary.green_percentage|floatformat:1 }}%
+                                </div>
+                                <div class="d-flex align-items-center text-warning">
+                                    <span class="status-badge status-amber me-2"></span>{{ summary.amber_percentage|floatformat:1 }}%
+                                </div>
+                                <div class="d-flex align-items-center text-danger">
+                                    <span class="status-badge status-red me-2"></span>{{ summary.red_percentage|floatformat:1 }}%
+                                </div>
+                            </div>
+                            <div class="mt-3 text-muted small">
+                                Session: {{ summary.session.date|date:"M d, Y" }}
                             </div>
                         </div>
                     </div>

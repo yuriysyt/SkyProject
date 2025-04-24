@@ -40,7 +40,7 @@
                     {% if summaries %}
                         {% for summary in summaries %}
                             <div class="col-md-6 col-lg-4 mb-4">
-                                <div class="card h-100">
+                                <div class="card h-100 shadow-sm">
                                     <div class="card-header {% if summary.average_vote == 'green' %}bg-success text-white{% elif summary.average_vote == 'amber' %}bg-warning{% else %}bg-danger text-white{% endif %}">
                                         <h5 class="card-title mb-0">{{ summary.card.name }}</h5>
                                     </div>
@@ -56,7 +56,7 @@
                                         <div class="mb-3">
                                             <h6 class="mb-2">Progress Trend:</h6>
                                             <div class="d-flex align-items-center">
-                                                <i class="bi {% if summary.progress_summary == 'better' %}bi-arrow-up-circle-fill progress-better{% elif summary.progress_summary == 'same' %}bi-dash-circle-fill progress-same{% else %}bi-arrow-down-circle-fill progress-worse{% endif %} me-2"></i>
+                                                <i class="bi {% if summary.progress_summary == 'better' %}bi-arrow-up-circle-fill text-success{% elif summary.progress_summary == 'same' %}bi-dash-circle-fill text-secondary{% else %}bi-arrow-down-circle-fill text-danger{% endif %} me-2"></i>
                                                 <span>{{ summary.get_progress_summary_display }}</span>
                                             </div>
                                         </div>
@@ -69,9 +69,15 @@
                                                 <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%" aria-valuenow="{{ summary.red_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             <div class="d-flex justify-content-between">
-                                                <small class="text-success">Green: {{ summary.green_percentage|floatformat:1 }}%</small>
-                                                <small class="text-warning">Amber: {{ summary.amber_percentage|floatformat:1 }}%</small>
-                                                <small class="text-danger">Red: {{ summary.red_percentage|floatformat:1 }}%</small>
+                                                <div class="d-flex align-items-center text-success">
+                                                    <span class="status-badge status-green me-2"></span>Green: {{ summary.green_percentage|floatformat:1 }}%
+                                                </div>
+                                                <div class="d-flex align-items-center text-warning">
+                                                    <span class="status-badge status-amber me-2"></span>Amber: {{ summary.amber_percentage|floatformat:1 }}%
+                                                </div>
+                                                <div class="d-flex align-items-center text-danger">
+                                                    <span class="status-badge status-red me-2"></span>Red: {{ summary.red_percentage|floatformat:1 }}%
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -101,7 +107,7 @@
                     {% if team_members %}
                         {% for member in team_members %}
                             <div class="col-md-6 col-lg-3 mb-3">
-                                <div class="card h-100">
+                                <div class="card h-100 shadow-sm">
                                     <div class="card-body text-center">
                                         {% if member.profile_picture %}
                                             <img src="{{ member.profile_picture.url }}" alt="{{ member.username }}" class="rounded-circle mb-3" width="60">

@@ -1,4 +1,3 @@
-
 {% extends 'core/base.html' %}
 {% load core_tags %}
 
@@ -124,9 +123,15 @@
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%" aria-valuenow="{{ summary.red_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <div class="d-flex justify-content-between">
-                                            <small class="text-success">{{ summary.green_percentage|floatformat:0 }}% Green</small>
-                                            <small class="text-warning">{{ summary.amber_percentage|floatformat:0 }}% Amber</small>
-                                            <small class="text-danger">{{ summary.red_percentage|floatformat:0 }}% Red</small>
+                                            <div class="d-flex align-items-center text-success">
+                                                <span class="status-badge status-green me-2"></span>{{ summary.green_percentage|floatformat:0 }}% Green
+                                            </div>
+                                            <div class="d-flex align-items-center text-warning">
+                                                <span class="status-badge status-amber me-2"></span>{{ summary.amber_percentage|floatformat:0 }}% Amber
+                                            </div>
+                                            <div class="d-flex align-items-center text-danger">
+                                                <span class="status-badge status-red me-2"></span>{{ summary.red_percentage|floatformat:0 }}% Red
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

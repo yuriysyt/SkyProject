@@ -68,9 +68,15 @@
                                                 <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%" aria-valuenow="{{ summary.red_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             <div class="d-flex justify-content-between">
-                                                <small class="text-success">Green: {{ summary.green_percentage|floatformat:1 }}%</small>
-                                                <small class="text-warning">Amber: {{ summary.amber_percentage|floatformat:1 }}%</small>
-                                                <small class="text-danger">Red: {{ summary.red_percentage|floatformat:1 }}%</small>
+                                                <div class="d-flex align-items-center text-success">
+                                                    <span class="status-badge status-green me-2"></span>Green: {{ summary.green_percentage|floatformat:1 }}%
+                                                </div>
+                                                <div class="d-flex align-items-center text-warning">
+                                                    <span class="status-badge status-amber me-2"></span>Amber: {{ summary.amber_percentage|floatformat:1 }}%
+                                                </div>
+                                                <div class="d-flex align-items-center text-danger">
+                                                    <span class="status-badge status-red me-2"></span>Red: {{ summary.red_percentage|floatformat:1 }}%
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -23,6 +23,7 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
+    flex-shrink: 0; /* Prevent the badge from shrinking */
 }
 
 .status-green {
@@ -38,15 +39,15 @@
 }
 
 /* Progress Indicators */
-.progress-improving {
+.progress-better {
     color: #28a745;
 }
 
-.progress-stable {
+.progress-same {
     color: #6c757d;
 }
 
-.progress-declining {
+.progress-worse {
     color: #dc3545;
 }
 
@@ -57,6 +58,7 @@
     margin-bottom: 1rem;
     border: 1px solid rgba(0,0,0,0.125);
     transition: transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 .health-card:hover {
@@ -103,4 +105,69 @@
 .hover-scale:hover {
     transform: scale(1.05);
     transition: transform 0.2s ease;
+}
+
+/* Vote option styling */
+.vote-option {
+    position: relative;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.vote-option:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.vote-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.vote-option label {
+    display: block;
+    padding: 15px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.vote-option input[type="radio"]:checked + label {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.vote-option.green input[type="radio"]:checked + label {
+    border-left: 4px solid #28a745;
+}
+
+.vote-option.amber input[type="radio"]:checked + label {
+    border-left: 4px solid #ffc107;
+}
+
+.vote-option.red input[type="radio"]:checked + label {
+    border-left: 4px solid #dc3545;
+}
+
+/* Ensure text items are aligned horizontally with their icons */
+.d-flex.align-items-center > .status-badge,
+.d-flex.align-items-center > i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+}
+
+/* Prevent text wrapping in distribution percentages */
+.d-flex.justify-content-between .d-flex.align-items-center {
+    white-space: nowrap;
+    margin-right: 4px;
+}
+
+/* Improve progress bars */
+.progress {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 }
