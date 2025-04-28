@@ -1,678 +1,282 @@
-INFO 2025-04-28 06:23:54,967 autoreload 33784 22864 Watching for file changes with StatReloader
-INFO 2025-04-28 06:23:56,444 basehttp 33784 33468 "GET / HTTP/1.1" 302 0
-INFO 2025-04-28 06:23:56,468 basehttp 33784 33468 "GET /login/?next=/ HTTP/1.1" 200 5903
-INFO 2025-04-28 06:23:56,656 basehttp 33784 33468 "GET /static/css/style.css HTTP/1.1" 200 2623
-WARNING 2025-04-28 06:23:57,250 log 33784 33468 Not Found: /favicon.ico
-WARNING 2025-04-28 06:23:57,250 basehttp 33784 33468 "GET /favicon.ico HTTP/1.1" 404 5631
-INFO 2025-04-28 06:24:00,990 basehttp 33784 33468 "POST /login/?next=/ HTTP/1.1" 200 6105
-INFO 2025-04-28 06:24:01,017 basehttp 33784 33468 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:24:04,424 basehttp 33784 33468 "POST /login/?next=/ HTTP/1.1" 200 6108
-INFO 2025-04-28 06:24:04,452 basehttp 33784 33468 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:24:08,628 basehttp 33784 33468 "GET /register/ HTTP/1.1" 200 8560
-INFO 2025-04-28 06:24:08,658 basehttp 33784 33468 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:24:17,259 basehttp 33784 33468 "POST /register/ HTTP/1.1" 200 9209
-INFO 2025-04-28 06:24:17,289 basehttp 33784 33468 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:24:29,397 basehttp 33784 33468 "POST /register/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:24:29,410 basehttp 33784 33468 "GET / HTTP/1.1" 200 12936
-INFO 2025-04-28 06:24:29,439 basehttp 33784 33468 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:24:30,727 basehttp 33784 33468 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:24:30,737 basehttp 33784 33468 "GET / HTTP/1.1" 200 12917
-INFO 2025-04-28 06:24:32,292 basehttp 33784 33468 "GET /health-status/ HTTP/1.1" 200 14706
-INFO 2025-04-28 06:24:32,932 basehttp 33784 33468 "GET /progress-chart/ HTTP/1.1" 200 62914
-INFO 2025-04-28 06:26:40,727 autoreload 18420 24228 Watching for file changes with StatReloader
-INFO 2025-04-28 06:26:42,158 basehttp 18420 12316 "GET / HTTP/1.1" 200 12541
-INFO 2025-04-28 06:26:42,342 basehttp 18420 12316 "GET /static/css/style.css HTTP/1.1" 200 3443
-INFO 2025-04-28 06:26:44,055 basehttp 18420 12316 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:26:44,064 basehttp 18420 12316 "GET / HTTP/1.1" 200 12917
-INFO 2025-04-28 06:26:44,092 basehttp 18420 12316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:26:44,687 basehttp 18420 12316 "GET /team-summary/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:26:44,697 basehttp 18420 12316 "GET / HTTP/1.1" 200 12911
-INFO 2025-04-28 06:26:44,724 basehttp 18420 12316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:26:45,850 basehttp 18420 12316 "GET /progress-chart/ HTTP/1.1" 200 62914
-INFO 2025-04-28 06:26:45,888 basehttp 18420 12316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:26:46,748 basehttp 18420 12316 "GET /health-status/ HTTP/1.1" 200 14706
-INFO 2025-04-28 06:26:46,781 basehttp 18420 12316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:26:54,897 autoreload 9740 14068 Watching for file changes with StatReloader
-INFO 2025-04-28 06:26:55,801 basehttp 9740 33288 "GET / HTTP/1.1" 200 12541
-INFO 2025-04-28 06:26:55,987 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 200 2443
-INFO 2025-04-28 06:26:57,442 basehttp 9740 33288 "GET /team-summary/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:26:57,451 basehttp 9740 33288 "GET / HTTP/1.1" 200 12911
-INFO 2025-04-28 06:26:57,480 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:26:58,005 basehttp 9740 33288 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:26:58,014 basehttp 9740 33288 "GET / HTTP/1.1" 200 12917
-INFO 2025-04-28 06:26:58,044 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:26:59,496 basehttp 9740 33288 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:26:59,512 basehttp 9740 33288 "GET / HTTP/1.1" 200 12917
-INFO 2025-04-28 06:26:59,553 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:00,459 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62914
-INFO 2025-04-28 06:27:00,491 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:01,402 basehttp 9740 33288 "GET /team-summary/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:27:01,412 basehttp 9740 33288 "GET / HTTP/1.1" 200 12911
-INFO 2025-04-28 06:27:01,453 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:02,247 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62914
-INFO 2025-04-28 06:27:02,281 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:03,777 basehttp 9740 33288 "GET /profile/ HTTP/1.1" 200 14870
-INFO 2025-04-28 06:27:03,815 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:04,467 basehttp 9740 33288 "GET /health-status/ HTTP/1.1" 200 14706
-INFO 2025-04-28 06:27:04,495 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:05,433 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62914
-INFO 2025-04-28 06:27:05,472 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:07,134 basehttp 9740 33288 "GET / HTTP/1.1" 200 12541
-INFO 2025-04-28 06:27:07,163 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:08,425 basehttp 9740 33288 "GET /logout/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:27:08,439 basehttp 9740 33288 "GET /login/ HTTP/1.1" 200 6050
-INFO 2025-04-28 06:27:10,320 basehttp 9740 33288 "GET /register/ HTTP/1.1" 200 8494
-INFO 2025-04-28 06:27:10,349 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:22,273 basehttp 9740 33288 "POST /register/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:27:22,284 basehttp 9740 33288 "GET / HTTP/1.1" 200 12416
-INFO 2025-04-28 06:27:22,322 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:23,272 basehttp 9740 33288 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:27:23,284 basehttp 9740 33288 "GET / HTTP/1.1" 200 12397
-INFO 2025-04-28 06:27:24,321 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62300
-INFO 2025-04-28 06:27:25,650 basehttp 9740 33288 "GET /profile/ HTTP/1.1" 200 14350
-INFO 2025-04-28 06:27:25,689 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:26,582 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62300
-INFO 2025-04-28 06:27:28,474 basehttp 9740 33288 "GET / HTTP/1.1" 200 12021
-INFO 2025-04-28 06:27:28,511 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:30,045 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62300
-INFO 2025-04-28 06:27:31,540 basehttp 9740 33288 "GET /change-password/ HTTP/1.1" 200 13034
-INFO 2025-04-28 06:27:32,074 basehttp 9740 33288 "GET /profile/ HTTP/1.1" 200 14350
-INFO 2025-04-28 06:27:32,109 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:33,373 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62300
-INFO 2025-04-28 06:27:34,588 basehttp 9740 33288 "GET / HTTP/1.1" 200 12021
-INFO 2025-04-28 06:27:35,597 basehttp 9740 33288 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:27:35,605 basehttp 9740 33288 "GET / HTTP/1.1" 200 12397
-INFO 2025-04-28 06:27:36,954 basehttp 9740 33288 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:27:36,963 basehttp 9740 33288 "GET / HTTP/1.1" 200 12397
-INFO 2025-04-28 06:27:36,992 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:37,583 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62300
-INFO 2025-04-28 06:27:38,520 basehttp 9740 33288 "GET / HTTP/1.1" 200 12021
-INFO 2025-04-28 06:27:39,220 basehttp 9740 33288 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:27:39,232 basehttp 9740 33288 "GET / HTTP/1.1" 200 12397
-INFO 2025-04-28 06:27:39,922 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62300
-INFO 2025-04-28 06:27:40,767 basehttp 9740 33288 "GET / HTTP/1.1" 200 12021
-INFO 2025-04-28 06:27:40,799 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:49,306 basehttp 9740 33288 "GET / HTTP/1.1" 200 12021
-INFO 2025-04-28 06:27:49,334 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:27:49,579 basehttp 9740 33288 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:27:49,588 basehttp 9740 33288 "GET / HTTP/1.1" 200 12397
-INFO 2025-04-28 06:28:15,244 basehttp 9740 33288 "GET /progress-chart/ HTTP/1.1" 200 62300
-INFO 2025-04-28 06:28:15,272 basehttp 9740 33288 "GET /static/css/style.css HTTP/1.1" 200 2443
-INFO 2025-04-28 06:29:27,620 autoreload 30668 8760 Watching for file changes with StatReloader
-INFO 2025-04-28 06:29:28,840 basehttp 30668 14652 "GET / HTTP/1.1" 200 9214
-INFO 2025-04-28 06:29:29,021 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 200 2628
-INFO 2025-04-28 06:29:30,744 basehttp 30668 14652 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:29:30,752 basehttp 30668 14652 "GET / HTTP/1.1" 200 9604
-INFO 2025-04-28 06:29:30,785 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:29:31,224 basehttp 30668 14652 "GET /progress-chart/ HTTP/1.1" 200 59493
-INFO 2025-04-28 06:29:31,265 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:29:34,015 basehttp 30668 14652 "GET /profile/ HTTP/1.1" 200 11543
-INFO 2025-04-28 06:29:34,053 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:29:34,487 basehttp 30668 14652 "GET /change-password/ HTTP/1.1" 200 10227
-INFO 2025-04-28 06:29:35,393 basehttp 30668 14652 "GET /profile/ HTTP/1.1" 200 11543
-INFO 2025-04-28 06:29:35,428 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:29:35,997 basehttp 30668 14652 "GET /change-password/ HTTP/1.1" 200 10227
-INFO 2025-04-28 06:29:36,033 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:29:38,630 basehttp 30668 14652 "GET /progress-chart/ HTTP/1.1" 200 59493
-INFO 2025-04-28 06:29:38,665 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:29:40,294 basehttp 30668 14652 "GET / HTTP/1.1" 200 9214
-INFO 2025-04-28 06:29:40,338 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:29:40,928 basehttp 30668 14652 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:29:40,937 basehttp 30668 14652 "GET / HTTP/1.1" 200 9604
-INFO 2025-04-28 06:29:41,894 basehttp 30668 14652 "GET /change-password/ HTTP/1.1" 200 10227
-INFO 2025-04-28 06:29:41,925 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:29:57,166 basehttp 30668 14652 "GET /profile/ HTTP/1.1" 200 11543
-INFO 2025-04-28 06:29:57,208 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:29:57,900 basehttp 30668 14652 "GET /progress-chart/ HTTP/1.1" 200 59493
-INFO 2025-04-28 06:29:59,389 basehttp 30668 14652 "GET / HTTP/1.1" 200 9214
-INFO 2025-04-28 06:30:00,260 basehttp 30668 14652 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:30:00,270 basehttp 30668 14652 "GET / HTTP/1.1" 200 9604
-INFO 2025-04-28 06:30:00,303 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:30:01,305 basehttp 30668 14652 "GET /logout/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:30:01,317 basehttp 30668 14652 "GET /login/ HTTP/1.1" 200 3211
-INFO 2025-04-28 06:30:02,776 basehttp 30668 14652 "POST /login/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:30:02,786 basehttp 30668 14652 "GET / HTTP/1.1" 200 9214
-INFO 2025-04-28 06:30:03,701 basehttp 30668 14652 "GET /logout/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:30:03,710 basehttp 30668 14652 "GET /login/ HTTP/1.1" 200 3211
-INFO 2025-04-28 06:30:03,747 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:30:04,812 basehttp 30668 14652 "GET /register/ HTTP/1.1" 200 5655
-INFO 2025-04-28 06:30:06,412 basehttp 30668 14652 "GET /login/ HTTP/1.1" 200 3211
-INFO 2025-04-28 06:30:07,362 basehttp 30668 14652 "POST /login/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:30:07,372 basehttp 30668 14652 "GET / HTTP/1.1" 200 9214
-INFO 2025-04-28 06:30:07,401 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:30:08,151 basehttp 30668 14652 "GET /login/ HTTP/1.1" 200 3745
-INFO 2025-04-28 06:30:10,094 basehttp 30668 14652 "GET /progress-chart/ HTTP/1.1" 200 59493
-INFO 2025-04-28 06:30:15,416 basehttp 30668 14652 "GET / HTTP/1.1" 200 9214
-INFO 2025-04-28 06:30:15,450 basehttp 30668 14652 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:30:17,086 basehttp 30668 14652 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:30:17,100 basehttp 30668 14652 "GET / HTTP/1.1" 200 9604
-INFO 2025-04-28 06:30:18,867 basehttp 30668 14652 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:30:18,877 basehttp 30668 14652 "GET / HTTP/1.1" 200 9604
-INFO 2025-04-28 06:30:19,599 basehttp 30668 14652 "GET /progress-chart/ HTTP/1.1" 200 59493
-INFO 2025-04-28 06:31:42,421 autoreload 12576 3692 Watching for file changes with StatReloader
-INFO 2025-04-28 06:31:43,998 basehttp 12576 22084 "GET / HTTP/1.1" 200 11426
-INFO 2025-04-28 06:31:44,188 basehttp 12576 22084 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:31:49,311 basehttp 12576 22084 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:31:49,327 basehttp 12576 22084 "GET / HTTP/1.1" 200 11816
-INFO 2025-04-28 06:31:50,928 basehttp 12576 22084 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:31:50,942 basehttp 12576 22084 "GET / HTTP/1.1" 200 11816
-INFO 2025-04-28 06:31:51,858 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 71838
-INFO 2025-04-28 06:31:52,727 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 71838
-INFO 2025-04-28 06:31:59,022 basehttp 12576 22084 "GET /profile/ HTTP/1.1" 200 11748
-INFO 2025-04-28 06:31:59,053 basehttp 12576 22084 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:31:59,648 basehttp 12576 22084 "GET /change-password/ HTTP/1.1" 200 10227
-INFO 2025-04-28 06:32:00,351 basehttp 12576 22084 "GET /profile/ HTTP/1.1" 200 11748
-INFO 2025-04-28 06:32:00,903 basehttp 12576 22084 "GET /change-password/ HTTP/1.1" 200 10227
-INFO 2025-04-28 06:32:02,005 basehttp 12576 22084 "GET / HTTP/1.1" 200 11426
-INFO 2025-04-28 06:32:02,699 basehttp 12576 22084 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:32:02,709 basehttp 12576 22084 "GET / HTTP/1.1" 200 11816
-INFO 2025-04-28 06:32:03,964 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 71838
-INFO 2025-04-28 06:32:08,122 basehttp 12576 22084 "GET /logout/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:32:08,132 basehttp 12576 22084 "GET /login/ HTTP/1.1" 200 3211
-INFO 2025-04-28 06:32:09,847 basehttp 12576 22084 "POST /login/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:32:09,857 basehttp 12576 22084 "GET / HTTP/1.1" 200 11426
-INFO 2025-04-28 06:32:10,786 basehttp 12576 22084 "GET /logout/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:32:10,792 basehttp 12576 22084 "GET /login/ HTTP/1.1" 200 3211
-INFO 2025-04-28 06:32:11,653 basehttp 12576 22084 "GET /register/ HTTP/1.1" 200 5845
-INFO 2025-04-28 06:32:32,843 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:32:32,851 basehttp 12576 22084 "GET /login/?next=/progress-chart/ HTTP/1.1" 200 3211
-INFO 2025-04-28 06:32:32,882 basehttp 12576 22084 "GET /static/css/style.css HTTP/1.1" 200 2628
-INFO 2025-04-28 06:32:34,327 basehttp 12576 22084 "POST /login/?next=/progress-chart/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:32:34,338 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 71838
-INFO 2025-04-28 06:32:36,165 basehttp 12576 22084 "GET /logout/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:32:36,171 basehttp 12576 22084 "GET /login/ HTTP/1.1" 200 3211
-INFO 2025-04-28 06:32:37,228 basehttp 12576 22084 "GET /register/ HTTP/1.1" 200 5845
-INFO 2025-04-28 06:33:03,208 basehttp 12576 22084 "POST /register/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:03,217 basehttp 12576 22084 "GET / HTTP/1.1" 200 11831
-INFO 2025-04-28 06:33:03,258 basehttp 12576 22084 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:33:05,133 basehttp 12576 22084 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:05,141 basehttp 12576 22084 "GET / HTTP/1.1" 200 11812
-INFO 2025-04-28 06:33:06,572 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 71834
-INFO 2025-04-28 06:33:13,167 basehttp 12576 22084 "GET /profile/ HTTP/1.1" 200 11356
-INFO 2025-04-28 06:33:17,099 basehttp 12576 22084 "POST /profile/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:17,113 basehttp 12576 22084 "GET /profile/ HTTP/1.1" 200 12128
-INFO 2025-04-28 06:33:18,417 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 71834
-INFO 2025-04-28 06:33:20,128 basehttp 12576 22084 "GET / HTTP/1.1" 200 11422
-INFO 2025-04-28 06:33:22,618 basehttp 12576 22084 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:22,633 basehttp 12576 22084 "GET / HTTP/1.1" 200 11812
-INFO 2025-04-28 06:33:24,879 basehttp 12576 22084 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:24,893 basehttp 12576 22084 "GET / HTTP/1.1" 200 11812
-INFO 2025-04-28 06:33:24,933 basehttp 12576 22084 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:33:26,668 basehttp 12576 22084 "GET /vote-all/1/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:26,683 basehttp 12576 22084 "GET / HTTP/1.1" 200 11812
-INFO 2025-04-28 06:33:28,015 basehttp 12576 22084 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:28,036 basehttp 12576 22084 "GET / HTTP/1.1" 200 11812
-INFO 2025-04-28 06:33:28,604 basehttp 12576 22084 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:28,613 basehttp 12576 22084 "GET / HTTP/1.1" 200 11812
-INFO 2025-04-28 06:33:29,455 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 71834
-INFO 2025-04-28 06:33:30,396 basehttp 12576 22084 "GET /profile/ HTTP/1.1" 200 11732
-INFO 2025-04-28 06:33:33,461 basehttp 12576 22084 "POST /profile/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:33,475 basehttp 12576 22084 "GET /profile/ HTTP/1.1" 200 12021
-INFO 2025-04-28 06:33:35,737 basehttp 12576 22084 "POST /profile/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:35,750 basehttp 12576 22084 "GET /profile/ HTTP/1.1" 200 12193
-INFO 2025-04-28 06:33:36,399 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 74912
-INFO 2025-04-28 06:33:39,035 basehttp 12576 22084 "GET /profile/ HTTP/1.1" 200 11797
-INFO 2025-04-28 06:33:43,424 basehttp 12576 22084 "POST /profile/ HTTP/1.1" 200 12050
-INFO 2025-04-28 06:33:46,352 basehttp 12576 22084 "POST /profile/ HTTP/1.1" 302 0
-INFO 2025-04-28 06:33:46,365 basehttp 12576 22084 "GET /profile/ HTTP/1.1" 200 12281
-INFO 2025-04-28 06:33:47,012 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 74912
-INFO 2025-04-28 06:33:49,043 basehttp 12576 22084 "GET /progress-chart/ HTTP/1.1" 200 74912
-INFO 2025-04-28 06:33:49,071 basehttp 12576 22084 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:33:53,039 basehttp 12576 22084 "GET / HTTP/1.1" 200 174803
-INFO 2025-04-28 06:37:18,049 autoreload 3388 7824 Watching for file changes with StatReloader
-INFO 2025-04-28 06:37:24,655 autoreload 1500 21460 Watching for file changes with StatReloader
-INFO 2025-04-28 06:37:25,518 basehttp 1500 32584 "GET / HTTP/1.1" 200 177610
-INFO 2025-04-28 06:37:25,714 basehttp 1500 32584 "GET /static/css/style.css HTTP/1.1" 200 3443
-WARNING 2025-04-28 06:37:26,341 log 1500 32584 Not Found: /favicon.ico
-WARNING 2025-04-28 06:37:26,342 basehttp 1500 32584 "GET /favicon.ico HTTP/1.1" 404 5631
-INFO 2025-04-28 06:37:33,549 basehttp 1500 32584 "GET /vote-all/7/ HTTP/1.1" 200 204824
-INFO 2025-04-28 06:37:33,587 basehttp 1500 32584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:37:34,389 basehttp 1500 32584 "GET /progress-chart/ HTTP/1.1" 200 77719
-INFO 2025-04-28 06:37:34,424 basehttp 1500 32584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:37:35,092 basehttp 1500 32584 "GET / HTTP/1.1" 200 177610
-INFO 2025-04-28 06:37:35,916 basehttp 1500 32584 "GET /vote-all/7/ HTTP/1.1" 200 204824
-INFO 2025-04-28 06:37:35,954 basehttp 1500 32584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:37:37,224 basehttp 1500 32584 "GET / HTTP/1.1" 200 177610
-INFO 2025-04-28 06:37:37,256 basehttp 1500 32584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:37:37,815 basehttp 1500 32584 "GET /vote-all/7/ HTTP/1.1" 200 204824
-INFO 2025-04-28 06:37:38,576 basehttp 1500 32584 "GET / HTTP/1.1" 200 177610
-INFO 2025-04-28 06:37:38,619 basehttp 1500 32584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:38:26,424 basehttp 1500 32584 "GET /progress-chart/ HTTP/1.1" 200 77719
-INFO 2025-04-28 06:38:26,453 basehttp 1500 32584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:38:53,755 basehttp 1500 32584 "GET /profile/ HTTP/1.1" 200 14692
-INFO 2025-04-28 06:38:53,788 basehttp 1500 32584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:38:54,752 basehttp 1500 32584 "GET / HTTP/1.1" 200 177610
-INFO 2025-04-28 06:38:55,692 basehttp 1500 32584 "GET /profile/ HTTP/1.1" 200 14692
-INFO 2025-04-28 06:39:00,942 basehttp 1500 32584 "GET /change-password/ HTTP/1.1" 200 13030
-INFO 2025-04-28 06:39:09,684 basehttp 1500 32584 "GET / HTTP/1.1" 200 177610
-INFO 2025-04-28 06:39:09,718 basehttp 1500 32584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:42:21,515 autoreload 14040 5584 Watching for file changes with StatReloader
-INFO 2025-04-28 06:42:22,495 basehttp 14040 9244 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:42:22,678 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 200 4197
-INFO 2025-04-28 06:42:26,370 basehttp 14040 9244 "GET /vote-all/7/ HTTP/1.1" 200 203816
-INFO 2025-04-28 06:42:26,406 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:42:27,113 basehttp 14040 9244 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:42:27,146 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:42:27,991 basehttp 14040 9244 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:42:28,018 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:42:28,694 basehttp 14040 9244 "GET /profile/ HTTP/1.1" 200 13684
-INFO 2025-04-28 06:42:52,260 basehttp 14040 9244 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:42:52,287 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:42:54,234 basehttp 14040 9244 "GET /vote-all/7/ HTTP/1.1" 200 203816
-INFO 2025-04-28 06:42:54,988 basehttp 14040 9244 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:42:55,815 basehttp 14040 9244 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:42:55,843 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:42:56,588 basehttp 14040 9244 "GET /vote-all/7/ HTTP/1.1" 200 203816
-INFO 2025-04-28 06:42:57,619 basehttp 14040 9244 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:42:58,610 basehttp 14040 9244 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:42:58,639 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:42:59,206 basehttp 14040 9244 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:43:00,273 basehttp 14040 9244 "GET /profile/ HTTP/1.1" 200 13684
-INFO 2025-04-28 06:43:00,890 basehttp 14040 9244 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:43:04,049 basehttp 14040 9244 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:43:04,078 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:43:25,409 basehttp 14040 9244 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:43:25,437 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:43:26,847 basehttp 14040 9244 "GET /vote-all/7/ HTTP/1.1" 200 203816
-INFO 2025-04-28 06:43:27,389 basehttp 14040 9244 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:43:28,248 basehttp 14040 9244 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:43:28,754 basehttp 14040 9244 "GET /vote-all/7/ HTTP/1.1" 200 203816
-INFO 2025-04-28 06:43:50,403 basehttp 14040 9244 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:43:50,440 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:43:51,122 basehttp 14040 9244 "GET /profile/ HTTP/1.1" 200 13684
-INFO 2025-04-28 06:43:51,911 basehttp 14040 9244 "GET /profile/ HTTP/1.1" 200 13684
-INFO 2025-04-28 06:43:52,548 basehttp 14040 9244 "GET /change-password/ HTTP/1.1" 200 12022
-INFO 2025-04-28 06:44:03,055 basehttp 14040 9244 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:44:03,084 basehttp 14040 9244 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:46:26,801 autoreload 4176 5772 Watching for file changes with StatReloader
-INFO 2025-04-28 06:46:27,740 basehttp 4176 33532 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:46:27,923 basehttp 4176 33532 "GET /static/css/style.css HTTP/1.1" 200 5055
-INFO 2025-04-28 06:46:29,922 basehttp 4176 33532 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:46:29,954 basehttp 4176 33532 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:46:30,658 basehttp 4176 33532 "GET / HTTP/1.1" 200 176602
-INFO 2025-04-28 06:46:30,683 basehttp 4176 33532 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:46:31,172 basehttp 4176 33532 "GET /vote-all/7/ HTTP/1.1" 200 203816
-INFO 2025-04-28 06:46:31,198 basehttp 4176 33532 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:46:32,118 basehttp 4176 33532 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:46:32,148 basehttp 4176 33532 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:46:32,557 basehttp 4176 33532 "GET /profile/ HTTP/1.1" 200 13684
-INFO 2025-04-28 06:46:33,173 basehttp 4176 33532 "GET /change-password/ HTTP/1.1" 200 13202
-INFO 2025-04-28 06:46:33,204 basehttp 4176 33532 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:46:35,139 basehttp 4176 33532 "GET /progress-chart/ HTTP/1.1" 200 76711
-INFO 2025-04-28 06:46:35,165 basehttp 4176 33532 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:49:11,962 autoreload 16396 1864 Watching for file changes with StatReloader
-ERROR 2025-04-28 06:49:13,391 log 16396 32344 Internal Server Error: /
-Traceback (most recent call last):
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 505, in parse
-    compile_func = self.tags[command]
-KeyError: 'break'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
-    response = get_response(request)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
-    response = wrapped_callback(request, *callback_args, **callback_kwargs)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
-    return view_func(request, *args, **kwargs)
-  File "C:\Users\yyurc\Documents\GitHub\python-whisper-project\src\django_project\core\views.py", line 160, in dashboard
-    return render(request, 'core/dashboard.html', context)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\shortcuts.py", line 24, in render
-    content = loader.render_to_string(template_name, context, request, using=using)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\loader.py", line 62, in render_to_string
-    return template.render(context, request)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\backends\django.py", line 61, in render
-    return self.template.render(context)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 175, in render
-    return self._render(context)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 167, in _render
-    return self.nodelist.render(context)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 1005, in render
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
-    return SafeString("".join([node.render_annotated(context) for node in self]))
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 966, in render_annotated
-    return self.render(context)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\loader_tags.py", line 132, in render
-    compiled_parent = self.get_parent(context)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
-    return self.find_template(parent, context)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\loader_tags.py", line 107, in find_template
-    template, origin = context.template.engine.find_template(
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\engine.py", line 157, in find_template
-    template = loader.get_template(name, skip=skip)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
-    template = super().get_template(template_name, skip)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
-    return Template(
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 154, in __init__
-    self.nodelist = self.compile_nodelist()
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
-    return parser.parse()
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 513, in parse
-    raise self.error(token, e)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 511, in parse
-    compiled_result = compile_func(self, token)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
-    nodelist = parser.parse(("elif", "else", "endif"))
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 513, in parse
-    raise self.error(token, e)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 511, in parse
-    compiled_result = compile_func(self, token)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
-    nodelist = parser.parse(("elif", "else", "endif"))
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 513, in parse
-    raise self.error(token, e)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 511, in parse
-    compiled_result = compile_func(self, token)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
-    nodelist_loop = parser.parse(
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 513, in parse
-    raise self.error(token, e)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 511, in parse
-    compiled_result = compile_func(self, token)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
-    nodelist = parser.parse(("elif", "else", "endif"))
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 507, in parse
-    self.invalid_block_tag(token, command, parse_until)
-  File "C:\Users\yyurc\AppData\Local\Programs\Python\Python38\lib\site-packages\django\template\base.py", line 558, in invalid_block_tag
-    raise self.error(
-django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 134: 'break', expected 'elif', 'else' or 'endif'. Did you forget to register or load this tag?
-ERROR 2025-04-28 06:49:13,396 basehttp 16396 32344 "GET / HTTP/1.1" 500 357843
-INFO 2025-04-28 06:52:42,482 autoreload 5976 16572 Watching for file changes with StatReloader
-INFO 2025-04-28 06:52:47,282 autoreload 32100 4632 Watching for file changes with StatReloader
-INFO 2025-04-28 06:52:51,584 basehttp 32100 12340 "GET / HTTP/1.1" 200 177363
-INFO 2025-04-28 06:52:51,612 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 200 6783
-INFO 2025-04-28 06:52:52,225 basehttp 32100 12340 "GET / HTTP/1.1" 200 177363
-INFO 2025-04-28 06:52:52,256 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:52:52,881 basehttp 32100 12340 "GET / HTTP/1.1" 200 177363
-INFO 2025-04-28 06:52:52,907 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:52:53,841 basehttp 32100 12340 "GET / HTTP/1.1" 200 177363
-INFO 2025-04-28 06:52:53,864 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:52:54,474 basehttp 32100 12340 "GET /vote-all/7/ HTTP/1.1" 200 204542
-INFO 2025-04-28 06:52:54,510 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:52:55,085 basehttp 32100 12340 "GET /progress-chart/ HTTP/1.1" 200 77437
-INFO 2025-04-28 06:52:55,123 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:52:56,549 basehttp 32100 12340 "GET /profile/ HTTP/1.1" 200 14410
-INFO 2025-04-28 06:52:56,584 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:52:57,406 basehttp 32100 12340 "GET /change-password/ HTTP/1.1" 200 14326
-INFO 2025-04-28 06:52:57,446 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:52:58,132 basehttp 32100 12340 "GET / HTTP/1.1" 200 177363
-INFO 2025-04-28 06:52:59,088 basehttp 32100 12340 "GET /progress-chart/ HTTP/1.1" 200 77437
-INFO 2025-04-28 06:52:59,130 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:52:59,865 basehttp 32100 12340 "GET /change-password/ HTTP/1.1" 200 14326
-INFO 2025-04-28 06:53:01,365 basehttp 32100 12340 "GET /profile/ HTTP/1.1" 200 14410
-INFO 2025-04-28 06:53:01,412 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:53:02,596 basehttp 32100 12340 "GET / HTTP/1.1" 200 177363
-INFO 2025-04-28 06:53:02,629 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:53:03,458 basehttp 32100 12340 "GET /progress-chart/ HTTP/1.1" 200 77437
-INFO 2025-04-28 06:53:50,960 basehttp 32100 12340 "GET / HTTP/1.1" 200 177363
-INFO 2025-04-28 06:53:50,988 basehttp 32100 12340 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:53:53,052 basehttp 32100 12340 "GET /progress-chart/ HTTP/1.1" 200 77437
-INFO 2025-04-28 06:55:55,753 autoreload 2232 10532 Watching for file changes with StatReloader
-INFO 2025-04-28 06:55:58,155 basehttp 2232 28836 "GET / HTTP/1.1" 200 177363
-INFO 2025-04-28 06:55:58,325 basehttp 2232 28836 "GET /static/css/style.css HTTP/1.1" 200 6783
-INFO 2025-04-28 06:56:00,418 basehttp 2232 28836 "GET /vote-all/7/ HTTP/1.1" 200 204542
-INFO 2025-04-28 06:56:00,984 basehttp 2232 28836 "GET /progress-chart/ HTTP/1.1" 200 77437
-INFO 2025-04-28 06:56:01,748 basehttp 2232 28836 "GET /profile/ HTTP/1.1" 200 14410
-INFO 2025-04-28 06:56:02,357 basehttp 2232 28836 "GET /change-password/ HTTP/1.1" 200 14326
-INFO 2025-04-28 06:56:11,876 autoreload 24896 7776 Watching for file changes with StatReloader
-INFO 2025-04-28 06:56:12,852 basehttp 24896 31964 "GET / HTTP/1.1" 200 177764
-INFO 2025-04-28 06:56:14,338 basehttp 24896 31964 "GET /progress-chart/ HTTP/1.1" 200 77735
-INFO 2025-04-28 06:56:15,374 basehttp 24896 31964 "GET / HTTP/1.1" 200 177764
-INFO 2025-04-28 06:56:16,577 basehttp 24896 31964 "GET /vote-all/7/ HTTP/1.1" 200 204840
-INFO 2025-04-28 06:56:17,304 basehttp 24896 31964 "GET /progress-chart/ HTTP/1.1" 200 77735
-INFO 2025-04-28 06:56:17,337 basehttp 24896 31964 "GET /static/css/style.css HTTP/1.1" 200 7371
-INFO 2025-04-28 06:56:17,826 basehttp 24896 31964 "GET /profile/ HTTP/1.1" 200 14708
-INFO 2025-04-28 06:56:17,863 basehttp 24896 31964 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:56:18,295 basehttp 24896 31964 "GET /change-password/ HTTP/1.1" 200 14624
-INFO 2025-04-28 06:56:18,326 basehttp 24896 31964 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:57:05,950 basehttp 24896 31964 "GET / HTTP/1.1" 200 177764
-INFO 2025-04-28 06:57:05,976 basehttp 24896 31964 "GET /static/css/style.css HTTP/1.1" 200 7371
-WARNING 2025-04-28 06:57:06,112 log 24896 31964 Not Found: /favicon.ico
-WARNING 2025-04-28 06:57:06,114 basehttp 24896 31964 "GET /favicon.ico HTTP/1.1" 404 5631
-INFO 2025-04-28 06:57:08,619 basehttp 24896 31964 "GET / HTTP/1.1" 200 177764
-INFO 2025-04-28 06:57:09,405 basehttp 24896 31964 "GET /progress-chart/ HTTP/1.1" 200 77735
-INFO 2025-04-28 06:57:35,324 basehttp 24896 31964 "GET /change-password/ HTTP/1.1" 200 14624
-INFO 2025-04-28 06:57:35,354 basehttp 24896 31964 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 06:57:35,727 basehttp 24896 31964 "GET /profile/ HTTP/1.1" 200 14708
-INFO 2025-04-28 06:57:36,106 basehttp 24896 31964 "GET /progress-chart/ HTTP/1.1" 200 77735
-INFO 2025-04-28 06:57:36,586 basehttp 24896 31964 "GET / HTTP/1.1" 200 177764
-INFO 2025-04-28 06:59:47,713 basehttp 24896 31964 "GET / HTTP/1.1" 200 177764
-INFO 2025-04-28 06:59:47,741 basehttp 24896 31964 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:00:35,204 autoreload 20820 8324 Watching for file changes with StatReloader
-INFO 2025-04-28 07:00:47,334 basehttp 20820 1820 "GET / HTTP/1.1" 200 177764
-INFO 2025-04-28 07:00:47,515 basehttp 20820 1820 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:00:51,038 basehttp 20820 1820 "GET /progress-chart/ HTTP/1.1" 200 77735
-INFO 2025-04-28 07:00:51,691 basehttp 20820 1820 "GET /profile/ HTTP/1.1" 200 14708
-INFO 2025-04-28 07:00:52,130 basehttp 20820 1820 "GET /change-password/ HTTP/1.1" 200 14624
-INFO 2025-04-28 07:00:52,674 basehttp 20820 1820 "GET / HTTP/1.1" 200 177764
-INFO 2025-04-28 07:01:05,844 basehttp 20820 1820 "GET /profile/ HTTP/1.1" 200 14708
-INFO 2025-04-28 07:01:05,881 basehttp 20820 1820 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:01:06,424 basehttp 20820 1820 "GET /progress-chart/ HTTP/1.1" 200 77735
-INFO 2025-04-28 07:01:06,996 basehttp 20820 1820 "GET / HTTP/1.1" 200 177764
-INFO 2025-04-28 07:02:37,376 autoreload 27564 15636 Watching for file changes with StatReloader
-INFO 2025-04-28 07:02:38,952 basehttp 27564 20068 "GET / HTTP/1.1" 200 178793
-INFO 2025-04-28 07:02:39,142 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 200 8450
-INFO 2025-04-28 07:02:40,676 basehttp 27564 20068 "GET /progress-chart/ HTTP/1.1" 200 78759
-INFO 2025-04-28 07:02:40,709 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:02:41,373 basehttp 27564 20068 "GET /profile/ HTTP/1.1" 200 15732
-INFO 2025-04-28 07:02:41,408 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:02:41,752 basehttp 27564 20068 "GET /change-password/ HTTP/1.1" 200 15648
-INFO 2025-04-28 07:02:42,225 basehttp 27564 20068 "GET / HTTP/1.1" 200 178793
-INFO 2025-04-28 07:02:42,255 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:02:43,438 basehttp 27564 20068 "GET /progress-chart/ HTTP/1.1" 200 78759
-INFO 2025-04-28 07:02:43,469 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:02:44,036 basehttp 27564 20068 "GET /profile/ HTTP/1.1" 200 15732
-INFO 2025-04-28 07:02:44,416 basehttp 27564 20068 "GET /change-password/ HTTP/1.1" 200 15648
-INFO 2025-04-28 07:02:44,444 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:02:45,700 basehttp 27564 20068 "GET / HTTP/1.1" 200 178793
-INFO 2025-04-28 07:02:45,729 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:02:47,378 basehttp 27564 20068 "GET /progress-chart/ HTTP/1.1" 200 78759
-INFO 2025-04-28 07:02:47,412 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:02:48,524 basehttp 27564 20068 "GET / HTTP/1.1" 200 178793
-INFO 2025-04-28 07:03:04,949 basehttp 27564 20068 "GET /progress-chart/ HTTP/1.1" 200 78759
-INFO 2025-04-28 07:03:04,983 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:03:05,763 basehttp 27564 20068 "GET / HTTP/1.1" 200 178793
-INFO 2025-04-28 07:03:07,190 basehttp 27564 20068 "GET /progress-chart/ HTTP/1.1" 200 78759
-INFO 2025-04-28 07:03:07,974 basehttp 27564 20068 "GET /profile/ HTTP/1.1" 200 15732
-INFO 2025-04-28 07:03:08,002 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:03:08,469 basehttp 27564 20068 "GET /change-password/ HTTP/1.1" 200 15648
-INFO 2025-04-28 07:03:09,519 basehttp 27564 20068 "GET /profile/ HTTP/1.1" 200 15732
-INFO 2025-04-28 07:03:18,087 basehttp 27564 20068 "GET / HTTP/1.1" 200 178793
-INFO 2025-04-28 07:03:18,115 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:03:19,895 basehttp 27564 20068 "GET /progress-chart/ HTTP/1.1" 200 78759
-INFO 2025-04-28 07:03:20,395 basehttp 27564 20068 "GET / HTTP/1.1" 200 178793
-INFO 2025-04-28 07:03:21,022 basehttp 27564 20068 "GET /progress-chart/ HTTP/1.1" 200 78759
-INFO 2025-04-28 07:03:58,547 basehttp 27564 20068 "GET /progress-chart/ HTTP/1.1" 200 78759
-INFO 2025-04-28 07:03:58,590 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:03:59,732 basehttp 27564 20068 "GET /profile/ HTTP/1.1" 200 15732
-INFO 2025-04-28 07:04:10,213 basehttp 27564 20068 "GET / HTTP/1.1" 200 178793
-INFO 2025-04-28 07:04:10,250 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:04:11,257 basehttp 27564 20068 "GET /progress-chart/ HTTP/1.1" 200 78759
-INFO 2025-04-28 07:04:11,830 basehttp 27564 20068 "GET /profile/ HTTP/1.1" 200 15732
-INFO 2025-04-28 07:04:12,608 basehttp 27564 20068 "GET /change-password/ HTTP/1.1" 200 15648
-INFO 2025-04-28 07:04:52,438 basehttp 27564 20068 "GET / HTTP/1.1" 200 178793
-INFO 2025-04-28 07:04:52,469 basehttp 27564 20068 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:07:32,052 autoreload 31012 32488 Watching for file changes with StatReloader
-INFO 2025-04-28 07:07:33,006 basehttp 31012 24592 "GET / HTTP/1.1" 200 180076
-INFO 2025-04-28 07:07:33,183 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 200 8283
-INFO 2025-04-28 07:07:35,474 basehttp 31012 24592 "GET /progress-chart/ HTTP/1.1" 200 80077
-INFO 2025-04-28 07:07:35,514 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:07:36,217 basehttp 31012 24592 "GET /profile/ HTTP/1.1" 200 17050
-INFO 2025-04-28 07:07:36,253 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:07:36,630 basehttp 31012 24592 "GET /change-password/ HTTP/1.1" 200 16966
-INFO 2025-04-28 07:07:36,662 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:07:37,212 basehttp 31012 24592 "GET / HTTP/1.1" 200 180076
-INFO 2025-04-28 07:07:37,240 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:07:39,786 basehttp 31012 24592 "GET /vote-all/7/ HTTP/1.1" 200 207182
-INFO 2025-04-28 07:07:39,823 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:07:41,645 basehttp 31012 24592 "GET / HTTP/1.1" 200 180076
-INFO 2025-04-28 07:07:41,676 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:07:52,447 basehttp 31012 24592 "GET /progress-chart/ HTTP/1.1" 200 80077
-INFO 2025-04-28 07:07:52,475 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:07:53,486 basehttp 31012 24592 "GET / HTTP/1.1" 200 180076
-INFO 2025-04-28 07:08:18,724 basehttp 31012 24592 "GET /progress-chart/ HTTP/1.1" 200 80077
-INFO 2025-04-28 07:08:18,764 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:08:21,235 basehttp 31012 24592 "GET /profile/ HTTP/1.1" 200 17050
-INFO 2025-04-28 07:08:33,218 basehttp 31012 24592 "GET /change-password/ HTTP/1.1" 200 16966
-INFO 2025-04-28 07:08:33,254 basehttp 31012 24592 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:08:35,780 basehttp 31012 24592 "GET / HTTP/1.1" 200 180076
-INFO 2025-04-28 07:08:36,208 basehttp 31012 24592 "GET /vote-all/7/ HTTP/1.1" 200 207182
-INFO 2025-04-28 07:13:27,112 autoreload 9584 7204 Watching for file changes with StatReloader
-INFO 2025-04-28 07:13:28,825 basehttp 9584 30204 "GET /vote-all/7/ HTTP/1.1" 200 208708
-INFO 2025-04-28 07:13:28,856 basehttp 9584 30204 "GET /static/css/style.css HTTP/1.1" 200 9480
-INFO 2025-04-28 07:13:29,752 basehttp 9584 30204 "GET / HTTP/1.1" 200 181743
-INFO 2025-04-28 07:13:29,777 basehttp 9584 30204 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:13:30,460 basehttp 9584 30204 "GET /progress-chart/ HTTP/1.1" 200 81608
-INFO 2025-04-28 07:13:30,492 basehttp 9584 30204 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:13:31,293 basehttp 9584 30204 "GET / HTTP/1.1" 200 181743
-INFO 2025-04-28 07:13:31,325 basehttp 9584 30204 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:13:31,775 basehttp 9584 30204 "GET /vote-all/7/ HTTP/1.1" 200 208708
-INFO 2025-04-28 07:13:31,817 basehttp 9584 30204 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:13:32,484 basehttp 9584 30204 "GET /progress-chart/ HTTP/1.1" 200 81608
-INFO 2025-04-28 07:13:32,534 basehttp 9584 30204 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:13:33,072 basehttp 9584 30204 "GET /change-password/ HTTP/1.1" 200 18498
-INFO 2025-04-28 07:13:33,110 basehttp 9584 30204 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:16:45,749 autoreload 23752 16000 Watching for file changes with StatReloader
-INFO 2025-04-28 07:16:46,801 basehttp 23752 20560 "GET / HTTP/1.1" 200 182487
-INFO 2025-04-28 07:16:46,989 basehttp 23752 20560 "GET /static/css/style.css HTTP/1.1" 200 9267
-INFO 2025-04-28 07:16:48,371 basehttp 23752 20560 "GET /progress-chart/ HTTP/1.1" 200 82159
-INFO 2025-04-28 07:16:48,406 basehttp 23752 20560 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:16:49,060 basehttp 23752 20560 "GET / HTTP/1.1" 200 182487
-INFO 2025-04-28 07:16:49,086 basehttp 23752 20560 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:16:49,704 basehttp 23752 20560 "GET /progress-chart/ HTTP/1.1" 200 82159
-INFO 2025-04-28 07:16:49,733 basehttp 23752 20560 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:16:50,338 basehttp 23752 20560 "GET /profile/ HTTP/1.1" 200 19118
-INFO 2025-04-28 07:16:50,372 basehttp 23752 20560 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:16:50,700 basehttp 23752 20560 "GET /change-password/ HTTP/1.1" 200 19050
-INFO 2025-04-28 07:16:50,727 basehttp 23752 20560 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:19:37,636 autoreload 32040 24028 Watching for file changes with StatReloader
-INFO 2025-04-28 07:19:38,963 basehttp 32040 18564 "GET /change-password/ HTTP/1.1" 200 19050
-INFO 2025-04-28 07:19:39,002 basehttp 32040 18564 "GET /static/css/style.css HTTP/1.1" 200 7684
-INFO 2025-04-28 07:19:39,674 basehttp 32040 18564 "GET /change-password/ HTTP/1.1" 200 19050
-INFO 2025-04-28 07:19:39,703 basehttp 32040 18564 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:19:40,732 basehttp 32040 18564 "GET /progress-chart/ HTTP/1.1" 200 82159
-INFO 2025-04-28 07:19:40,768 basehttp 32040 18564 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:19:41,453 basehttp 32040 18564 "GET / HTTP/1.1" 200 182487
-INFO 2025-04-28 07:19:41,492 basehttp 32040 18564 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:22:17,127 autoreload 22724 19196 Watching for file changes with StatReloader
-INFO 2025-04-28 07:22:18,327 basehttp 22724 18160 "GET / HTTP/1.1" 200 184041
-INFO 2025-04-28 07:22:18,518 basehttp 22724 18160 "GET /static/css/style.css HTTP/1.1" 200 12200
-INFO 2025-04-28 07:22:20,617 basehttp 22724 18160 "GET / HTTP/1.1" 200 184041
-INFO 2025-04-28 07:22:20,645 basehttp 22724 18160 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:22:21,098 basehttp 22724 18160 "GET /progress-chart/ HTTP/1.1" 200 83713
-INFO 2025-04-28 07:22:21,883 basehttp 22724 18160 "GET /profile/ HTTP/1.1" 200 20672
-INFO 2025-04-28 07:22:22,305 basehttp 22724 18160 "GET /change-password/ HTTP/1.1" 200 20604
-INFO 2025-04-28 07:22:22,347 basehttp 22724 18160 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:22:22,770 basehttp 22724 18160 "GET / HTTP/1.1" 200 184041
-INFO 2025-04-28 07:22:24,734 basehttp 22724 18160 "GET / HTTP/1.1" 200 184041
-INFO 2025-04-28 07:22:24,768 basehttp 22724 18160 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:22:25,179 basehttp 22724 18160 "GET /progress-chart/ HTTP/1.1" 200 83713
-INFO 2025-04-28 07:22:27,412 basehttp 22724 18160 "GET /logout/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:22:27,424 basehttp 22724 18160 "GET /login/ HTTP/1.1" 200 11516
-INFO 2025-04-28 07:22:27,456 basehttp 22724 18160 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:22:28,858 basehttp 22724 18160 "POST /login/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:22:28,868 basehttp 22724 18160 "GET / HTTP/1.1" 200 20664
-INFO 2025-04-28 07:23:56,812 autoreload 29924 3536 Watching for file changes with StatReloader
-INFO 2025-04-28 07:23:57,589 basehttp 29924 11584 "GET / HTTP/1.1" 200 20411
-INFO 2025-04-28 07:23:57,767 basehttp 29924 11584 "GET /static/css/style.css HTTP/1.1" 200 11796
-INFO 2025-04-28 07:23:59,617 basehttp 29924 11584 "GET / HTTP/1.1" 200 20411
-INFO 2025-04-28 07:23:59,642 basehttp 29924 11584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:24:00,402 basehttp 29924 11584 "GET /progress-chart/ HTTP/1.1" 200 80386
-INFO 2025-04-28 07:24:00,438 basehttp 29924 11584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:24:01,605 basehttp 29924 11584 "GET / HTTP/1.1" 200 20411
-INFO 2025-04-28 07:24:01,635 basehttp 29924 11584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:24:03,895 basehttp 29924 11584 "GET /progress-chart/ HTTP/1.1" 200 80386
-INFO 2025-04-28 07:24:03,930 basehttp 29924 11584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:24:04,558 basehttp 29924 11584 "GET /profile/ HTTP/1.1" 200 20282
-INFO 2025-04-28 07:24:04,586 basehttp 29924 11584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:24:05,018 basehttp 29924 11584 "GET /change-password/ HTTP/1.1" 200 20355
-INFO 2025-04-28 07:24:05,044 basehttp 29924 11584 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:24:05,580 basehttp 29924 11584 "GET / HTTP/1.1" 200 20411
-INFO 2025-04-28 07:26:12,218 autoreload 25852 33248 Watching for file changes with StatReloader
-INFO 2025-04-28 07:26:13,597 basehttp 25852 30968 "GET / HTTP/1.1" 200 20411
-INFO 2025-04-28 07:26:13,769 basehttp 25852 30968 "GET /static/css/style.css HTTP/1.1" 304 0
-WARNING 2025-04-28 07:26:14,254 log 25852 30968 Not Found: /favicon.ico
-WARNING 2025-04-28 07:26:14,255 basehttp 25852 30968 "GET /favicon.ico HTTP/1.1" 404 5631
-INFO 2025-04-28 07:26:15,200 basehttp 25852 30968 "GET / HTTP/1.1" 200 20411
-INFO 2025-04-28 07:26:16,197 basehttp 25852 30968 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:26:16,205 basehttp 25852 30968 "GET / HTTP/1.1" 200 20787
-INFO 2025-04-28 07:26:17,566 basehttp 25852 30968 "GET /progress-chart/ HTTP/1.1" 200 80386
-INFO 2025-04-28 07:26:22,804 autoreload 2512 12824 Watching for file changes with StatReloader
-INFO 2025-04-28 07:26:23,819 basehttp 2512 23992 "GET / HTTP/1.1" 200 20460
-INFO 2025-04-28 07:26:23,890 basehttp 2512 23992 "GET / HTTP/1.1" 200 20460
-INFO 2025-04-28 07:26:27,608 basehttp 2512 23992 "GET / HTTP/1.1" 200 20460
-INFO 2025-04-28 07:26:27,639 basehttp 2512 23992 "GET /static/css/style.css HTTP/1.1" 200 12873
-INFO 2025-04-28 07:26:28,111 basehttp 2512 23992 "GET / HTTP/1.1" 200 20460
-INFO 2025-04-28 07:26:28,137 basehttp 2512 23992 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:26:28,961 basehttp 2512 23992 "GET / HTTP/1.1" 200 20460
-INFO 2025-04-28 07:26:28,984 basehttp 2512 23992 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:26:29,813 basehttp 2512 23992 "GET /logout/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:26:29,830 basehttp 2512 23992 "GET /login/ HTTP/1.1" 200 11463
-INFO 2025-04-28 07:26:29,860 basehttp 2512 23992 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:26:31,432 basehttp 2512 23992 "POST /login/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:26:31,441 basehttp 2512 23992 "GET / HTTP/1.1" 200 20460
-INFO 2025-04-28 07:26:31,472 basehttp 2512 23992 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:27:53,668 autoreload 30472 9336 Watching for file changes with StatReloader
-INFO 2025-04-28 07:27:54,549 basehttp 30472 5696 "GET / HTTP/1.1" 200 19110
-INFO 2025-04-28 07:27:54,748 basehttp 30472 5696 "GET /static/css/style.css HTTP/1.1" 200 10361
-INFO 2025-04-28 07:27:56,383 basehttp 30472 5696 "GET /progress-chart/ HTTP/1.1" 200 79085
-INFO 2025-04-28 07:27:56,415 basehttp 30472 5696 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:25,092 autoreload 29216 24112 Watching for file changes with StatReloader
-INFO 2025-04-28 07:36:26,066 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:26,264 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 200 13394
-WARNING 2025-04-28 07:36:26,855 log 29216 33316 Not Found: /favicon.ico
-WARNING 2025-04-28 07:36:26,855 basehttp 29216 33316 "GET /favicon.ico HTTP/1.1" 404 5631
-INFO 2025-04-28 07:36:28,005 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:28,028 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:30,102 basehttp 29216 33316 "GET /progress-chart/ HTTP/1.1" 200 80593
-INFO 2025-04-28 07:36:30,135 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:33,224 basehttp 29216 33316 "GET /profile/ HTTP/1.1" 200 20489
-INFO 2025-04-28 07:36:33,263 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:33,790 basehttp 29216 33316 "GET /change-password/ HTTP/1.1" 200 20204
-INFO 2025-04-28 07:36:35,033 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:35,061 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:36,012 basehttp 29216 33316 "GET /progress-chart/ HTTP/1.1" 200 80593
-INFO 2025-04-28 07:36:36,725 basehttp 29216 33316 "GET /profile/ HTTP/1.1" 200 20489
-INFO 2025-04-28 07:36:36,755 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:37,145 basehttp 29216 33316 "GET /change-password/ HTTP/1.1" 200 20204
-INFO 2025-04-28 07:36:38,213 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:38,249 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:39,338 basehttp 29216 33316 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:36:39,348 basehttp 29216 33316 "GET / HTTP/1.1" 200 20994
-INFO 2025-04-28 07:36:39,891 basehttp 29216 33316 "GET /progress-chart/ HTTP/1.1" 200 80593
-INFO 2025-04-28 07:36:39,923 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:40,801 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:40,828 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:41,321 basehttp 29216 33316 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:36:41,330 basehttp 29216 33316 "GET / HTTP/1.1" 200 20994
-INFO 2025-04-28 07:36:41,925 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:41,952 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:42,459 basehttp 29216 33316 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:36:42,469 basehttp 29216 33316 "GET / HTTP/1.1" 200 20994
-INFO 2025-04-28 07:36:43,181 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:43,203 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:43,639 basehttp 29216 33316 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:36:43,647 basehttp 29216 33316 "GET / HTTP/1.1" 200 20994
-INFO 2025-04-28 07:36:44,327 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:44,767 basehttp 29216 33316 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:36:44,778 basehttp 29216 33316 "GET / HTTP/1.1" 200 20994
-INFO 2025-04-28 07:36:45,153 basehttp 29216 33316 "GET /progress-chart/ HTTP/1.1" 200 80593
-INFO 2025-04-28 07:36:45,183 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:46,022 basehttp 29216 33316 "GET /profile/ HTTP/1.1" 200 20489
-INFO 2025-04-28 07:36:46,559 basehttp 29216 33316 "GET /change-password/ HTTP/1.1" 200 20204
-INFO 2025-04-28 07:36:47,092 basehttp 29216 33316 "GET /logout/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:36:47,104 basehttp 29216 33316 "GET /login/ HTTP/1.1" 200 11670
-INFO 2025-04-28 07:36:49,313 basehttp 29216 33316 "POST /login/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:36:49,321 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:49,354 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:36:50,256 basehttp 29216 33316 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:36:52,055 basehttp 29216 33316 "GET /vote-all/7/ HTTP/1.1" 302 0
-INFO 2025-04-28 07:36:52,062 basehttp 29216 33316 "GET / HTTP/1.1" 200 20994
-INFO 2025-04-28 07:36:52,090 basehttp 29216 33316 "GET /static/css/style.css HTTP/1.1" 304 0
-INFO 2025-04-28 07:54:35,547 basehttp 29216 24248 "GET / HTTP/1.1" 200 20618
-INFO 2025-04-28 07:54:35,582 basehttp 29216 24248 "GET /static/css/style.css HTTP/1.1" 200 13394
-WARNING 2025-04-28 07:54:35,721 log 29216 24248 Not Found: /favicon.ico
-WARNING 2025-04-28 07:54:35,722 basehttp 29216 24248 "GET /favicon.ico HTTP/1.1" 404 5631
+WARNING 2025-04-28 20:10:20,078 log 28824 32744 Forbidden (CSRF cookie not set.): /vote/4/4/
+WARNING 2025-04-28 20:37:19,135 log 26140 33388 Forbidden (CSRF cookie not set.): /vote/7/7/
+WARNING 2025-04-28 20:41:50,892 log 22260 14456 Forbidden (CSRF cookie not set.): /vote/10/10/
+INFO 2025-04-28 20:51:44,043 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:51:44,730 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:51:44,730 tests 30344 6304 Testing team loading endpoint
+INFO 2025-04-28 20:51:44,931 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:51:45,622 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:51:45,622 tests 30344 6304 Setting up admin tests
+INFO 2025-04-28 20:51:45,622 tests 30344 6304 Testing admin access permissions
+INFO 2025-04-28 20:51:45,989 tests 30344 6304 Setting up admin tests
+INFO 2025-04-28 20:51:45,989 tests 30344 6304 Testing admin session management
+INFO 2025-04-28 20:51:46,171 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:51:46,868 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:51:46,868 tests 30344 6304 Testing nonexistent session access
+WARNING 2025-04-28 20:51:47,045 log 30344 6304 Not Found: /vote/9999/13/
+INFO 2025-04-28 20:51:47,048 tests 30344 6304 Testing user without team voting
+INFO 2025-04-28 20:51:47,405 tests 30344 6304 Testing vote update functionality
+INFO 2025-04-28 20:51:47,589 tests 30344 6304 Testing voting on inactive session
+INFO 2025-04-28 20:51:47,768 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:51:48,463 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:51:48,463 tests 30344 6304 Testing invalid team selection
+INFO 2025-04-28 20:51:48,474 tests 30344 6304 Testing password mismatch
+INFO 2025-04-28 20:51:48,482 tests 30344 6304 Testing valid registration form
+INFO 2025-04-28 20:51:48,488 tests 30344 6304 Testing vote form valid values
+INFO 2025-04-28 20:51:48,491 tests 30344 6304 Testing vote form validation
+INFO 2025-04-28 20:51:48,496 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:51:49,174 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:51:49,175 tests 30344 6304 Setting up integration tests
+INFO 2025-04-28 20:51:49,175 tests 30344 6304 Testing complete voting workflow
+INFO 2025-04-28 20:51:49,727 tests 30344 6304 Setting up integration tests
+INFO 2025-04-28 20:51:49,727 tests 30344 6304 Testing role-based access control
+INFO 2025-04-28 20:51:50,282 tests 30344 6304 Setting up integration tests
+INFO 2025-04-28 20:51:50,282 tests 30344 6304 Testing session tracking
+INFO 2025-04-28 20:51:50,466 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:51:51,157 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:51:51,158 tests 30344 6304 Testing department string representation
+INFO 2025-04-28 20:51:51,161 tests 30344 6304 Testing health card string representation
+INFO 2025-04-28 20:51:51,163 tests 30344 6304 Testing session string representation
+INFO 2025-04-28 20:51:51,167 tests 30344 6304 Testing team string representation
+INFO 2025-04-28 20:51:51,169 tests 30344 6304 Testing user creation
+INFO 2025-04-28 20:51:51,344 tests 30344 6304 Testing vote string representation
+INFO 2025-04-28 20:51:51,348 tests 30344 6304 Testing vote uniqueness constraint
+INFO 2025-04-28 20:51:51,353 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:51:52,026 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:51:52,026 tests 30344 6304 Setting up permission tests
+INFO 2025-04-28 20:51:52,026 tests 30344 6304 Testing department leader permissions
+INFO 2025-04-28 20:51:52,210 tests 30344 6304 Setting up permission tests
+INFO 2025-04-28 20:51:52,211 tests 30344 6304 Testing engineer permissions
+INFO 2025-04-28 20:51:52,392 tests 30344 6304 Setting up permission tests
+INFO 2025-04-28 20:51:52,392 tests 30344 6304 Testing senior manager permissions
+INFO 2025-04-28 20:51:52,574 tests 30344 6304 Setting up permission tests
+INFO 2025-04-28 20:51:52,574 tests 30344 6304 Testing team leader permissions
+INFO 2025-04-28 20:51:52,759 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:51:53,455 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:51:53,455 tests 30344 6304 Setting up reporting tests
+INFO 2025-04-28 20:51:53,455 tests 30344 6304 Setting up votes for reporting tests
+INFO 2025-04-28 20:51:56,021 tests 30344 6304 Testing department summary report
+INFO 2025-04-28 20:51:56,211 tests 30344 6304 Setting up reporting tests
+INFO 2025-04-28 20:51:56,212 tests 30344 6304 Setting up votes for reporting tests
+INFO 2025-04-28 20:51:58,777 tests 30344 6304 Testing team summary report
+INFO 2025-04-28 20:51:58,960 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:51:59,645 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:51:59,645 tests 30344 6304 Testing authentication required
+INFO 2025-04-28 20:51:59,650 tests 30344 6304 Testing CSRF protection
+WARNING 2025-04-28 20:52:00,001 log 30344 6304 Forbidden (CSRF cookie not set.): /vote/13/13/
+INFO 2025-04-28 20:52:00,005 tests 30344 6304 Testing session hijacking protection
+INFO 2025-04-28 20:52:00,187 tests 30344 6304 Testing XSS protection in comments
+INFO 2025-04-28 20:52:00,368 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:52:01,041 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:52:01,042 tests 30344 6304 Setting up session management tests
+INFO 2025-04-28 20:52:01,042 tests 30344 6304 Testing active session listing
+INFO 2025-04-28 20:52:01,217 tests 30344 6304 Setting up session management tests
+INFO 2025-04-28 20:52:01,217 tests 30344 6304 Testing session activation/deactivation
+INFO 2025-04-28 20:52:01,221 tests 30344 6304 Setting up session management tests
+INFO 2025-04-28 20:52:01,221 tests 30344 6304 Testing session date ordering
+INFO 2025-04-28 20:52:01,226 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:52:01,902 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:52:01,904 tests 30344 6304 Setting up statistics tests
+INFO 2025-04-28 20:52:01,904 tests 30344 6304 Creating test votes for statistics
+INFO 2025-04-28 20:52:03,584 tests 30344 6304 Testing department summary calculation
+INFO 2025-04-28 20:52:03,588 tests 30344 6304 Setting up statistics tests
+INFO 2025-04-28 20:52:03,589 tests 30344 6304 Creating test votes for statistics
+INFO 2025-04-28 20:52:05,274 tests 30344 6304 Testing team summary calculation
+INFO 2025-04-28 20:52:05,281 tests 30344 6304 Setting up statistics tests
+INFO 2025-04-28 20:52:05,281 tests 30344 6304 Creating test votes for statistics
+INFO 2025-04-28 20:52:06,961 tests 30344 6304 Testing vote distribution
+INFO 2025-04-28 20:52:06,966 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:52:07,648 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:52:07,649 tests 30344 6304 Setting up validation tests
+INFO 2025-04-28 20:52:07,650 tests 30344 6304 Testing health card validation
+INFO 2025-04-28 20:52:07,652 tests 30344 6304 Setting up validation tests
+INFO 2025-04-28 20:52:07,652 tests 30344 6304 Testing session date validation
+INFO 2025-04-28 20:52:07,656 tests 30344 6304 Setting up validation tests
+INFO 2025-04-28 20:52:07,657 tests 30344 6304 Testing vote value validation
+INFO 2025-04-28 20:52:07,660 tests 30344 6304 Setting up test data for all test cases
+INFO 2025-04-28 20:52:08,343 tests 30344 6304 Test data setup complete
+INFO 2025-04-28 20:52:08,343 tests 30344 6304 Setting up client for view tests
+INFO 2025-04-28 20:52:08,343 tests 30344 6304 Testing anonymous user redirect
+INFO 2025-04-28 20:52:08,351 tests 30344 6304 Setting up client for view tests
+INFO 2025-04-28 20:52:08,352 tests 30344 6304 Testing department summary access allowed
+INFO 2025-04-28 20:52:08,537 tests 30344 6304 Setting up client for view tests
+INFO 2025-04-28 20:52:08,538 tests 30344 6304 Testing department summary access denied
+INFO 2025-04-28 20:52:08,715 tests 30344 6304 Setting up client for view tests
+INFO 2025-04-28 20:52:08,716 tests 30344 6304 Testing engineer dashboard access
+INFO 2025-04-28 20:52:08,898 tests 30344 6304 Setting up client for view tests
+INFO 2025-04-28 20:52:08,898 tests 30344 6304 Testing invalid vote submission
+INFO 2025-04-28 20:52:09,078 tests 30344 6304 Setting up client for view tests
+INFO 2025-04-28 20:52:09,078 tests 30344 6304 Testing team summary access permissions
+INFO 2025-04-28 20:52:09,258 tests 30344 6304 Setting up client for view tests
+INFO 2025-04-28 20:52:09,259 tests 30344 6304 Testing vote submission process
+INFO 2025-04-28 20:52:09,450 tests 30344 6304 Setting up performance tests
+INFO 2025-04-28 20:52:09,461 tests 30344 6304 Performance tests setup complete
+INFO 2025-04-28 20:52:09,461 tests 30344 6304 Testing bulk vote creation
+INFO 2025-04-28 20:52:26,591 tests 30344 6304 Setting up performance tests
+INFO 2025-04-28 20:52:26,602 tests 30344 6304 Performance tests setup complete
+INFO 2025-04-28 20:52:26,604 tests 30344 6304 Testing mass vote processing
+INFO 2025-04-28 20:52:35,476 tests 30344 6304 Setting up performance tests
+INFO 2025-04-28 20:52:35,486 tests 30344 6304 Performance tests setup complete
+INFO 2025-04-28 20:52:35,486 tests 30344 6304 Testing sequential vote updates
+INFO 2025-04-28 20:56:07,511 tests 10116 19068 Setting up base test data
+INFO 2025-04-28 20:56:08,156 tests 10116 19068 Base test data setup complete
+INFO 2025-04-28 20:56:08,157 tests 10116 19068 Running test: test_team_loading_endpoint
+INFO 2025-04-28 20:56:08,331 tests 10116 19068 Setting up base test data
+INFO 2025-04-28 20:56:09,001 tests 10116 19068 Base test data setup complete
+INFO 2025-04-28 20:56:09,002 tests 10116 19068 Setting up AdminTests
+INFO 2025-04-28 20:56:09,002 tests 10116 19068 Running test: test_admin_access_permissions
+INFO 2025-04-28 20:56:09,368 tests 10116 19068 Setting up AdminTests
+INFO 2025-04-28 20:56:09,368 tests 10116 19068 Running test: test_login_page_access
+INFO 2025-04-28 20:56:09,386 tests 10116 19068 Setting up base test data
+INFO 2025-04-28 20:56:10,044 tests 10116 19068 Base test data setup complete
+INFO 2025-04-28 20:56:10,045 tests 10116 19068 Running test: test_user_without_team_view_access
+INFO 2025-04-28 20:56:10,377 tests 10116 19068 Running test: test_voting_on_closed_session
+INFO 2025-04-28 20:56:10,546 tests 10116 19068 Setting up base test data
+INFO 2025-04-28 20:56:11,187 tests 10116 19068 Base test data setup complete
+INFO 2025-04-28 20:56:11,188 tests 10116 19068 Running test: test_invalid_team_selection
+INFO 2025-04-28 20:56:11,200 tests 10116 19068 Running test: test_password_mismatch
+INFO 2025-04-28 20:56:11,208 tests 10116 19068 Running test: test_valid_registration_form
+INFO 2025-04-28 20:56:11,217 tests 10116 19068 Setting up base test data
+INFO 2025-04-28 20:56:11,855 tests 10116 19068 Base test data setup complete
+INFO 2025-04-28 20:56:11,856 tests 10116 19068 Running test: test_department_str_representation
+INFO 2025-04-28 20:56:11,859 tests 10116 19068 Running test: test_health_card_str_representation
+INFO 2025-04-28 20:56:11,862 tests 10116 19068 Running test: test_session_str_representation
+INFO 2025-04-28 20:56:11,866 tests 10116 19068 Running test: test_team_str_representation
+INFO 2025-04-28 20:56:11,868 tests 10116 19068 Running test: test_user_creation
+INFO 2025-04-28 20:56:12,033 tests 10116 19068 Running test: test_vote_str_representation
+INFO 2025-04-28 20:56:12,036 tests 10116 19068 Running test: test_vote_uniqueness_constraint
+INFO 2025-04-28 20:56:12,040 tests 10116 19068 Setting up base test data
+INFO 2025-04-28 20:56:12,708 tests 10116 19068 Base test data setup complete
+INFO 2025-04-28 20:56:12,708 tests 10116 19068 Running test: test_health_card_status
+INFO 2025-04-28 20:56:12,710 tests 10116 19068 Running test: test_session_status
+INFO 2025-04-28 20:56:12,712 tests 10116 19068 Running test: test_team_department_relationship
+INFO 2025-04-28 20:56:12,715 tests 10116 19068 Running test: test_user_role_permissions
+INFO 2025-04-28 20:56:12,719 tests 10116 19068 Setting up base test data
+INFO 2025-04-28 20:56:13,389 tests 10116 19068 Base test data setup complete
+INFO 2025-04-28 20:56:13,390 tests 10116 19068 Running test: test_authentication_required
+INFO 2025-04-28 20:56:13,396 tests 10116 19068 Running test: test_xss_protection_in_comments
+INFO 2025-04-28 20:56:13,579 tests 10116 19068 Setting up base test data
+INFO 2025-04-28 20:56:14,210 tests 10116 19068 Base test data setup complete
+INFO 2025-04-28 20:56:14,211 tests 10116 19068 Setting up ViewTests
+INFO 2025-04-28 20:56:14,211 tests 10116 19068 Running test: test_anonymous_user_redirect
+INFO 2025-04-28 20:56:14,218 tests 10116 19068 Setting up ViewTests
+INFO 2025-04-28 20:56:14,218 tests 10116 19068 Running test: test_department_summary_access_allowed
+INFO 2025-04-28 20:56:14,393 tests 10116 19068 Setting up ViewTests
+INFO 2025-04-28 20:56:14,393 tests 10116 19068 Running test: test_department_summary_access_denied
+INFO 2025-04-28 20:56:14,562 tests 10116 19068 Setting up ViewTests
+INFO 2025-04-28 20:56:14,563 tests 10116 19068 Running test: test_engineer_dashboard_access
+INFO 2025-04-28 20:56:14,739 tests 10116 19068 Setting up ViewTests
+INFO 2025-04-28 20:56:14,739 tests 10116 19068 Running test: test_team_summary_access_permissions
+INFO 2025-04-28 20:56:14,910 tests 10116 19068 Setting up ViewTests
+INFO 2025-04-28 20:56:14,910 tests 10116 19068 Running test: test_vote_submission_process
+INFO 2025-04-28 20:56:15,088 tests 10116 19068 Setting up PerformanceTests
+INFO 2025-04-28 20:56:15,099 tests 10116 19068 PerformanceTests setup complete
+INFO 2025-04-28 20:56:15,100 tests 10116 19068 Running test: test_vote_basic_performance
+INFO 2025-04-28 20:59:59,036 tests 3208 31192 Setting up base test data
+INFO 2025-04-28 20:59:59,724 tests 3208 31192 Base test data setup complete
+INFO 2025-04-28 20:59:59,726 tests 3208 31192 Running test: test_team_loading_endpoint
+INFO 2025-04-28 20:59:59,918 tests 3208 31192 Setting up base test data
+INFO 2025-04-28 21:00:00,627 tests 3208 31192 Base test data setup complete
+INFO 2025-04-28 21:00:00,628 tests 3208 31192 Setting up AdminTests
+INFO 2025-04-28 21:00:00,628 tests 3208 31192 Running test: test_admin_access_permissions
+INFO 2025-04-28 21:00:01,008 tests 3208 31192 Setting up AdminTests
+INFO 2025-04-28 21:00:01,009 tests 3208 31192 Running test: test_login_page_access
+INFO 2025-04-28 21:00:01,023 tests 3208 31192 Setting up base test data
+INFO 2025-04-28 21:00:01,725 tests 3208 31192 Base test data setup complete
+INFO 2025-04-28 21:00:01,725 tests 3208 31192 Running test: test_user_without_team_view_access
+INFO 2025-04-28 21:00:02,082 tests 3208 31192 Running test: test_voting_on_closed_session
+INFO 2025-04-28 21:00:02,261 tests 3208 31192 Setting up base test data
+INFO 2025-04-28 21:00:02,943 tests 3208 31192 Base test data setup complete
+INFO 2025-04-28 21:00:02,943 tests 3208 31192 Running test: test_invalid_team_selection
+INFO 2025-04-28 21:00:02,956 tests 3208 31192 Running test: test_password_mismatch
+INFO 2025-04-28 21:00:02,963 tests 3208 31192 Running test: test_valid_registration_form
+INFO 2025-04-28 21:00:02,971 tests 3208 31192 Setting up base test data
+INFO 2025-04-28 21:00:03,674 tests 3208 31192 Base test data setup complete
+INFO 2025-04-28 21:00:03,675 tests 3208 31192 Running test: test_department_str_representation
+INFO 2025-04-28 21:00:03,676 tests 3208 31192 Running test: test_health_card_str_representation
+INFO 2025-04-28 21:00:03,679 tests 3208 31192 Running test: test_session_str_representation
+INFO 2025-04-28 21:00:03,682 tests 3208 31192 Running test: test_team_str_representation
+INFO 2025-04-28 21:00:03,684 tests 3208 31192 Running test: test_user_creation
+INFO 2025-04-28 21:00:03,858 tests 3208 31192 Running test: test_vote_str_representation
+INFO 2025-04-28 21:00:03,863 tests 3208 31192 Running test: test_vote_uniqueness_constraint
+INFO 2025-04-28 21:00:03,869 tests 3208 31192 Setting up base test data
+INFO 2025-04-28 21:00:04,558 tests 3208 31192 Base test data setup complete
+INFO 2025-04-28 21:00:04,558 tests 3208 31192 Running test: test_health_card_status
+INFO 2025-04-28 21:00:04,561 tests 3208 31192 Running test: test_session_status
+INFO 2025-04-28 21:00:04,564 tests 3208 31192 Running test: test_team_department_relationship
+INFO 2025-04-28 21:00:04,569 tests 3208 31192 Running test: test_user_role_permissions
+INFO 2025-04-28 21:00:04,575 tests 3208 31192 Setting up base test data
+INFO 2025-04-28 21:00:05,260 tests 3208 31192 Base test data setup complete
+INFO 2025-04-28 21:00:05,260 tests 3208 31192 Running test: test_authentication_required
+INFO 2025-04-28 21:00:05,265 tests 3208 31192 Running test: test_xss_protection_in_comments
+INFO 2025-04-28 21:00:05,447 tests 3208 31192 Setting up base test data
+INFO 2025-04-28 21:00:06,139 tests 3208 31192 Base test data setup complete
+INFO 2025-04-28 21:00:06,139 tests 3208 31192 Setting up ViewTests
+INFO 2025-04-28 21:00:06,140 tests 3208 31192 Running test: test_anonymous_user_redirect
+INFO 2025-04-28 21:00:06,146 tests 3208 31192 Setting up ViewTests
+INFO 2025-04-28 21:00:06,146 tests 3208 31192 Running test: test_department_summary_access_allowed
+INFO 2025-04-28 21:00:06,350 tests 3208 31192 Setting up ViewTests
+INFO 2025-04-28 21:00:06,350 tests 3208 31192 Running test: test_department_summary_access_denied
+INFO 2025-04-28 21:00:06,538 tests 3208 31192 Setting up ViewTests
+INFO 2025-04-28 21:00:06,538 tests 3208 31192 Running test: test_engineer_dashboard_access
+INFO 2025-04-28 21:00:06,718 tests 3208 31192 Setting up ViewTests
+INFO 2025-04-28 21:00:06,718 tests 3208 31192 Running test: test_team_summary_access_permissions
+INFO 2025-04-28 21:00:06,911 tests 3208 31192 Setting up ViewTests
+INFO 2025-04-28 21:00:06,911 tests 3208 31192 Running test: test_vote_submission_process
+INFO 2025-04-28 21:00:07,108 tests 3208 31192 Setting up PerformanceTests
+INFO 2025-04-28 21:00:07,120 tests 3208 31192 PerformanceTests setup complete
+INFO 2025-04-28 21:00:07,120 tests 3208 31192 Running test: test_vote_basic_performance
+INFO 2025-04-28 21:23:41,282 tests 24776 11248 Setting up base test data
+INFO 2025-04-28 21:23:41,990 tests 24776 11248 Base test data setup complete
+INFO 2025-04-28 21:23:41,991 tests 24776 11248 Running test: test_team_loading_endpoint
+INFO 2025-04-28 21:23:42,176 tests 24776 11248 Setting up base test data
+INFO 2025-04-28 21:23:42,873 tests 24776 11248 Base test data setup complete
+INFO 2025-04-28 21:23:42,874 tests 24776 11248 Setting up AdminTests
+INFO 2025-04-28 21:23:42,874 tests 24776 11248 Running test: test_admin_access_permissions
+INFO 2025-04-28 21:23:43,251 tests 24776 11248 Setting up AdminTests
+INFO 2025-04-28 21:23:43,251 tests 24776 11248 Running test: test_login_page_access
+INFO 2025-04-28 21:23:43,268 tests 24776 11248 Setting up base test data
+INFO 2025-04-28 21:23:44,013 tests 24776 11248 Base test data setup complete
+INFO 2025-04-28 21:23:44,014 tests 24776 11248 Running test: test_user_without_team_view_access
+INFO 2025-04-28 21:23:44,374 tests 24776 11248 Running test: test_voting_on_closed_session
+INFO 2025-04-28 21:23:44,553 tests 24776 11248 Setting up base test data
+INFO 2025-04-28 21:23:45,252 tests 24776 11248 Base test data setup complete
+INFO 2025-04-28 21:23:45,253 tests 24776 11248 Running test: test_invalid_team_selection
+INFO 2025-04-28 21:23:45,267 tests 24776 11248 Running test: test_password_mismatch
+INFO 2025-04-28 21:23:45,276 tests 24776 11248 Running test: test_valid_registration_form
+INFO 2025-04-28 21:23:45,295 tests 24776 11248 Setting up base test data
+INFO 2025-04-28 21:23:45,990 tests 24776 11248 Base test data setup complete
+INFO 2025-04-28 21:23:45,991 tests 24776 11248 Running test: test_department_str_representation
+INFO 2025-04-28 21:23:45,994 tests 24776 11248 Running test: test_health_card_str_representation
+INFO 2025-04-28 21:23:45,996 tests 24776 11248 Running test: test_session_str_representation
+INFO 2025-04-28 21:23:46,001 tests 24776 11248 Running test: test_team_str_representation
+INFO 2025-04-28 21:23:46,003 tests 24776 11248 Running test: test_user_creation
+INFO 2025-04-28 21:23:46,173 tests 24776 11248 Running test: test_vote_str_representation
+INFO 2025-04-28 21:23:46,177 tests 24776 11248 Running test: test_vote_uniqueness_constraint
+INFO 2025-04-28 21:23:46,183 tests 24776 11248 Setting up base test data
+INFO 2025-04-28 21:23:46,879 tests 24776 11248 Base test data setup complete
+INFO 2025-04-28 21:23:46,879 tests 24776 11248 Running test: test_health_card_status
+INFO 2025-04-28 21:23:46,881 tests 24776 11248 Running test: test_session_status
+INFO 2025-04-28 21:23:46,884 tests 24776 11248 Running test: test_team_department_relationship
+INFO 2025-04-28 21:23:46,888 tests 24776 11248 Running test: test_user_role_permissions
+INFO 2025-04-28 21:23:46,893 tests 24776 11248 Setting up base test data
+INFO 2025-04-28 21:23:47,587 tests 24776 11248 Base test data setup complete
+INFO 2025-04-28 21:23:47,588 tests 24776 11248 Running test: test_authentication_required
+INFO 2025-04-28 21:23:47,592 tests 24776 11248 Running test: test_xss_protection_in_comments
+INFO 2025-04-28 21:23:47,773 tests 24776 11248 Setting up base test data
+INFO 2025-04-28 21:23:48,472 tests 24776 11248 Base test data setup complete
+INFO 2025-04-28 21:23:48,472 tests 24776 11248 Setting up ViewTests
+INFO 2025-04-28 21:23:48,474 tests 24776 11248 Running test: test_anonymous_user_redirect
+INFO 2025-04-28 21:23:48,480 tests 24776 11248 Setting up ViewTests
+INFO 2025-04-28 21:23:48,480 tests 24776 11248 Running test: test_department_summary_access_allowed
+INFO 2025-04-28 21:23:48,676 tests 24776 11248 Setting up ViewTests
+INFO 2025-04-28 21:23:48,676 tests 24776 11248 Running test: test_department_summary_access_denied
+INFO 2025-04-28 21:23:48,866 tests 24776 11248 Setting up ViewTests
+INFO 2025-04-28 21:23:48,866 tests 24776 11248 Running test: test_engineer_dashboard_access
+INFO 2025-04-28 21:23:49,050 tests 24776 11248 Setting up ViewTests
+INFO 2025-04-28 21:23:49,050 tests 24776 11248 Running test: test_team_summary_access_permissions
+INFO 2025-04-28 21:23:49,235 tests 24776 11248 Setting up ViewTests
+INFO 2025-04-28 21:23:49,235 tests 24776 11248 Running test: test_vote_submission_process
+INFO 2025-04-28 21:23:49,427 tests 24776 11248 Setting up PerformanceTests
+INFO 2025-04-28 21:23:49,437 tests 24776 11248 PerformanceTests setup complete
+INFO 2025-04-28 21:23:49,437 tests 24776 11248 Running test: test_vote_basic_performance

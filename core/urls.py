@@ -34,4 +34,5 @@ urlpatterns = [
     
     # AJAX
     path('ajax/load-teams/', views.load_teams, name='ajax_load_teams'),
+    
 ]
