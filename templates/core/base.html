@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +19,8 @@
             left: 0;
             z-index: 100;
             padding: 48px 0 0;
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-            background-color: #f8f9fa;
+            box-shadow: inset -1px 0 0 var(--border);
+            background-color: var(--bg);
             width: 250px;
             transition: all 0.3s;
         }
@@ -35,7 +36,7 @@
         
         .sidebar .nav-link {
             font-weight: 500;
-            color: #333;
+            color: var(--text);
             padding: 0.5rem 1rem;
         }
         
@@ -55,7 +56,7 @@
             font-size: .75rem;
             text-transform: uppercase;
             padding: 0.5rem 1rem;
-            color: #6c757d;
+            color: var(--gray);
         }
         
         .main-content {
@@ -89,50 +90,32 @@
             }
         }
         
-        /* Health Check Card Colors */
-        .green-badge {
-            background-color: #28a745;
-            color: white;
+        /* Critical override for voting section visibility */
+        .sidebar-heading, .nav-link {
+            visibility: visible !important;
+            display: block !important;
+            opacity: 1 !important;
         }
         
-        .amber-badge {
-            background-color: #ffc107;
-            color: black;
-        }
-        
-        .red-badge {
-            background-color: #dc3545;
-            color: white;
-        }
-        
-        /* Progress Indicators */
-        .trend-up {
-            color: #28a745;
-        }
-        
-        .trend-stable {
-            color: #6c757d;
-        }
-        
-        .trend-down {
-            color: #dc3545;
-        }
-        
-        /* Custom styles for health check cards */
-        .health-card {
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            transition: transform 0.2s ease;
-        }
-        
-        .health-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        /* Always show voting section and submit votes button with highest priority */
+        .voting-section,
+        .submit-votes-link {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative !important;
+            z-index: 9999 !important;
+            pointer-events: auto !important;
         }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body class="{{ request.path|cut:'/' }}-page" data-page-path="{{ request.path }}">
+    <!-- Theme toggle button -->
+    <button id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-sun"></i>
+    </button>
+    
     {% if user.is_authenticated %}
     <div class="d-flex">
         <!-- Sidebar -->
@@ -162,12 +145,13 @@
                         </a>
                     </li>
                     
+                    <!-- VOTING SECTION - ALWAYS VISIBLE AND CLICKABLE -->
                     {% if user.role in 'engineer,team_leader' %}
-                    <div class="sidebar-heading">Voting</div>
-                    <li class="nav-item">
+                    <div class="sidebar-heading voting-section" id="voting-heading" style="display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;">VOTING</div>
+                    <li class="nav-item voting-section" id="voting-nav-item" style="display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;">
                         {% with latest_session=active_sessions.first %}
                             {% if latest_session %}
-                                <a class="nav-link" href="{% url 'vote_all' latest_session.id %}">
+                                <a class="nav-link submit-votes-link" id="submit-votes-link" href="{% url 'vote_all' latest_session.id %}" style="display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; cursor: pointer !important; text-decoration: none !important; background-color: rgba(139, 92, 246, 0.2); color: #8B5CF6; font-weight: bold; border-radius: 6px; margin: 8px 16px; padding: 8px 12px; box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);" onclick="window.location.href='{% url 'vote_all' latest_session.id %}'; return true;">
                                     <i class="fas fa-vote-yea"></i> Submit Votes
                                 </a>
                             {% endif %}
@@ -175,8 +159,8 @@
                     </li>
                     {% endif %}
                     
-                    <div class="sidebar-heading">Summaries</div>
                     {% if user.role in 'team_leader,department_leader,senior_manager' %}
+                    <div class="sidebar-heading" style="display: block !important;">SUMMARIES</div>
                     <li class="nav-item">
                         <a class="nav-link {% if 'team-summary' in request.path %}active{% endif %}" href="{% url 'team_summary' %}">
                             <i class="fas fa-users"></i> Team Summary
@@ -192,7 +176,7 @@
                     </li>
                     {% endif %}
                     
-                    <div class="sidebar-heading">Analytics</div>
+                    <div class="sidebar-heading" style="display: block !important;">ANALYTICS</div>
                     <li class="nav-item">
                         <a class="nav-link {% if 'progress-chart' in request.path %}active{% endif %}" href="{% url 'progress_chart' %}">
                             <i class="fas fa-chart-line"></i> Progress Chart
@@ -207,7 +191,7 @@
                     </li>
                     {% endif %}
                     
-                    <div class="sidebar-heading">Account</div>
+                    <div class="sidebar-heading" style="display: block !important;">ACCOUNT</div>
                     <li class="nav-item">
                         <a class="nav-link {% if 'profile' in request.path %}active{% endif %}" href="{% url 'profile' %}">
                             <i class="fas fa-user"></i> Profile
@@ -265,5 +249,136 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     {% block extra_js %}{% endblock %}
+    
+    <!-- Enhanced script to ensure voting section visibility on ALL pages -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Force voting section to be visible with maximum priority
+        const votingSections = document.querySelectorAll('.voting-section, .submit-votes-link, #voting-heading, #voting-nav-item, #submit-votes-link');
+        votingSections.forEach(section => {
+          if(section) {
+            section.style.display = 'block';
+            section.style.visibility = 'visible';
+            section.style.opacity = '1';
+            section.style.position = 'relative';
+            section.style.zIndex = '99999';
+            section.style.pointerEvents = 'auto';
+          }
+        });
+        
+        // Fix specifically for the problematic pages
+        const currentPath = document.body.getAttribute('data-page-path') || '';
+        const problemPages = ['/progress-chart/', '/profile/', '/change-password/', '/vote-all/'];
+        const isProblematicPage = problemPages.some(page => currentPath.includes(page));
+        
+        if (isProblematicPage) {
+          console.log('Problematic page detected:', currentPath);
+          // Extra forceful display for problematic pages
+          const submitVotesLinks = document.querySelectorAll('.submit-votes-link');
+          submitVotesLinks.forEach(link => {
+            if(link) {
+              // Apply enhanced styling
+              link.style.display = 'block';
+              link.style.visibility = 'visible';
+              link.style.opacity = '1';
+              link.style.pointerEvents = 'auto';
+              link.style.cursor = 'pointer';
+              link.style.backgroundColor = 'rgba(139, 92, 246, 0.2)';
+              link.style.color = '#8B5CF6';
+              link.style.fontWeight = 'bold';
+              link.style.borderRadius = '6px';
+              link.style.margin = '8px 16px';
+              link.style.padding = '8px 12px';
+              link.style.boxShadow = '0 0 8px rgba(139, 92, 246, 0.3)';
+              link.style.border = '1px solid rgba(139, 92, 246, 0.5)';
+              
+              // Add direct click handler with href from the element
+              const href = link.getAttribute('href');
+              if(href) {
+                link.onclick = function(e) {
+                  e.preventDefault();
+                  window.location.href = href;
+                  return false;
+                };
+              }
+            }
+          });
+          
+          // Make sure the heading is visible too
+          const votingHeading = document.querySelector('#voting-heading');
+          if(votingHeading) {
+            votingHeading.style.display = 'block';
+            votingHeading.style.visibility = 'visible';
+            votingHeading.style.opacity = '1';
+          }
+        }
+        
+        // Continuous monitoring to ensure visibility (runs every second)
+        setInterval(() => {
+          const voteLinks = document.querySelectorAll('.submit-votes-link');
+          voteLinks.forEach(link => {
+            if(link && !link.style.display || link.style.display === 'none') {
+              console.log('Re-enabling hidden voting link');
+              link.style.display = 'block';
+              link.style.visibility = 'visible';
+              link.style.opacity = '1';
+              link.style.pointerEvents = 'auto';
+              
+              // Make sure click handler is attached
+              const href = link.getAttribute('href');
+              if(href && !link.onclick) {
+                link.onclick = function(e) {
+                  e.preventDefault();
+                  window.location.href = href;
+                  return false;
+                };
+              }
+            }
+          });
+          
+          // Also check headings
+          const votingHeadings = document.querySelectorAll('.sidebar-heading.voting-section');
+          votingHeadings.forEach(heading => {
+            if(heading && !heading.style.display || heading.style.display === 'none') {
+              heading.style.display = 'block';
+              heading.style.visibility = 'visible';
+              heading.style.opacity = '1';
+            }
+          });
+        }, 500); // Check every 500ms
+        
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeToggleBtn.querySelector('i');
+        
+        // Check if dark theme is stored in localStorage
+        const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
+        
+        // Apply theme based on localStorage or system preference
+        if (isDarkTheme || (!localStorage.getItem('darkTheme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-theme');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            
+            // Update localStorage
+            localStorage.setItem('darkTheme', isDark);
+            
+            // Update icon
+            if (isDark) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+      });
+    </script>
 </body>
 </html>

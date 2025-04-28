@@ -118,13 +118,13 @@
                                 <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%"></div>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <div class="d-flex align-items-center text-success">
+                                <div class="d-flex align-items-center progress-better">
                                     <span class="status-badge status-green me-2"></span>{{ summary.green_percentage|floatformat:1 }}%
                                 </div>
-                                <div class="d-flex align-items-center text-warning">
+                                <div class="d-flex align-items-center" style="color: var(--amber)">
                                     <span class="status-badge status-amber me-2"></span>{{ summary.amber_percentage|floatformat:1 }}%
                                 </div>
-                                <div class="d-flex align-items-center text-danger">
+                                <div class="d-flex align-items-center progress-worse">
                                     <span class="status-badge status-red me-2"></span>{{ summary.red_percentage|floatformat:1 }}%
                                 </div>
                             </div>
