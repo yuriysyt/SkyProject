@@ -3,20 +3,20 @@
 {% load crispy_forms_tags %}
 
 {% block unauthenticated_content %}
-<div class="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-blue-900 to-indigo-800">
+<div class="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-gray-900 to-indigo-900">
     <div class="w-full max-w-md">
-        <div class="bg-card rounded-xl shadow-2xl p-8">
+        <div class="bg-gray-800 rounded-xl shadow-2xl p-8">
             <div class="text-center mb-8">
                 <div class="inline-block mb-4">
                     <i class="bi bi-person-plus text-5xl text-primary"></i>
                 </div>
-                <h2 class="text-3xl font-bold">Create Account</h2>
-                <p class="text-gray-600 mt-2">Join Sky Health Check System</p>
+                <h2 class="text-3xl font-bold text-white">Create Account</h2>
+                <p class="text-gray-300 mt-2">Join Sky Health Check System</p>
             </div>
 
             <!-- Display form errors at the top if any -->
             {% if form.errors %}
-            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <div class="mb-4 p-4 bg-red-900 border border-red-700 text-red-100 rounded-lg">
                 <p class="font-bold">Please correct the following errors:</p>
                 <ul class="list-disc pl-5">
                     {% for field in form %}
@@ -37,7 +37,7 @@
                 <div class="grid grid-cols-1 gap-6">
                     <!-- User information -->
                     <div class="space-y-4">
-                        <div class="font-medium border-b pb-2 mb-3">Account Details</div>
+                        <div class="font-medium border-b border-gray-600 pb-2 mb-3 text-white">Account Details</div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>{{ form.first_name|as_crispy_field }}</div>
@@ -52,7 +52,7 @@
                     
                     <!-- Role and Team -->
                     <div class="space-y-4">
-                        <div class="font-medium border-b pb-2 mb-3">Role Information</div>
+                        <div class="font-medium border-b border-gray-600 pb-2 mb-3 text-white">Role Information</div>
                         
                         <div>{{ form.role|as_crispy_field }}</div>
                         <div>{{ form.department|as_crispy_field }}</div>
@@ -67,9 +67,9 @@
                 </div>
                 
                 <div class="mt-4 text-center">
-                    <p>
+                    <p class="text-gray-300">
                         Already have an account? 
-                        <a href="{% url 'login' %}" class="text-blue-500 hover:text-blue-700 font-medium underline">
+                        <a href="{% url 'login' %}" class="text-primary hover:text-primary/80 font-medium underline">
                             Sign in here
                         </a>
                     </p>

@@ -3,16 +3,33 @@
 {% load crispy_forms_tags %}
 
 {% block unauthenticated_content %}
-<div class="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-blue-900 to-indigo-800">
+<div class="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-gray-900 to-indigo-900">
     <div class="w-full max-w-md">
-        <div class="bg-white rounded-xl shadow-2xl p-8">
+        <div class="bg-gray-800 rounded-xl shadow-2xl p-8">
             <div class="text-center mb-8">
                 <div class="inline-block mb-4">
                     <i class="bi bi-check2-circle text-5xl text-primary"></i>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-800">Sky Health Check</h2>
-                <p class="text-gray-600 mt-2">Sign in to your account</p>
+                <h2 class="text-3xl font-bold text-white">Sky Health Check</h2>
+                <p class="text-gray-300 mt-2">Sign in to your account</p>
             </div>
+
+            <!-- Display form errors at the top if any -->
+            {% if form.errors %}
+            <div class="mb-4 p-4 bg-red-900 border border-red-700 text-red-100 rounded-lg">
+                <p class="font-bold">Please correct the following errors:</p>
+                <ul class="list-disc pl-5">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
 
             <form method="post" class="space-y-6">
                 {% csrf_token %}
@@ -25,7 +42,7 @@
                 </div>
                 
                 <div class="mt-4 text-center">
-                    <p class="text-gray-600">
+                    <p class="text-gray-300">
                         Don't have an account? 
                         <a href="{% url 'register' %}" class="text-primary hover:text-primary/80 font-medium underline">
                             Register here

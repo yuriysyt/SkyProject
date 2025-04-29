@@ -10,14 +10,18 @@
     --light-hover: rgba(0,0,0,0.05);
     --light-shadow: rgba(0,0,0,0.1);
     
-    /* Dark Theme Variables */
-    --dark-bg: #1A1A1A;
-    --dark-secondary-bg: #2C2C2C;
-    --dark-card: #2C2C2C;
+    /* Dark Theme Variables - Updated with modern dark theme colors */
+    --dark-bg: #121212;
+    --dark-secondary-bg: #1e1e1e;
+    --dark-card: #2a2a2a;
     --dark-text: #f0f0f0;
-    --dark-border: rgba(255,255,255,0.1);
-    --dark-hover: rgba(255,255,255,0.05);
-    --dark-shadow: rgba(0,0,0,0.3);
+    --dark-border: rgba(255,255,255,0.15);
+    --dark-hover: rgba(255,255,255,0.07);
+    --dark-shadow: rgba(0,0,0,0.4);
+    
+    /* Accent colors */
+    --primary: #8B5CF6;
+    --primary-hover: #7c3aed;
     
     /* Status Colors - Same for both themes */
     --green: #28a745;
@@ -583,4 +587,89 @@ a.submit-votes-link,
 
 .dark-theme .sidebar .nav-link.active {
     color: #007bff;
+}
+
+/* Updated form styles for login and registration forms */
+.bg-gray-800 {
+    background-color: var(--dark-card) !important;
+}
+
+.bg-gray-900 {
+    background-color: var(--dark-bg) !important;
+}
+
+.bg-indigo-900 {
+    background-color: #4338ca !important;
+}
+
+.text-gray-300 {
+    color: #d1d5db !important;
+}
+
+.from-gray-900 {
+    --tw-gradient-from: var(--dark-bg) !important;
+}
+
+.to-indigo-900 {
+    --tw-gradient-to: #4338ca !important;
+}
+
+/* Enhanced form controls for dark theme */
+.bg-gray-800 .form-group label,
+.bg-gray-800 .form-label,
+.bg-gray-800 .form-check-label,
+.bg-gray-800 .form-text {
+    color: var(--dark-text) !important;
+}
+
+.bg-gray-800 .form-control,
+.bg-gray-800 .form-select {
+    background-color: #3a3a3a !important;
+    border-color: rgba(255,255,255,0.2) !important;
+    color: var(--dark-text) !important;
+}
+
+.bg-gray-800 .form-control:focus,
+.bg-gray-800 .form-select:focus {
+    background-color: #444444 !important;
+    border-color: rgba(139, 92, 246, 0.5) !important;
+    box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25) !important;
+    color: white !important;
+}
+
+.bg-gray-800 .form-control::placeholder {
+    color: #aaa !important;
+}
+
+/* Login and register primary button color */
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+
+.hover\:bg-primary\/90:hover {
+    background-color: var(--primary-hover) !important;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+/* Help text in forms */
+.bg-gray-800 small,
+.bg-gray-800 .text-muted,
+.bg-gray-800 .form-text {
+    color: #bbb !important;
+}
+
+/* Error messages in dark theme */
+.bg-red-900 {
+    background-color: #7f1d1d !important;
+}
+
+.border-red-700 {
+    border-color: #b91c1c !important;
+}
+
+.text-red-100 {
+    color: #fee2e2 !important;
 }
