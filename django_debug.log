@@ -458,3 +458,56 @@ INFO 2025-04-29 08:45:25,290 basehttp 23740 33152 "GET / HTTP/1.1" 200 97649
 INFO 2025-04-29 08:45:28,501 basehttp 23740 33152 "GET /health-status/ HTTP/1.1" 200 26226
 INFO 2025-04-29 08:45:37,510 basehttp 23740 33152 "GET /logout/ HTTP/1.1" 302 0
 INFO 2025-04-29 08:45:37,519 basehttp 23740 33152 "GET /login/ HTTP/1.1" 200 11743
+INFO 2025-04-29 08:49:19,562 basehttp 23740 33152 "GET / HTTP/1.1" 302 0
+INFO 2025-04-29 08:49:19,571 basehttp 23740 33152 "GET /login/?next=/ HTTP/1.1" 200 11743
+WARNING 2025-04-29 08:49:19,874 log 23740 33152 Not Found: /favicon.ico
+WARNING 2025-04-29 08:49:19,874 basehttp 23740 33152 "GET /favicon.ico HTTP/1.1" 404 5631
+INFO 2025-04-29 08:49:24,812 basehttp 23740 33152 "POST /login/?next=/ HTTP/1.1" 200 12492
+INFO 2025-04-29 08:49:34,128 basehttp 23740 33152 "POST /login/?next=/ HTTP/1.1" 200 12491
+INFO 2025-04-29 08:49:36,055 basehttp 23740 33152 "POST /login/?next=/ HTTP/1.1" 200 12492
+INFO 2025-04-29 08:49:37,131 basehttp 23740 33152 "POST /login/?next=/ HTTP/1.1" 200 12492
+INFO 2025-04-29 08:49:41,089 basehttp 23740 33152 "GET /register/ HTTP/1.1" 200 20370
+INFO 2025-04-29 08:49:51,119 basehttp 23740 33152 "POST /login/?next=/ HTTP/1.1" 200 12491
+INFO 2025-04-29 08:49:57,659 basehttp 23740 33152 "POST /login/?next=/ HTTP/1.1" 200 12491
+INFO 2025-04-29 08:50:01,589 basehttp 23740 33152 "POST /login/?next=/ HTTP/1.1" 200 12495
+INFO 2025-04-29 08:50:06,586 basehttp 23740 33152 "GET /register/ HTTP/1.1" 200 20370
+INFO 2025-04-29 08:50:17,564 basehttp 23740 33152 "GET /ajax/load-teams/?department=3 HTTP/1.1" 200 117
+INFO 2025-04-29 08:50:19,527 basehttp 23740 33152 "POST /register/ HTTP/1.1" 200 21876
+INFO 2025-04-29 08:50:19,754 basehttp 23740 33152 "GET /ajax/load-teams/?department=3 HTTP/1.1" 200 117
+INFO 2025-04-29 08:50:49,060 basehttp 23740 33152 "POST /register/ HTTP/1.1" 302 0
+INFO 2025-04-29 08:50:49,069 basehttp 23740 33152 "GET / HTTP/1.1" 200 18829
+WARNING 2025-04-29 08:50:49,306 log 23740 33152 Not Found: /favicon.ico
+WARNING 2025-04-29 08:50:49,306 basehttp 23740 33152 "GET /favicon.ico HTTP/1.1" 404 5631
+INFO 2025-04-29 08:50:51,439 basehttp 23740 33152 "GET / HTTP/1.1" 200 18434
+INFO 2025-04-29 08:50:53,902 basehttp 23740 33152 "GET /vote-all/4/ HTTP/1.1" 302 0
+INFO 2025-04-29 08:50:53,919 basehttp 23740 33152 "GET / HTTP/1.1" 200 18810
+INFO 2025-04-29 08:50:55,593 basehttp 23740 33152 "GET /profile/ HTTP/1.1" 200 20344
+INFO 2025-04-29 08:50:59,533 basehttp 23740 33152 "POST /profile/ HTTP/1.1" 302 0
+INFO 2025-04-29 08:50:59,547 basehttp 23740 33152 "GET /profile/ HTTP/1.1" 200 21202
+WARNING 2025-04-29 08:50:59,577 log 23740 33152 Not Found: /media/profile_pics/103_large_xKWxgPT.png
+WARNING 2025-04-29 08:50:59,578 basehttp 23740 33152 "GET /media/profile_pics/103_large_xKWxgPT.png HTTP/1.1" 404 5718
+WARNING 2025-04-29 08:51:02,305 log 23740 33152 Not Found: /media/profile_pics/103_large_xKWxgPT.png
+WARNING 2025-04-29 08:51:02,305 basehttp 23740 33152 "GET /media/profile_pics/103_large_xKWxgPT.png HTTP/1.1" 404 5718
+INFO 2025-04-29 08:51:23,471 basehttp 23740 33152 "GET /progress-chart/ HTTP/1.1" 200 68340
+WARNING 2025-04-29 08:51:23,507 log 23740 33152 Not Found: /media/profile_pics/103_large_xKWxgPT.png
+WARNING 2025-04-29 08:51:23,508 basehttp 23740 33152 "GET /media/profile_pics/103_large_xKWxgPT.png HTTP/1.1" 404 5718
+INFO 2025-04-29 08:51:24,511 basehttp 23740 33152 "GET / HTTP/1.1" 200 18358
+WARNING 2025-04-29 08:51:24,550 log 23740 33152 Not Found: /media/profile_pics/103_large_xKWxgPT.png
+WARNING 2025-04-29 08:51:24,551 basehttp 23740 33152 "GET /media/profile_pics/103_large_xKWxgPT.png HTTP/1.1" 404 5718
+INFO 2025-04-29 08:57:09,662 autoreload 23740 7852 C:\Users\yyurc\Desktop\SkyProject\health_check\settings.py changed, reloading.
+INFO 2025-04-29 08:57:10,076 autoreload 13212 21640 Watching for file changes with StatReloader
+INFO 2025-04-29 08:57:35,664 basehttp 13212 23696 "GET / HTTP/1.1" 200 18358
+WARNING 2025-04-29 08:57:35,708 log 13212 23696 Not Found: /media/profile_pics/103_large_xKWxgPT.png
+WARNING 2025-04-29 08:57:35,708 basehttp 13212 23696 "GET /media/profile_pics/103_large_xKWxgPT.png HTTP/1.1" 404 5718
+INFO 2025-04-29 08:57:36,758 basehttp 13212 23696 "GET /profile/ HTTP/1.1" 200 20820
+WARNING 2025-04-29 08:57:36,793 log 13212 23696 Not Found: /media/profile_pics/103_large_xKWxgPT.png
+WARNING 2025-04-29 08:57:36,793 basehttp 13212 23696 "GET /media/profile_pics/103_large_xKWxgPT.png HTTP/1.1" 404 5718
+WARNING 2025-04-29 08:57:37,557 log 13212 23696 Not Found: /media/profile_pics/103_large_xKWxgPT.png
+WARNING 2025-04-29 08:57:37,557 basehttp 13212 23696 "GET /media/profile_pics/103_large_xKWxgPT.png HTTP/1.1" 404 5718
+INFO 2025-04-29 08:59:38,674 autoreload 13212 21640 C:\Users\yyurc\Desktop\SkyProject\health_check\urls.py changed, reloading.
+INFO 2025-04-29 08:59:39,095 autoreload 29028 9512 Watching for file changes with StatReloader
+INFO 2025-04-29 08:59:48,000 autoreload 21348 20328 Watching for file changes with StatReloader
+INFO 2025-04-29 08:59:49,024 basehttp 21348 13748 "GET / HTTP/1.1" 200 18358
+INFO 2025-04-29 08:59:49,205 basehttp 21348 13748 "GET /media/profile_pics/103_large_xKWxgPT.png HTTP/1.1" 200 12836
+WARNING 2025-04-29 08:59:49,418 log 21348 13748 Not Found: /favicon.ico
+WARNING 2025-04-29 08:59:49,419 basehttp 21348 13748 "GET /favicon.ico HTTP/1.1" 404 5757
