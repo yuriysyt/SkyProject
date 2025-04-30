@@ -8,3 +8,4 @@ staticfiles/
 .DS_Store
 venv/
 .vscode/
+django_debug.log
