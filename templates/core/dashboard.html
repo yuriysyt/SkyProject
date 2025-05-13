@@ -1,6 +1,42 @@
 {% extends 'core/base.html' %}
 {% load core_tags %}
 
+<!--
+Dashboard Template
+
+Purpose:
+- Serves as the main landing page after user login
+- Displays role-specific content based on user permissions
+- Provides access to active health check sessions and voting functionality
+- Shows team and department summaries relevant to the user
+- Displays recent activity and progress metrics
+
+Related Views:
+- dashboard() in views.py - Prepares context data based on user role
+
+Related Models:
+- User - For role-based content and permissions
+- Team/Department - For organizational structure
+- Session - Active health check periods
+- HealthCheckCard - Categories for voting
+- Vote - User's previous votes
+- TeamSummary/DepartmentSummary - Aggregated metrics
+
+Template Tags:
+- core_tags: Custom template tags including get_item filter
+
+Role-Based Content:
+- Engineer: Shows active sessions, voting options, team summary
+- Team Leader: Adds team member participation tracking
+- Department Leader: Shows department teams and their health status
+- Senior Manager: Shows organization-wide health overview
+
+JavaScript:
+- Dynamic content loading for tabs
+- Vote navigation functionality
+- Progress indicators and charts
+-->
+
 {% block content %}
 <div class="container-fluid px-4">
     <div class="welcome-card mb-4">

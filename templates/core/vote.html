@@ -2,6 +2,38 @@
 {% extends 'core/base.html' %}
 {% load crispy_forms_tags %}
 
+<!--
+Vote Template
+
+Purpose:
+- Provides interface for users to submit votes for health check cards
+- Implements the traffic light voting system (green, amber, red)
+- Captures progress indicators (better, same, worse)
+- Allows users to add comments for context
+- Shows previous vote data when updating an existing vote
+
+Related Views:
+- vote() in views.py - Handles form submission and validation
+- Calls update_team_summary() after successful vote submission
+
+Related Models:
+- Vote - Stores the user's evaluation data
+- HealthCheckCard - The category being evaluated
+- Session - The time period for the health check
+- User - The person submitting the vote
+
+Related Forms:
+- VoteForm in forms.py - Defines the form fields and validation
+
+Template Tags:
+- crispy_forms_tags: For enhanced form rendering
+
+JavaScript:
+- Form validation to ensure required fields are completed
+- Visual feedback through progress indicators
+- Interactive UI elements for the voting options
+-->
+
 {% block content %}
 <div class="container py-4">
     <div class="card shadow-sm">
@@ -191,8 +223,29 @@
     </div>
 </div>
 
+<!-- JavaScript for Vote Form Handling -->
 <script>
+    /**
+     * Vote Form JavaScript
+     * 
+     * This script handles the client-side functionality for the voting interface:
+     * 1. Form validation to ensure required fields are completed before submission
+     * 2. Visual feedback through the progress indicator to guide users through the voting process
+     * 3. Interactive UI elements for the voting options with real-time updates
+     * 4. Submission handling with validation checks and loading indicators
+     * 5. Error handling and user feedback for form validation issues
+     * 
+     * The script interacts with the VoteForm from forms.py and
+     * ultimately creates or updates a Vote model instance via the vote() view function.
+     * 
+     * Key interactions:
+     * - Radio button selections update the progress bar in real-time
+     * - Form submission is prevented if required fields are not completed
+     * - Visual feedback is provided when the form is ready to submit
+     * - Loading spinner is shown during form submission to prevent double-clicks
+     */
     document.addEventListener('DOMContentLoaded', function() {
+        // Get form element for validation and submission handling
         const form = document.getElementById('voteForm');
         const submitBtn = document.getElementById('submitBtn');
         const submitText = submitBtn.querySelector('.submit-text');
@@ -204,12 +257,30 @@
         const progressBar = document.getElementById('voteProgressBar');
         const progressText = document.getElementById('voteProgressText');
         
-        // Function to update the vote progress bar
+        /**
+         * Updates the vote progress bar and related UI elements based on user selections
+         * 
+         * This function:
+         * 1. Counts how many required selections have been made (value and progress)
+         * 2. Updates the progress bar width to visually represent completion
+         * 3. Changes the guidance text based on what's still needed
+         * 4. Applies visual styling to the submit button when form is complete
+         * 5. Returns a boolean indicating if the form is ready to submit
+         * 
+         * The function is called:
+         * - On initial page load to set the initial state
+         * - Whenever a radio button selection changes
+         * - Before form submission to validate completeness
+         * 
+         * @returns {boolean} True if both required selections are made, false otherwise
+         */
         function updateVoteProgress() {
+            // Track completion status for the two required selections
             let completed = 0;
-            let valueSelected = false;
-            let progressSelected = false;
+            let valueSelected = false;  // Status value (green/amber/red)
+            let progressSelected = false;  // Progress note (better/same/worse)
             
+            // Check if a status value has been selected
             valueRadios.forEach(radio => {
                 if (radio.checked) {
                     valueSelected = true;
@@ -217,6 +288,7 @@
                 }
             });
             
+            // Check if a progress note has been selected
             progressRadios.forEach(radio => {
                 if (radio.checked) {
                     progressSelected = true;
@@ -226,67 +298,106 @@
             
             // Calculate progress percentage (out of 2 required selections)
             const progressPercent = (completed / 2) * 100;
+            // Update the progress bar width to visualize completion
             progressBar.style.width = progressPercent + '%';
             
-            // Update progress text
+            // Update the guidance text based on what's still needed
             if (completed === 0) {
+                // No selections made yet
                 progressText.textContent = 'Select your rating to see progress';
             } else if (completed === 1) {
+                // One selection made, guide user to the missing one
                 if (!valueSelected) {
                     progressText.textContent = 'Select a rating (Green, Amber, or Red)';
                 } else {
                     progressText.textContent = 'Indicate if this area is improving or declining';
                 }
             } else {
+                // Both selections made, show success message
                 progressText.innerHTML = '<i class="bi bi-check-circle-fill text-success me-1"></i> Ready to submit!';
             }
             
-            // Update submit button state
+            // Update submit button styling based on completion status
             if (completed === 2) {
+                // Form is complete, make button green and add animation
                 submitBtn.classList.add('btn-success');
                 submitBtn.classList.remove('btn-primary');
+                // Add pulse animation to draw attention to the button
                 submitBtn.classList.add('pulse-animation');
+                // Remove animation after a short delay to avoid continuous pulsing
                 setTimeout(() => {
                     submitBtn.classList.remove('pulse-animation');
                 }, 500);
             } else {
+                // Form is incomplete, keep button in default state
                 submitBtn.classList.remove('btn-success');
                 submitBtn.classList.add('btn-primary');
             }
             
+            // Return whether the form is complete and ready to submit
             return completed === 2;
         }
         
-        // Initial progress update
+        // Initialize the progress bar and UI state when the page loads
         updateVoteProgress();
         
-        // Add event listeners to all radio buttons
+        /**
+         * Event Listeners for Form Interactions
+         * 
+         * These listeners handle user interactions with the form elements:
+         * 1. Update the progress bar when radio buttons are selected
+         * 2. Hide any previous error messages when selections change
+         * 3. Validate the form on submission
+         * 4. Show loading indicators during form submission
+         */
+        
+        // Add event listeners to the status value radio buttons (green/amber/red)
         valueRadios.forEach(radio => {
             radio.addEventListener('change', function() {
+                // Update the progress bar when a selection is made
                 updateVoteProgress();
+                // Hide any previous error messages
                 voteAlert.classList.add('d-none');
             });
         });
         
+        // Add event listeners to the progress note radio buttons (better/same/worse)
         progressRadios.forEach(radio => {
             radio.addEventListener('change', function() {
+                // Update the progress bar when a selection is made
                 updateVoteProgress();
+                // Hide any previous error messages
                 voteAlert.classList.add('d-none');
             });
         });
         
-        // Form submission handler
+        /**
+         * Form Submission Handler
+         * 
+         * This event listener:
+         * 1. Validates that all required selections are made before submission
+         * 2. Shows error messages and scrolls to them if validation fails
+         * 3. Displays a loading spinner during form submission to prevent double-clicks
+         * 4. Submits the form data to the vote() view function via POST
+         */
         form.addEventListener('submit', function(e) {
+            // Check if all required selections have been made
             if (!updateVoteProgress()) {
+                // Prevent form submission if validation fails
                 e.preventDefault();
+                // Show error message
                 voteAlert.classList.remove('d-none');
+                // Scroll to the error message for visibility
                 voteAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Set specific error message text
                 voteAlertMessage.textContent = 'Please select both a status value and progress note before submitting.';
                 return false;
             }
             
-            // Show loading spinner
+            // Form is valid, show loading spinner during submission
+            // Hide the button text
             submitText.classList.add('opacity-0');
+            // Show the loading spinner
             submitSpinner.classList.remove('d-none');
             
             // Allow form submission

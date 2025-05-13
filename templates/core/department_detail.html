@@ -1,33 +1,70 @@
 
 {% extends 'core/base.html' %}
 
+<!--
+Department Detail Template
+
+Purpose:
+- Displays detailed information about a specific department in the organization
+- Shows department metadata, teams within the department, and health check summaries
+- Provides navigation to related views (team details, department summary)
+
+Related Components:
+- Models: Department, Team, User, DepartmentSummary
+- Views: department_detail_view in views.py
+- URLs: 'department_detail' path in urls.py
+
+Template Inheritance:
+- Extends the base.html template which provides the main layout and navigation
+- Overrides the 'title' and 'content' blocks from the parent template
+
+Context Variables:
+- department: The Department object being displayed
+- teams: QuerySet of Team objects belonging to this department
+- leaders: QuerySet of User objects who are department leaders
+- summaries: QuerySet of DepartmentSummary objects for this department
+-->
+
 {% block title %}Department Detail - {{ department.name }}{% endblock %}
 
 {% block content %}
+<!-- Main container with responsive padding -->
 <div class="container my-4">
+    <!-- Card component with shadow effect for visual depth -->
     <div class="card shadow">
+        <!-- Card header with department name and navigation button -->
+        <!-- Uses Bootstrap's flexbox utilities for layout -->
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h3 class="mb-0">Department: {{ department.name }}</h3>
             <div>
+                <!-- Link to the department summary view with the department ID passed as a parameter -->
                 <a href="{% url 'department_summary_detail' department.id %}" class="btn btn-light btn-sm">View Summary</a>
             </div>
         </div>
         <div class="card-body">
+            <!-- Department information section - displays metadata about the department -->
             <div class="row mb-4">
+                <!-- Left column with basic department information -->
                 <div class="col-md-6">
                     <h5>Description</h5>
+                    <!-- Uses the default filter to display a fallback message if no description is available -->
                     <p>{{ department.description|default:"No description available" }}</p>
                     
                     <h5>Created</h5>
+                    <!-- Formats the created_at timestamp using Django's date filter -->
                     <p>{{ department.created_at|date:"F j, Y" }}</p>
                     
                     <h5>Total Members</h5>
+                    <!-- Calls the get_member_count method from the Department model -->
                     <p>{{ department.get_member_count }}</p>
                 </div>
+                <!-- Right column with leadership information -->
                 <div class="col-md-6">
                     <h5>Department Leader</h5>
+                    <!-- Uses the with tag to create a local variable for the first leader -->
                     {% with leader=leaders.first %}
                         {% if leader %}
+                            <!-- Displays the leader's username and role (formatted with get_role_display) -->
                             <p>{{ leader.username }} ({{ leader.get_role_display }})</p>
                         {% else %}
                             <p>No department leader assigned</p>
@@ -36,14 +73,21 @@
                 </div>
             </div>
             
+            <!-- Teams section header with dynamic count of teams -->
             <h4>Teams ({{ teams|length }})</h4>
             <div class="row">
+                <!-- Loop through each team in the department -->
                 {% for team in teams %}
+                <!-- Each team is displayed in a responsive column (4 columns on medium screens) -->
                 <div class="col-md-4 mb-3">
+                    <!-- Card with full height (h-100) to ensure consistent sizing in the grid -->
                     <div class="card h-100">
+                        <!-- Card header with team name and health status badge -->
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <span>{{ team.name }}</span>
+                            <!-- Uses the with tag to store the result of the get_latest_health_status method -->
                             {% with status=team.get_latest_health_status %}
+                                <!-- Conditional display of health status badge with appropriate color -->
                                 {% if status == 'green' %}
                                     <span class="badge bg-success">Healthy</span>
                                 {% elif status == 'amber' %}
@@ -56,13 +100,17 @@
                             {% endwith %}
                         </div>
                         <div class="card-body">
+                            <!-- Display team member count from the Team model method -->
                             <p><strong>Members:</strong> {{ team.get_member_count }}</p>
+                            <!-- Full-width button using Bootstrap's d-grid utility -->
                             <div class="d-grid">
+                                <!-- Link to the team detail view with the team's ID -->
                                 <a href="{% url 'team_detail' team.id %}" class="btn btn-outline-primary btn-sm">View Details</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Empty state displayed when no teams exist in the department -->
                 {% empty %}
                 <div class="col-12">
                     <div class="alert alert-info">
@@ -72,18 +120,25 @@
                 {% endfor %}
             </div>
             
+            <!-- Health check summaries section with top margin for spacing -->
             <h4 class="mt-4">Recent Health Check Summaries</h4>
+            <!-- Conditional display based on whether summaries exist -->
             {% if summaries %}
             <div class="row">
+                <!-- Loop through each summary in the department summaries -->
                 {% for summary in summaries %}
+                <!-- Each summary is displayed in a responsive column (4 columns on medium screens) -->
                 <div class="col-md-4 mb-3">
                     <div class="card">
+                        <!-- Card header with the health check card name -->
                         <div class="card-header">
                             {{ summary.card.name }}
                         </div>
                         <div class="card-body">
+                            <!-- Flex container for the status badges -->
                             <div class="d-flex justify-content-between">
                                 <div>
+                                    <!-- Conditional display of average vote status with appropriate color -->
                                     {% if summary.average_vote == 'green' %}
                                         <div class="badge bg-success">Green</div>
                                     {% elif summary.average_vote == 'amber' %}
@@ -93,6 +148,7 @@
                                     {% endif %}
                                 </div>
                                 <div>
+                                    <!-- Conditional display of progress trend with icon and appropriate color -->
                                     {% if summary.progress_summary == 'better' %}
                                         <span class="badge bg-success"><i class="fas fa-arrow-up"></i> Improving</span>
                                     {% elif summary.progress_summary == 'same' %}
@@ -102,12 +158,17 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            <!-- Progress bar visualization of vote distribution -->
                             <div class="progress mt-2">
+                                <!-- Three progress bar segments for green, amber, and red votes -->
+                                <!-- Width of each segment is determined by the percentage values from the summary -->
                                 <div class="progress-bar bg-success" role="progressbar" style="width: {{ summary.green_percentage }}%"></div>
                                 <div class="progress-bar bg-warning" role="progressbar" style="width: {{ summary.amber_percentage }}%"></div>
                                 <div class="progress-bar bg-danger" role="progressbar" style="width: {{ summary.red_percentage }}%"></div>
                             </div>
+                            <!-- Footer with session date information -->
                             <div class="d-flex justify-content-between mt-1">
+                                <!-- Formats the session date using Django's date filter -->
                                 <small>Session: {{ summary.session.date|date:"M d, Y" }}</small>
                             </div>
                         </div>
@@ -115,6 +176,7 @@
                 </div>
                 {% endfor %}
             </div>
+            <!-- Empty state displayed when no summaries exist for the department -->
             {% else %}
             <div class="alert alert-info">
                 No summary data available for this department.

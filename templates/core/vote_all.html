@@ -3,6 +3,46 @@
 {% load crispy_forms_tags %}
 {% load core_tags %}
 
+<!--
+Vote All Template
+
+Purpose:
+- Provides a comprehensive interface for voting on all health check cards at once
+- Implements an accordion-based UI for better organization of multiple cards
+- Tracks completion progress with visual indicators
+- Allows navigation between cards with previous/next buttons
+- Pre-populates form with existing votes when updating
+
+Related Views:
+- vote_all() in views.py - Prepares the voting form for all cards
+- vote_all_submit() in views.py - Processes the bulk submission of votes
+
+Related Models:
+- Vote - Stores the user's evaluation data for each card
+- HealthCheckCard - The categories being evaluated
+- Session - The time period for the health check
+- User - The person submitting the votes
+
+Related Forms:
+- No direct form class, but uses the same fields as VoteForm
+- Form is dynamically generated for each card in the template
+
+Template Tags:
+- crispy_forms_tags: For enhanced form rendering
+- core_tags: Custom tags including get_item filter for accessing dictionary values
+
+JavaScript:
+- Form validation to ensure all cards are completed
+- Progress tracking with visual feedback
+- Accordion navigation and card status updates
+- Interactive UI elements for the voting options
+
+Submission Process:
+- All votes are submitted in a single transaction
+- Each card requires both a status value and progress note
+- After submission, team summaries are updated via update_team_summary()
+-->
+
 {% block content %}
 <div class="container py-4">
     <div class="card shadow-sm mb-4">

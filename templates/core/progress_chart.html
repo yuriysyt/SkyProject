@@ -3,6 +3,43 @@
 {% load crispy_forms_tags %}
 {% load core_tags %}
 
+<!--
+Progress Chart Template
+
+Purpose:
+- Displays visualizations of health check data over time using Chart.js
+- Shows trends in team/department health across different categories
+- Provides filtering options based on user role and organizational hierarchy
+- Displays summary statistics and data tables for detailed analysis
+
+Related Views:
+- progress_chart() in views.py - Generates chart data and context
+
+Related Models:
+- Session - Provides time periods for the chart data
+- Vote - Source of individual data points
+- TeamSummary - Aggregated team-level metrics
+- DepartmentSummary - Aggregated department-level metrics
+- HealthCheckCard - Categories being measured
+
+Related Forms:
+- DateRangeForm - For filtering by date range
+- TeamSelectionForm - For team leaders to select teams
+
+Template Tags:
+- core_tags: Custom template tags for data manipulation
+- crispy_forms_tags: For form rendering
+
+JavaScript:
+- Chart.js for visualization
+- Custom JS for chart configuration and interactivity
+- AJAX for dynamic data loading (when filters change)
+
+Role-Based Content:
+- Different filter options based on user role (team_leader, department_leader, senior_manager)
+- Access controls for organizational data based on user permissions
+-->
+
 {% block content %}
 <div class="row">
     <div class="col-12 mb-4">
@@ -348,7 +385,23 @@
 {% endblock %}
 
 {% block extra_js %}
+<!-- Load Chart.js library for data visualization -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+<!-- 
+JavaScript for Progress Charts
+
+This script handles:
+1. Initialization of multiple Chart.js visualizations
+2. Data table generation and toggling
+3. Dynamic chart configuration based on data
+4. Error handling for chart rendering
+5. Interactive elements like tooltips and legends
+
+The data is provided by the progress_chart view in views.py, which
+aggregates Vote, TeamSummary, and DepartmentSummary data based on
+user permissions and selected filters.
+-->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Handle dynamic department/team selection

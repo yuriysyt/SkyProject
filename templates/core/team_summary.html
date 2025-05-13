@@ -2,6 +2,43 @@
 {% extends 'core/base.html' %}
 {% load crispy_forms_tags %}
 
+<!--
+Team Summary Template
+
+Purpose:
+- Displays aggregated health check data for a specific team
+- Shows vote distribution and average status for each health check card
+- Visualizes progress trends compared to previous sessions
+- Allows filtering by session to view historical data
+- Provides team participation metrics and member details
+
+Related Views:
+- team_summary() in views.py - Prepares team summary data with permission checks
+
+Related Models:
+- Team - The team being displayed
+- TeamSummary - Aggregated vote data for the team
+- Session - Time period for the health check data
+- HealthCheckCard - Categories being evaluated
+- Vote - Individual votes that make up the summary
+
+Related Forms:
+- SessionSelectionForm - For filtering by session
+
+Template Tags:
+- crispy_forms_tags: For enhanced form rendering
+
+Visualizations:
+- Progress bars for vote distribution
+- Color-coded status indicators (green, amber, red)
+- Trend indicators (better, same, worse)
+
+Permissions:
+- Accessible by team leaders for their own team
+- Accessible by department leaders for teams in their department
+- Accessible by senior managers for all teams
+-->
+
 {% block content %}
 <div class="row">
     <div class="col-12 mb-4">

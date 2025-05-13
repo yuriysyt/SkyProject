@@ -2,6 +2,44 @@
 {% extends 'core/base.html' %}
 {% load crispy_forms_tags %}
 
+<!--
+Department Summary Template
+
+Purpose:
+- Displays aggregated health check data for a specific department
+- Shows vote distribution and average status for each health check card
+- Visualizes progress trends compared to previous sessions
+- Allows filtering by session to view historical data
+- Provides team comparison within the department
+
+Related Views:
+- department_summary() in views.py - Prepares department summary data with permission checks
+
+Related Models:
+- Department - The department being displayed
+- DepartmentSummary - Aggregated vote data for the department
+- TeamSummary - Team-level data for comparison
+- Session - Time period for the health check data
+- HealthCheckCard - Categories being evaluated
+- Team - Teams within the department for comparison
+
+Related Forms:
+- SessionSelectionForm - For filtering by session
+
+Template Tags:
+- crispy_forms_tags: For enhanced form rendering
+
+Visualizations:
+- Progress bars for vote distribution
+- Color-coded status indicators (green, amber, red)
+- Trend indicators (better, same, worse)
+- Team comparison table
+
+Permissions:
+- Accessible by department leaders for their own department
+- Accessible by senior managers for all departments
+-->
+
 {% block content %}
 <div class="row">
     <div class="col-12 mb-4">
